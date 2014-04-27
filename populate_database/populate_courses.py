@@ -3,6 +3,7 @@ import urllib2
 import re
 from bs4 import BeautifulSoup
 import json
+import MySQLdb
 
 # NOTE: This is an adaptation of github.com/mauryquijada/5c-enrollify.
 
@@ -77,7 +78,6 @@ def create_course_dict(td_tags, dept):
 		print "Oops! %d inner <td> tags at index %d" % (length, index)
 		return False
 
-
 def populate_courses_json():
 	# Declare globals.
 	global SESS
@@ -101,7 +101,44 @@ def populate_courses_json():
 	f.write(json.dumps(course_list, indent=4, sort_keys=True))
 	f.close()
 
-	return True
+	return course_list
+
+def populate_database_with_courses():
+    semester_offered = SESS + YEAR
+
+    # Assume we have the JSON file in the same directory and use it.
+    f = open("courses_{0}{1}.json".format(SESS, YEAR), "r")
+    courses = json.loads(f.read())
+    f.close()
+
+    # Prepare the connection to the database.
+    db = MySQLdb.connect(host="localhost", port=3306, user="5cbookfinder", passwd="g4G5IkDOM3a91EV", db="5cbookfinder")
+    cursor = db.cursor()
+
+    courses_added = {}
+
+    # Add each of the courses individally to the database.
+    for course in courses:
+        # Create the course number attribute.
+        course["course"] = course["course"] + " " + course["campus"] + "-" + course["section"]
+
+        # Add default value to campus if it isn't available.
+        if not course["campus"]:
+            course["campus"] = "NA"
+        
+        # Only insert if we haven't seen it before (put in place for crosslisted courses).
+        if course["course"] not in courses_added:
+            # Grab the department from the course code. This is seen as the "ultimate" department,
+            # preferred in case the course is cross-listed.
+            dept = re.match("^([A-Z]+).*", course["course"]).group(1)
+            # Insert it!
+            cursor.execute("INSERT INTO Courses VALUES (%s, %s, %s, %s, %s, %s, %s)", (course["course"], course["title"], course["instructor"], semester_offered, dept, course["campus"], course["section"]))
+            db.commit()
+
+        # Add the course to the hash table.
+        courses_added[course["course"]] = True
+    
+    db.close()
 
 if __name__ == "__main__":
-	populate_courses_json()
+	populate_database_with_courses()
