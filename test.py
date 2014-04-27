@@ -14,7 +14,7 @@ phil40 = {'course_num': '040', 'term_id': 'FA2014', 'school': 'PO', 'section_num
 cs105 = {'course_num': '105', 'term_id': 'FA2014', 'school': 'HM', 'section_num': '01', 'dept': 'CSCI'}
 
 # Sample: This cs class has no books
-cs70 = {'course_num': '070', 'term_id': 'FA2014', 'school': 'HM', 'section_num': '01', 'dept': 'CSCI'}
+cs70 = {'course_num': '070', 'term_id': 'SP2014', 'school': 'HM', 'section_num': '03', 'dept': 'CSCI'}
 
 def extractBooksFromPage(course_params):
     # Open page and soupify it
