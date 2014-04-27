@@ -1,0 +1,53 @@
+.book-list {
+  list-style: none;
+}
+
+.book-list li {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cccccc;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.add-padding {
+  padding-top: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  background: #333;
+  color: #666;
+  padding: 20px;
+}
+
+#main-search-box {
+  width: auto;
+}
+
+a .custom-link {
+  display: none;
+}
+
+.book-heading {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.book-list-image {
+  text-align: center
+}
+
+.book-list-info {
+  vertical-align: center;
+}
+
+
+
+

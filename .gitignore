@@ -1,4 +1,4 @@
 *.pyc
 api.py
+.DS_STORE
 venv/
-
