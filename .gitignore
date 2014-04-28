@@ -1,4 +1,7 @@
 *.pyc
+*.swp
+*.log
 api.py
 .DS_STORE
 venv/
+logs/

@@ -10,7 +10,7 @@ CREATE TABLE Courses (
 
 CREATE TABLE Books (
     author VARCHAR(256) NOT NULL,
-    book_isbn INTEGER PRIMARY KEY,
+    book_isbn VARCHAR(16) PRIMARY KEY,
     title VARCHAR(256) NOT NULL,
     edition VARCHAR(8)
 );
@@ -22,19 +22,19 @@ CREATE TABLE BooksForSaleStatus (
 
 CREATE TABLE BooksForSale (
     listing_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    book_isbn INTEGER NOT NULL,
+    book_isbn VARCHAR(16) NOT NULL,
     status TINYINT(1) NOT NULL , # 0 -- Inactive record, 1 -- Active record, for sale, 2 -- Sold.
     created_at DATETIME DEFAULT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     edition VARCHAR(16),
     price DOUBLE(4, 2) NOT NULL,
     book_condition TINYINT(1) NOT NULL,
-    FOREIGN KEY (book_isbn) REFERENCES Books(book_isbn) 
-        ON UPDATE CASCADE 
+    FOREIGN KEY (book_isbn) REFERENCES Books(book_isbn)
+        ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY (book_condition) REFERENCES BooksForSaleStatus(id) 
-        ON UPDATE NO ACTION 
-        ON DELETE NO ACTION 
+    FOREIGN KEY (book_condition) REFERENCES BooksForSaleStatus(id)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE Users (
@@ -61,7 +61,7 @@ CREATE TABLE UserSellsBook (
 
 CREATE TABLE UserTracksBook (
     user_id INTEGER NOT NULL,
-    book_isbn INTEGER NOT NULL,
+    book_isbn VARCHAR(16) NOT NULL,
     PRIMARY KEY (user_id, book_isbn),
     FOREIGN KEY (user_id)
         REFERENCES Users (user_id)
@@ -75,7 +75,7 @@ CREATE TABLE UserTracksBook (
 
 CREATE TABLE CourseRequiresBook (
     course_number VARCHAR(32),
-    book_isbn INTEGER,
+    book_isbn VARCHAR(16),
     FOREIGN KEY (course_number)
         REFERENCES Courses(course_number)
         ON UPDATE CASCADE
@@ -89,7 +89,7 @@ CREATE TABLE CourseRequiresBook (
 
 CREATE TABLE CourseRecommendsBook (
     course_number VARCHAR(32),
-    book_isbn INTEGER,
+    book_isbn VARCHAR(16),
     FOREIGN KEY (course_number)
         REFERENCES Courses(course_number)
         ON UPDATE CASCADE
