@@ -4,7 +4,7 @@ CREATE TABLE Courses (
     professor VARCHAR(64),
     semester_offered VARCHAR(8) NOT NULL,
     dept CHAR(4) NOT NULL,
-    campus CHAR(2) NOT NULL,
+    campus CHAR(4) NOT NULL,
     section TINYINT(2) NOT NULL
 );
 
