@@ -2,17 +2,19 @@
 {% block main_body %}
 <div class="row">
   <div class="medium-12 columns add-padding">
+  {% if course %}
     <h1>{{course.course_number }}: {{ course.title }}</h1>
     <h4>Professor: {{ course.professor }}</h4>
+    {% endif %}
   </div>
 </div>
-{% if books_required or books_recommended %} 
-{# 
+{% if books_required or books_recommended %}
+{#
   TODO/Note: This current organization suggests listing the title, edition, author
   for every book required/recommended, regardless of whether or not an instance if
   being sold. In the case that this book is on the market, additional lists will
-  show up. 
-#} 
+  show up.
+#}
 {% if books_required %}
 <div class="row add-padding">
   <h3 class="sub-head">Books Required</h3>
@@ -42,8 +44,7 @@
   </ul>
   {% endfor %}
 </div>
-{% endif %} 
-{% if books_recommended %} 
+{% endif %}
 {% if books_recommended %}
 <div class="row add-padding">
   <h3 class="sub-head">Books Recommended</h3>
