@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block main-body %}
+<div class="row">
+  <div class="medium-12 columns add-padding">
+    <h1>{{course.course_number }}: {{ course.title }}</h1>
+    <h4>Professor: {{ course.professor }}</h4>
+  </div>
+</div>
+{% if books_required or books_recommended %} 
+{# 
+  TODO/Note: This current organization suggests listing the title, edition, author
+  for every book required/recommended, regardless of whether or not an instance if
+  being sold. In the case that this book is on the market, additional lists will
+  show up. 
+#} 
+{% if books_required %}
+<div class="row add-padding">
+  <h3 class="sub-head">Books Required</h3>
+  {% for book in books_required %}
+  <h4>{{book.title}} ({{book.edition}}) by {{book.author}}</h4>
+  <ul class="book-list">
+    {% for b in book.selling_list %}
+    <li>
+      <div class="row">
+        <div class="medium-3 columns book-list-image">
+          <img src="{{ book.img_url }}" alt="{{ book.title }}">
+        </div>
+        <div class="medium-9 columns book-list-info">
+          <div class="book-heading">
+            {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+          </div>
+          <div class="book-additional">
+            ISBN: {{ b.isbn }}
+            <br>Added: {{ b.date_added }}
+            <br>Price: ${{ b.price }}
+            <br>Condition: {{ b.condition }}
+          </div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</div>
+{% endif %} 
+{% if books_recommended %} 
+{% if books_recommended %}
+<div class="row add-padding">
+  <h3 class="sub-head">Books Recommended</h3>
+  {% for book in books_recommended %}
+  <h4>{{book.title}} ({{book.edition}}) by {{book.author}}</h4>
+  <ul class="book-list">
+    {% for b in book.selling_list %}
+    <li>
+      <div class="row">
+        <div class="medium-3 columns book-list-image">
+          <img src="{{ book.img_url }}" alt="{{ book.title }}">
+        </div>
+        <div class="medium-9 columns book-list-info">
+          <div class="book-heading">
+            {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+          </div>
+          <div class="book-additional">
+            ISBN: {{ b.isbn }}
+            <br>Added: {{ b.date_added }}
+            <br>Price: ${{ b.price }}
+            <br>Condition: {{ b.condition }}
+          </div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+{% endif %}
+</div>
+{% else %}
+<p>
+  This course does not need any books according to the information on Portal. Please check with the instructor and/or syllabus.
+</p>
+{% endif %}
+{% endblock %}

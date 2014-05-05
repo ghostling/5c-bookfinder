@@ -1,0 +1,105 @@
+{% extends "base.html" %} 
+{# TODO: make this page different based on the currently signed in user. #} 
+{% block main-body %}
+<div class="row">
+  <div class="medium-8 columns add-padding">
+    <h1>{{ user.name }}</h1>
+    <h4>Email: {{ user.email }}</h4>
+    <h4>Phone Number: {{ user.phone_number }}</h4>
+  </div>
+  <div class="medium-4 columns add-padding">
+    <a href="#" data-reveal-id="edit-profile">
+      <i class="fi-page-edit right icon-edit-style"></i>
+    </a>
+    <div id="edit-profile" class="reveal-modal small" data-reveal>
+      <a class="close-reveal-modal">&#215;</a>
+      <form>
+        <label>Name
+          <input type="text" value="{{ user.name }}">
+        </label>
+        <label>Email
+          <input type="text" value="{{ user.email }}">
+        </label>
+        <label>Phone Number
+          <input type="text" value="{{ user.phone_number }}">
+        </label>
+
+        <center>
+          <a href="#" class="button small">Submit</a>
+        </center>
+      </form>
+    </div>
+    <!-- TODO: Add after Facebook integration. -->
+    <!--<h3>Picture</h3>-->
+  </div>
+</div>
+<div class="row add-padding">
+  <h3 class="sub-head">Selling</h3>
+  <ul class="book-list">
+    {% if user-selling %}
+
+    <ul class="book-list">
+      {% for book in user_selling %}
+      <li>
+        <div class="row">
+          <div class="medium-3 columns book-list-image">
+            <img src="{{ book.img_url }}" alt="{{ book.title }}">
+          </div>
+          <div class="medium-9 columns book-list-info">
+            <div class="book-heading">
+              {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+            </div>
+            <div class="book-additional">
+              ISBN: {{ book.isbn }}
+              <br>Added: {{ book.date_added }}
+              <br>Price: ${{ book.price }}
+              <br>Condition: {{ book.condition }}
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>
+      {{ user.name }} is currently not selling any books.
+    </p>
+    {% endif %}
+  </ul>
+</div>
+<div class="row add-padding">
+  <h3 class="sub-head">Follow</h3>
+  <ul class="book-list">
+    {% if wishlist-selling %}
+    <ul class="book-list">
+      {% for book in wishlist_selling %}
+      <li>
+        <div class="row">
+          <div class="medium-3 columns book-list-image">
+            <img src="{{ book.img_url }}" alt="{{ book.title }}">
+          </div>
+          <div class="medium-9 columns book-list-info">
+            <div class="book-heading">
+              {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+            </div>
+            <div class="book-additional">
+              ISBN: {{ book.isbn }}
+              <br>Added: {{ book.date_added }}
+              <br>Price: ${{ book.price }}
+              <br>Condition: {{ book.condition }}
+              <br>Sold By:
+              <a href="/user/{{book.owner_id}}">{{ book.owner }}</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>
+      {% if wishlist %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
+    </p>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}
