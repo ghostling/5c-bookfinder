@@ -34,15 +34,14 @@ def get_user_profile(userid):
 
     # Books we're tracking
     #for b in tracked_books:
-        
+
     # Books we're selling.
-`
 
     # Get the book image from Google Books API.
-    
+
 
     db.close()
-    
+
     return render_template('user_profile.html')
 
 @app.route('/book/<isbn>')

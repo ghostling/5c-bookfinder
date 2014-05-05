@@ -1,11 +1,10 @@
-{% extends "base.html" %} 
-{% block main-body %}
+{% extends "base.html" %} {% block main_body %}
 <div class="row">
   <div class="medium-8 columns add-padding">
     <div id="wishlist-div">
       <h3>Your Wishlist</h3>
-      {% if wishlist-selling %}
-      
+      {% if wishlist_selling %}
+
       <ul class="book-list">
         {% for book in wishlist_selling %}
         <li>
@@ -32,11 +31,7 @@
       </ul>
       {% else %}
       <p>
-        {% if wishlist %}
-          Nothing on your wishlist is currently being sold.
-        {% else %}
-          Your wishlist is currently empty.
-        {% endif %}
+        {% if wishlist %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
       </p>
       {% endif %}
     </div>
@@ -172,8 +167,9 @@
       </div>
     </div>
     {% if books_sold_by_you %}
-    {% for book in books_sold_by_you %}
+
     <ul class="book-list">
+      {% for book in books_sold_by_you %}
       <li>
         <div class="row">
           <div class="medium-3 columns book-list-image">
@@ -208,12 +204,11 @@
 
                     <label>Condition
                       <select>
-                        {% for c in condition %}
-                        {% if book.condition == c.value %}
+                        {% for c in condition %} {% if book.condition == c.value %}
                         <option value="{{c.value}}" selected>{{c.desc}}</option>
                         {% else %}
                         <option value="{{c.value}}">{{c.desc}}</option>
-                        {% endfor %}
+                        {% endif %} {% endfor %}
                       </select>
                     </label>
                   </div>
@@ -227,8 +222,12 @@
           </div>
         </div>
       </li>
+      {% endfor %}
     </ul>
+    {% else %}
+    <p>You are currently not selling any books.</p>
+    {% endif %}
 
   </div>
 </div>
-{%
+{% endblock %}
