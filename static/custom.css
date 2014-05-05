@@ -6,6 +6,7 @@ html {
 body {
   margin: 0 0 0px; 
   height: 100%;
+
 }
 
 .book-list {
@@ -27,7 +28,7 @@ body {
 }
 
 footer {
-  position: relative;
+  position: absolute;
   left: 0;
   bottom: 0;
   height: 60px;
@@ -61,3 +62,7 @@ a .custom-link {
 
 
 
+
+section {
+  margin-bottom: 50px;
+}
