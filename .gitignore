@@ -5,3 +5,4 @@ api.py
 .DS_STORE
 venv/
 logs/
+static/yeti
