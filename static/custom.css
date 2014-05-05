@@ -6,7 +6,6 @@ html {
 body {
   margin: 0 0 0px; 
   height: 100%;
-
 }
 
 .book-list {
@@ -23,6 +22,7 @@ body {
 
 .add-padding {
   padding-top: 25px;
+  padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -38,14 +38,6 @@ footer {
   padding: 20px;
 }
 
-#main-search-box {
-  width: auto;
-}
-
-a .custom-link {
-  display: none;
-}
-
 .book-heading {
   font-size: 16px;
   font-weight: 500;
@@ -59,10 +51,30 @@ a .custom-link {
   vertical-align: center;
 }
 
-
-
-
-
 section {
   margin-bottom: 50px;
+}
+
+hr {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.sub-head {
+  border-bottom: 2px solid #aaa;
+}
+
+.small-header {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+.listed-book-heading {
+  font-size: 1.7rem;
+  line-height: 1.5;
+}
+
+.icon-edit-style {
+  font-size: 30px;  
 }
