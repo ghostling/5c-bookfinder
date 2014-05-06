@@ -10,10 +10,10 @@ def make_secure_val(val):
     return '%s|%s' % (val, hmac.new(SECRET, str(val)).hexdigest())
 
 # Used to check cookie.
-def check_secure_val(secure_pw):
-    sec_pw = secure_pw.split('|')[0]
-    if sec_pw == make_secure_pw(pw):
-        return sec_pw
+def check_secure_val(secure_val):
+    sec_val = secure_val.split('|')[0]
+    if sec_val == make_secure_val(val):
+        return sec_val
  
 def make_salt():
     return ''.join(random.choice(string.letters) for x in xrange(8))

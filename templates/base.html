@@ -27,9 +27,11 @@
         </li>
       </ul>
       <ul class="right">
-        {% if session.user_id %}
+        {% if session.user_hash %}
         <li>
-          <a href="{{ url_for('user/'+user.user_id) }}" class="custom-link">Jiexi Cao</a>
+          <a href="{{ url_for('user/'+session.user_id) }}" class="custom-link">
+          {{ session.user_name }}
+          </a>
         </li>
         <li>
           <a href="{{ url_for('logout') }}" class="custom-link">(Sign Out)</a>

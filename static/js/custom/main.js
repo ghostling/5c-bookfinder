@@ -16,14 +16,15 @@ function toggleLoading (div_id, action) {
         });
         $('#loading').append('<img src="/static/images/spinner.gif" style="position: absolute; left: 35%; top: 35%">');
     } else if (action == "hide") {
-
+        $('#loading').remove();
     }
-
 };
 
 var init = function() {
     $('#sign-up-form').submit(function(e) {
         e.preventDefault();
+    });
+    $('#sign-up-form').on('valid', function() {
         $.ajax({
             type: 'POST',
             url: '/signup',

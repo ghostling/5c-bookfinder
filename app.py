@@ -125,10 +125,11 @@ def signup():
                     (name, email_address, hashed_password, phone_number)
                     VALUES (%s, %s, %s, %s)''',
                     (name, email, hashed_pw, phone_number))
+            user_id = db.insert_id()
             db.commit()
 
             # Set session to save user login status.
-            session['user_id'] = UF.make_secure_val(email)
+            set_logged_in_user_session(user_id, name)
             response = {'type': 'success'}
         else:
             response = {'type': 'error',
@@ -149,11 +150,16 @@ def login(email, pw):
         if user:
             salt = user.hashed_password.split(',')[1]
             if user.hashed_password == UF.make_pw_hash(email, pw, salt):
-                session['user_id'] = UF.make_secure_val(email)
+                set_logged_in_user_session(user['user_id'], user['user_name'])
                 return redirect(url_for('/'))
         else:
             # TODO: Fix this.
             return {'login_error': 'Either email or password is incorrect.'}
+
+def set_logged_in_user_session(user_id, name):
+    session['user_hash'] = UF.make_secure_val(user_id)
+    session['user_id'] = user_id
+    session['user_name'] = name
 
 @app.route('/logout')
 def logout():
