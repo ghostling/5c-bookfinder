@@ -2,9 +2,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="../static/foundation.css">
-  <link rel="stylesheet" href="../static/foundation-icons/foundation-icons.css">
-  <link rel="stylesheet" href="../static/custom.css">
+  <link rel="stylesheet" href="../static/css/foundation.css">
+  <link rel="stylesheet" href="../static/css/foundation-icons/foundation-icons.css">
+  <link rel="stylesheet" href="../static/css/custom.css">
   <title>5C Book Finder</title>
 </head>
 
@@ -67,38 +67,39 @@
   </div>
   <div id="sign-up-modal" class="reveal-modal tiny" data-reveal>
     <a class="close-reveal-modal">&#215;</a>
-    <form data-abide>
+    <form id="sign-up-form" data-abide>
     <div class="name-field">
       <label>Name
         <input type="text" required pattern="[a-zA-Z]+ [a-zA-Z]+"
-            placeholder="Foo Bar">
+            name="name" placeholder="Foo Bar">
       </label>
       <small class="error">Please just enter the first and last name.</small>
     </div>
     <div class="email-field">
       <label>Email
-        <input type="email" placeholder="example@hmc.edu">
+        <input type="email" required placeholder="example@hmc.edu"
+            name="email">
       </label>
       <small class="error">Email must be valid.</small>
     </div>
     <div class="tel-field">
       <label>Phone Number
         <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}"
-            placeholder="123-456-7890">
+            name="phone_number" placeholder="123-456-7890">
       </label>
       <small class="error">Phone number format must be valid.</small>
     </div>
     <div class="password-field">
       <label>Password
         <input type="password" required pattern=".{8}.*"
-            placeholder="Please enter your password">
+            name="password" placeholder="Please enter your password">
       </label>
       <small class="error">Password must be at least 8 characters.</small>
     </div>
-    </form>
     <center>
-      <a href="#" class="button small">Sign Up</a>
+      <input type="submit" class="button" value="Sign Up">
     </center>
+  </form>
   </div>
 
   <section role="main" class="scroll-container main-body">
@@ -119,6 +120,7 @@
     </div>
   </footer>
   <script src="../static/js/vendor/jquery.js"></script>
+  <script src="../static/js/custom/main.js"></script>
   <script src="../static/js/foundation/foundation.js"></script>
   <script src="../static/js/foundation/foundation.reveal.js"></script>
   <script src="../static/js/foundation/foundation.tab.js"></script>

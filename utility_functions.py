@@ -1,6 +1,7 @@
 import random
 import hmac
 import hashlib
+import string
 
 SECRET = 'temporary secret that is not a secret yay'
 

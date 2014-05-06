@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask, render_template, redirect, session, request
 import utility_functions as UF
 import MySQLdb, MySQLdb.cursors
 import json
@@ -23,9 +23,7 @@ def get_db_cursor():
     db = MySQLdb.connect(host='localhost', port=3306, user='5cbookfinder',
             passwd='g4G5IkDOM3a91EV', db='5cbookfinder', 
             cursorclass=MySQLdb.cursors.DictCursor)
-    return db.cursor()
-
-
+    return db, db.cursor()
 
 @app.route('/')
 def index():
@@ -106,37 +104,47 @@ def get_search_json():
     return 'Hello, world!'
 
 @app.route('/signup', methods=['POST'])
-def signup(email, name, phone_number, pw):
+def signup():
     # Get a cursor.
-    cursor = get_db_cursor()
+    db, cursor = get_db_cursor()
 
     if request.method =='POST':
+        name = str(request.form['name'])
+        email = str(request.form['email'])
+        phone_number = str(request.form['phone_number'])
+        password = str(request.form['password'])
+
         # Valid email not in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+        cursor.execute('SELECT * FROM Users WHERE email_address = "%s"', (email,))
         user = cursor.fetchall()
+        print user
 
         if not user:
-            hashed_pw = UF.make_pw_hash(email, pw)
+            hashed_pw = UF.make_pw_hash(email, password)
 
-            cursor.execute('INSERT INTO Users VALUES (%s, %s, %s, %s)',
-                    (name, email, hash_pw, phone_number))
+            cursor.execute('''INSERT INTO Users 
+                    (name, email_address, hashed_password, phone_number)
+                    VALUES ("%s", "%s", "%s", "%s")''',
+                    (name, email, hashed_pw, phone_number))
             db.commit()
 
             # Set session to save user login status.
             session['user_id'] = UF.make_secure_val(email)
-            return redirect(url_for('/'))
+            print 'success!'
+            #return redirect(url_for('/'))
         else:
             # TODO: Fix this.
-            return {'signup_error': 'This email is already in use.'}
+            print 'boo you'
+            #return {'signup_error': 'This email is already in use.'}
 
 @app.route('/login', methods=['POST'])
 def login(email, pw):
     # Get a cursor.
-    cursor = get_db_cursor()
+    db, cursor = get_db_cursor()
 
     if request.method == 'POST':
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+        cursor.execute('SELECT * FROM Users WHERE email_address = "%s"', email)
         user = cursor.fetchall()
 
         if user:
