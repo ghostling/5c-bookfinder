@@ -34,7 +34,7 @@
   </div>
 </div>
 <div class="row add-padding">
-  <h3 class="sub-head">Selling</h3>
+  <h3 class="sub-head">Books Your Selling</h3>
   <ul class="book-list">
     {% if user_selling %}
 
@@ -53,7 +53,7 @@
               ISBN: {{ book.book_isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.condition }}
+              <br>Condition: {{ book.book_condition }}
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
   </ul>
 </div>
 <div class="row add-padding">
-  <h3 class="sub-head">Follow</h3>
+  <h3 class="sub-head">Your Wishlist</h3>
   <ul class="book-list">
     {% if wishlist_selling %}
     <ul class="book-list">
@@ -86,7 +86,7 @@
               ISBN: {{ book.book_isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.condition }}
+              <br>Condition: {{ book.book_condition }}
               <br>Sold By:
               <a href="/user/{{book.owner_id}}">{{ book.owner }}</a>
             </div>

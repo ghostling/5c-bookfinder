@@ -15,11 +15,6 @@ CREATE TABLE Books (
     edition VARCHAR(8)
 );
 
-CREATE TABLE BooksForSaleStatus (
-    id TINYINT AUTO_INCREMENT PRIMARY KEY,
-    state VARCHAR(64) NOT NULL
-);
-
 CREATE TABLE BooksForSale (
     listing_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     book_isbn VARCHAR(16) NOT NULL,
