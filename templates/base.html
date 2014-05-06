@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../static/foundation.css">
+  <link rel="stylesheet" href="../static/foundation-icons/foundation-icons.css">
+  <link rel="stylesheet" href="../static/custom.css">
+  <title>5C Book Finder</title>
+</head>
+
+<body>
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1>
+          <a href="#">5C Book Finder</a>
+        </h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        <li class="has-form">
+          <div class="row collapse">
+            <input type="text" placeholder="Find Stuff" class="searchbox">
+          </div>
+        </li>
+        <li>
+          <a href="#" class="custom-link">Jiexi Cao</a>
+          <a href="#" class="custom-link">(Sign Out)</a>
+        </li>
+      </ul>
+    </section>
+
+  </nav>
+  <section role="main" class="scroll-container main-body">
+    {% block main_body %}
+    {% endblock %}
+  </section>
+
+  <footer>
+    <div class="row">
+      <div class="medium-8 columns">
+        Made with &hearts; by
+        <a href="#">Jiexi Cao</a> and
+        <a href="#">Maury Quijada</a>.
+      </div>
+      <div class="medium-4 columns">
+        More Text
+      </div>
+    </div>
+  </footer>
+  <script src="../static/js/vendor/jquery.js"></script>
+  <script src="../static/js/foundation/foundation.js"></script>
+  <script src="../static/js/foundation/foundation.reveal.js"></script>
+  <script src="../static/js/foundation/foundation.tab.js"></script>
+  <!-- Other JS plugins can be included here -->
+
+  <script>
+    $(document).foundation();
+  </script>
+</body>
+
+</html>
