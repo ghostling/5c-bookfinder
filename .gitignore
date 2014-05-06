@@ -2,7 +2,9 @@
 *.swp
 *.log
 api.py
-.DS_STORE
+config.py
+.DS_Store
+._.DS_Store
 venv/
 logs/
 static/yeti
