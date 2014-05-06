@@ -19,20 +19,88 @@
     </ul>
 
     <section class="top-bar-section">
-      <ul class="right">
+      <ul class="left">
         <li class="has-form">
           <div class="row collapse">
             <input type="text" placeholder="Find Stuff" class="searchbox">
           </div>
         </li>
+      </ul>
+      <ul class="right">
+        {% if session.user_id %}
         <li>
-          <a href="#" class="custom-link">Jiexi Cao</a>
-          <a href="#" class="custom-link">(Sign Out)</a>
+          <a href="{{ url_for('user/'+user.user_id) }}" class="custom-link">Jiexi Cao</a>
         </li>
+        <li>
+          <a href="{{ url_for('logout') }}" class="custom-link">(Sign Out)</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="#" data-reveal-id="sign-in-modal">Sign In</a>
+        </li>
+        <li class="has-form">
+          <a href="#" data-reveal-id="sign-up-modal" class="button">Sign Up</a>
+        </li>
+        {% endif %}
       </ul>
     </section>
-
   </nav>
+
+  <div id="sign-in-modal" class="reveal-modal tiny" data-reveal>
+    <a class="close-reveal-modal">&#215;</a>
+    <form data-abide>
+    <div class="email-field">
+      <label>Email
+        <input type="email" placeholder="Enter your email">
+      </label>
+      <small class="error">Email must be valid.</small>
+    </div>
+    <div class="password-field">
+      <label>Password
+        <input type="password" placeholder="Please enter your password">
+      </label>
+    </div>
+    <center>
+      <a href="#" class="button small">Sign In</a>
+    </center>
+    </form>
+  </div>
+  <div id="sign-up-modal" class="reveal-modal tiny" data-reveal>
+    <a class="close-reveal-modal">&#215;</a>
+    <form data-abide>
+    <div class="name-field">
+      <label>Name
+        <input type="text" required pattern="[a-zA-Z]+ [a-zA-Z]+"
+            placeholder="Foo Bar">
+      </label>
+      <small class="error">Please just enter the first and last name.</small>
+    </div>
+    <div class="email-field">
+      <label>Email
+        <input type="email" placeholder="example@hmc.edu">
+      </label>
+      <small class="error">Email must be valid.</small>
+    </div>
+    <div class="tel-field">
+      <label>Phone Number
+        <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+            placeholder="123-456-7890">
+      </label>
+      <small class="error">Phone number format must be valid.</small>
+    </div>
+    <div class="password-field">
+      <label>Password
+        <input type="password" required pattern=".{8}.*"
+            placeholder="Please enter your password">
+      </label>
+      <small class="error">Password must be at least 8 characters.</small>
+    </div>
+    </form>
+    <center>
+      <a href="#" class="button small">Sign Up</a>
+    </center>
+  </div>
+
   <section role="main" class="scroll-container main-body">
     {% block main_body %}
     {% endblock %}
@@ -54,6 +122,7 @@
   <script src="../static/js/foundation/foundation.js"></script>
   <script src="../static/js/foundation/foundation.reveal.js"></script>
   <script src="../static/js/foundation/foundation.tab.js"></script>
+  <script src="../static/js/foundation/foundation.abide.js"></script>
   <!-- Other JS plugins can be included here -->
 
   <script>
