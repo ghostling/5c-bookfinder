@@ -3,6 +3,7 @@ import utility_functions as UF
 import MySQLdb, MySQLdb.cursors
 import json
 import requests
+import config
 
 # Declare globals.
 BOOK_CONDITION = {
@@ -15,6 +16,7 @@ BOOK_CONDITION = {
 GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q={0}'
 
 app = Flask(__name__)
+app.secret_key = config.SECRET_KEY
 
 def get_db_cursor():
     # Easier to access db and cursor.
@@ -64,21 +66,21 @@ def get_user_profile(userid):
     recently_listed = cursor.fetchall()
 
     # Get the books that are currently being sold that are on their wishlist.
-    cursor.execute("""SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition, 
+    cursor.execute('''SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition, 
         USB.user_id AS 'owner_id', U.name AS 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
         WHERE UTB.book_isbn = B.book_isbn AND BFS.book_isbn = B.book_isbn
-        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s""", userid)
+        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', userid)
     wishlist_selling = cursor.fetchall()
 
     # Then, get the books that they themselves are selling.
-    cursor.execute("""SELECT BFS.*, B.* 
+    cursor.execute('''SELECT BFS.*, B.* 
         FROM BooksForSale BFS, Books B, UserSellsBook USB
         WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND 
-        USB.user_id = %s""", userid)
+        USB.user_id = %s''', userid)
     user_selling = cursor.fetchall()
 
-    # Prepare the URL for Input
+    # Prepare the image URL and book_condition.
     for book in wishlist_selling:
         book['img_url'] = get_google_image_for_book(book['book_isbn'])
         book['book_condition'] = BOOK_CONDITION[book['book_condition']]
