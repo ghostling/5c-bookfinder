@@ -1,9 +1,7 @@
-var toggleLoading = function(div_id, action) {
+function toggleLoading (div_id, action) {
     var parent = $(div_id);
     if (action == 'show') {
-        console.log('going to add div');
         $(div_id).append('<div id="loading"></div>');
-        console.log('added!');
         $('#loading').css({
             'position': 'absolute',
             'left': '0px',
@@ -16,8 +14,7 @@ var toggleLoading = function(div_id, action) {
             'filter': 'alpha(opacity=70)',
             'z-index': '90'
         });
-        $('#loading').append('''<img src="/static/images/spinner.gif"
-                             style="position: absolute; left: 35%; top: 35%">''');
+        $('#loading').append('<img src="/static/images/spinner.gif" style="position: absolute; left: 35%; top: 35%">');
     } else if (action == "hide") {
 
     }
@@ -25,7 +22,8 @@ var toggleLoading = function(div_id, action) {
 };
 
 var init = function() {
-    $('#sign-up-form').submit(function() {
+    $('#sign-up-form').submit(function(e) {
+        e.preventDefault();
         $.ajax({
             type: 'POST',
             url: '/signup',
