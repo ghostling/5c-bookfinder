@@ -34,9 +34,9 @@ CREATE TABLE BooksForSale (
 
 CREATE TABLE Users (
     user_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(64),
-    email_address VARCHAR(256),
-    hashed_password VARCHAR(2048),
+    name VARCHAR(64) NOT NULL,
+    email_address VARCHAR(256) NOT NULL,
+    hashed_password VARCHAR(2048) NOT NULL,
     phone_number VARCHAR(16)
 );
 
