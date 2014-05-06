@@ -117,25 +117,24 @@ def signup():
         # Valid email not in use.
         cursor.execute('SELECT * FROM Users WHERE email_address = "%s"', (email,))
         user = cursor.fetchall()
-        print user
 
         if not user:
             hashed_pw = UF.make_pw_hash(email, password)
 
             cursor.execute('''INSERT INTO Users 
                     (name, email_address, hashed_password, phone_number)
-                    VALUES ("%s", "%s", "%s", "%s")''',
+                    VALUES (%s, %s, %s, %s)''',
                     (name, email, hashed_pw, phone_number))
             db.commit()
 
             # Set session to save user login status.
             session['user_id'] = UF.make_secure_val(email)
-            print 'success!'
-            #return redirect(url_for('/'))
+            response = {'type': 'success'}
         else:
-            # TODO: Fix this.
-            print 'boo you'
-            #return {'signup_error': 'This email is already in use.'}
+            response = {'type': 'error',
+                'message': 'This email is already in use! Please try again'}
+
+    return json.dumps(response)
 
 @app.route('/login', methods=['POST'])
 def login(email, pw):
