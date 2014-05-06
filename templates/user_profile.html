@@ -4,7 +4,7 @@
 <div class="row">
   <div class="medium-8 columns add-padding">
     <h1>{{ user.name }}</h1>
-    <h4>Email: {{ user.email }}</h4>
+    <h4>Email: {{ user.email_address }}</h4>
     <h4>Phone Number: {{ user.phone_number }}</h4>
   </div>
   <div class="medium-4 columns add-padding">
@@ -18,7 +18,7 @@
           <input type="text" value="{{ user.name }}">
         </label>
         <label>Email
-          <input type="text" value="{{ user.email }}">
+          <input type="text" value="{{ user.email_address }}">
         </label>
         <label>Phone Number
           <input type="text" value="{{ user.phone_number }}">
@@ -36,7 +36,7 @@
 <div class="row add-padding">
   <h3 class="sub-head">Selling</h3>
   <ul class="book-list">
-    {% if user-selling %}
+    {% if user_selling %}
 
     <ul class="book-list">
       {% for book in user_selling %}
@@ -50,8 +50,8 @@
               {{ book.title }} ({{ book.edition }}) by {{ book.author }}
             </div>
             <div class="book-additional">
-              ISBN: {{ book.isbn }}
-              <br>Added: {{ book.date_added }}
+              ISBN: {{ book.book_isbn }}
+              <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
               <br>Condition: {{ book.condition }}
             </div>
@@ -70,7 +70,7 @@
 <div class="row add-padding">
   <h3 class="sub-head">Follow</h3>
   <ul class="book-list">
-    {% if wishlist-selling %}
+    {% if wishlist_selling %}
     <ul class="book-list">
       {% for book in wishlist_selling %}
       <li>
@@ -83,8 +83,8 @@
               {{ book.title }} ({{ book.edition }}) by {{ book.author }}
             </div>
             <div class="book-additional">
-              ISBN: {{ book.isbn }}
-              <br>Added: {{ book.date_added }}
+              ISBN: {{ book.book_isbn }}
+              <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
               <br>Condition: {{ book.condition }}
               <br>Sold By:
