@@ -59,7 +59,11 @@
           </div>
           <div class="medium-9 columns book-list-info">
             <div class="book-heading">
-              {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                {% if book.edition != 'N/A' %}
+                  {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                {% else %}
+                  {{ book.title }} by {{ book.author }}
+                {% endif %}
             </div>
             <div class="book-additional">
               ISBN: {{ book.book_isbn }}
@@ -92,7 +96,11 @@
           </div>
           <div class="medium-9 columns book-list-info">
             <div class="book-heading">
-              {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                {% if book.edition != 'N/A' %}
+                  {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                {% else %}
+                  {{ book.title }} by {{ book.author }}
+                {% endif %}
             </div>
             <div class="book-additional">
               ISBN: {{ book.book_isbn }}

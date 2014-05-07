@@ -101,7 +101,26 @@ def get_book_information(isbn):
 
 @app.route('/course/<course_number>')
 def get_course_information(course_number):
-    return render_template('course.html')
+    # Get a cursor.
+    db, cursor = get_db_cursor()
+
+    cursor.execute('SELECT * FROM Courses WHERE course_number = %s', course_number)
+    course = cursor.fetchone()
+
+    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+            CourseRequiresBook CRB, Books B
+            WHERE CRB.course_number = %s
+            AND B.book_isbn = CRB.book_isbn''', course_number)
+    books_required = cursor.fetchall()
+
+    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+            CourseRecommendsBook CRB, Books B
+            WHERE CRB.course_number = %s
+            AND B.book_isbn = CRB.book_isbn''', course_number)
+    books_recommended = cursor.fetchall()
+
+    return render_template('course.html', course=course,
+            books_required=books_required, books_recommended=books_recommended)
 
 @app.route('/search')
 def get_search_json():

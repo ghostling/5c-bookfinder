@@ -5,6 +5,7 @@
   {% if course %}
     <h1>{{course.course_number }}: {{ course.title }}</h1>
     <h4>Professor: {{ course.professor }}</h4>
+    <h4>Offered: {{ course.semester_offered }}</h4>
     {% endif %}
   </div>
 </div>
@@ -29,7 +30,11 @@
         </div>
         <div class="medium-9 columns book-list-info">
           <div class="book-heading">
-            {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+              {% if b.edition|string == "N/A" %}
+                {{ b.title }} by {{ b.author }}
+              {% else %}
+                {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+              {% endif %}
           </div>
           <div class="book-additional">
             ISBN: {{ b.isbn }}
@@ -59,7 +64,11 @@
         </div>
         <div class="medium-9 columns book-list-info">
           <div class="book-heading">
-            {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+              {% if b.edition == "N/A" %}
+                {{ b.title }} by {{ b.author }}
+              {% else %}
+                {{ b.title }} ({{ b.edition }}) by {{ b.author }}
+              {% endif %}
           </div>
           <div class="book-additional">
             ISBN: {{ b.isbn }}
@@ -76,8 +85,8 @@
 {% endif %}
 </div>
 {% else %}
-<p>
+<div class="row add-padding">
   This course does not need any books according to the information on Portal. Please check with the instructor and/or syllabus.
-</p>
+  </div>
 {% endif %}
 {% endblock %}
