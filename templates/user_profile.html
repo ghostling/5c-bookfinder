@@ -9,34 +9,44 @@
   </div>
   <div class="medium-4 columns add-padding">
   {% if session.user_id == user.user_id %}
-    <a href="#" data-reveal-id="edit-profile">
+    <a href="#" data-reveal-id="edit-profile-modal">
       <i class="fi-page-edit right icon-edit-style"></i>
     </a>
-    <div id="edit-profile" class="reveal-modal small" data-reveal>
+    <div id="edit-profile-modal" class="reveal-modal small" data-reveal>
       <a class="close-reveal-modal">&#215;</a>
-      <form>
-        <label>Name
-          <input type="text" value="{{ user.name }}">
-        </label>
-        <label>Email
-          <input type="text" value="{{ user.email_address }}">
-        </label>
-        <label>Phone Number
-          <input type="text" value="{{ user.phone_number }}">
-        </label>
-
+      <h2>Edit your profile:</h2>
+      <form id="edit-profile-form" data-abide>
+        <div class="name-field">
+          <label>Name
+            <input type="text" value="{{ user.name }}" name="name"
+                required pattern="[a-zA-Z]+ [a-zA-Z]+">
+          </label>
+          <small class="error">Please just enter the first and last name.</small>
+        </div>
+        <div class="email-field">
+          <label>Email
+            <input type="email" value="{{ user.email_address }}"
+                name="email">
+          </label>
+          <small class="error">Please enter a valid email.</small>
+        </div>
+        <div class="tel-field">
+          <label>Phone Number
+            <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}" 
+                name="phone_number" value="{{ user.phone_number }}">
+          </label>
+          <small class="error">Please enter a valid phone number.</small>
+        </div>
         <center>
-          <a href="#" class="button small">Submit</a>
+            <input type="submit" class="button" value="Submit">
         </center>
       </form>
     </div>
     {% endif %}
-    <!-- TODO: Add after Facebook integration. -->
-    <!--<h3>Picture</h3>-->
   </div>
 </div>
 <div class="row add-padding">
-  <h3 class="sub-head">Books Your Selling</h3>
+  <h3 class="sub-head">Books You're Selling</h3>
   <ul class="book-list">
     {% if user_selling %}
 

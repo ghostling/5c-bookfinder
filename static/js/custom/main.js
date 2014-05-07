@@ -1,4 +1,37 @@
-function toggleLoading (div_id, action) {
+function postFormInModal(form_id, modal_id, post_url, redirect_url) {
+    /* Needed for after editting one's profile page. */
+    if (typeof(redirect_url) === 'undefined') {
+        redirect_url = window.location.pathname;
+    }
+
+    $(form_id).submit(function(e) {
+        e.preventDefault();
+    });
+
+    $(form_id).on('valid', function() {
+        $.ajax({
+            type: 'POST',
+            url: post_url,
+            data: $(form_id).serialize(),
+            beforeSend: function() {
+                toggleLoading(modal_id, 'show');
+            },
+            complete: function() {
+                toggleLoading(modal_id, 'hide');
+            },
+            success: function(response) {
+                document.location.href = redirect_url;
+            },
+            error: function(response) {
+                error_message = response.responseText;
+                addErrorMsgToDiv(modal_id, error_message);
+            },
+        });
+        return false;
+    });
+} 
+
+function toggleLoading(div_id, action) {
     var parent = $(div_id);
     if (action == 'show') {
         $(div_id).append('<div id="loading"></div>');
@@ -28,58 +61,13 @@ function addErrorMsgToDiv(div_id, msg) {
 
 function init() {
     /* Sign up form. */
-    $('#sign-up-form').submit(function(e) {
-        e.preventDefault();
-    });
-
-    $('#sign-up-form').on('valid', function() {
-        $.ajax({
-            type: 'POST',
-            url: '/signup',
-            data: $('#sign-up-form').serialize(),
-            beforeSend: function() {
-                toggleLoading('#sign-up-modal', 'show');
-            },
-            complete: function() {
-                toggleLoading('#sign-up-modal', 'hide');
-            },
-            success: function(response) {
-                document.location.href= '/';
-            },
-            error: function(response) {
-                error_message = response.responseText;
-                addErrorMsgToDiv('#sign-up-form', error_message);
-            },
-        });
-        return false;
-    });
+    postFormInModal('#sign-up-form', '#sign-up-modal', '/signup', '/');
 
     /* Sign in form. */
-    $('#sign-in-form').submit(function(e) {
-        e.preventDefault();
-    });
-
-    $('#sign-in-form').on('valid', function() {
-        $.ajax({
-            type: 'POST',
-            url: '/signin',
-            data: $('#sign-in-form').serialize(),
-            beforeSend: function() {
-                toggleLoading('#sign-in-modal', 'show');
-            },
-            complete: function() {
-                toggleLoading('#sign-in-modal', 'hide');
-            },
-            success: function(response) {
-                document.location.href= '/';
-            },
-            error: function(response) {
-                error_message = response.responseText;
-                addErrorMsgToDiv('#sign-in-form', error_message);
-            },
-        });
-        return false;
-    });
+    postFormInModal('#sign-in-form', '#sign-in-modal', '/signin', '/');
+    
+    /* Edit profile form. */
+    postFormInModal('#edit-profile-form', '#edit-profile-modal', '/editprofile');
 };
 
 init();

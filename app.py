@@ -167,6 +167,34 @@ def set_logged_in_user_session(user_id, name):
     session['user_id'] = user_id
     session['user_name'] = name
 
+@app.route('/editprofile', methods=['POST'])
+def edit_profile():
+    db, cursor = get_db_cursor()
+
+    if request.method == 'POST':
+        name = str(request.form['name'])
+        email = str(request.form['email'])
+        phone_number = str(request.form['phone_number'])
+
+        # Check if user is allowed to edit this profile.
+        if session['user_hash'] == UF.make_secure_val(session['user_id']):
+            cursor.execute('SELECT * FROM Users WHERE user_id = %s', str(session['user_id']))
+            cur_user = cursor.fetchone()
+            # Check if email is already in use.
+            cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+            user = cursor.fetchone()
+            if (not user) or (user and (email == cur_user['email_address'])):
+                cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
+                        phone_number=%s WHERE user_id=%s''', (name, email,
+                        phone_number, session['user_id']))
+                db.commit()
+                return make_response('', 200)
+            else:
+                return make_response('This email is already in use.', 400)
+        else:
+            session.clear()
+            return make_response('You are not allowed to edit this profile.', 400)
+
 @app.route('/logout')
 def logout():
     session.clear()
