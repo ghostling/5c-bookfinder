@@ -8,6 +8,7 @@
     <h4>Phone Number: {{ user.phone_number }}</h4>
   </div>
   <div class="medium-4 columns add-padding">
+  {% if session.user_id == user.user_id %}
     <a href="#" data-reveal-id="edit-profile">
       <i class="fi-page-edit right icon-edit-style"></i>
     </a>
@@ -29,6 +30,7 @@
         </center>
       </form>
     </div>
+    {% endif %}
     <!-- TODO: Add after Facebook integration. -->
     <!--<h3>Picture</h3>-->
   </div>

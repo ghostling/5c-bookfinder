@@ -3,7 +3,7 @@
 
 <head>
   <link rel="stylesheet" href="../static/css/foundation.css">
-  <link rel="stylesheet" href="../static/css/foundation-icons/foundation-icons.css">
+  <link rel="stylesheet" href="../static/foundation-icons/foundation-icons.css">
   <link rel="stylesheet" href="../static/css/custom.css">
   <title>5C Book Finder</title>
 </head>
@@ -13,7 +13,7 @@
     <ul class="title-area">
       <li class="name">
         <h1>
-          <a href="#">5C Book Finder</a>
+          <a href="/">5C Book Finder</a>
         </h1>
       </li>
     </ul>
@@ -29,12 +29,12 @@
       <ul class="right">
         {% if session.user_hash %}
         <li>
-          <a href="{{ url_for('user/'+session.user_id) }}" class="custom-link">
+          <a href="/user/{{ session.user_id }}" class="custom-link">
           {{ session.user_name }}
           </a>
         </li>
         <li>
-          <a href="{{ url_for('logout') }}" class="custom-link">(Sign Out)</a>
+          <a href="/logout" class="custom-link">(Sign Out)</a>
         </li>
         {% else %}
         <li>

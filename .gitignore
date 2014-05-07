@@ -7,4 +7,5 @@ config.py
 ._.DS_Store
 venv/
 logs/
-static/yeti
+static/yeti/
+templates/with_dummy_data/

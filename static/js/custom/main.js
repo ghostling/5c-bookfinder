@@ -36,7 +36,11 @@ var init = function() {
                 toggleLoading('#sign-up-modal', 'hide');
             },
             success: function(data) {
-                alert(data);
+                console.log(data);
+                document.location.href= '/';
+            },
+            error: function(data) {
+                console.log(data);
             },
         });
         return false;

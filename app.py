@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, request
+from flask import Flask, render_template, redirect, session, request, url_for, Response, make_response
 import utility_functions as UF
 import MySQLdb, MySQLdb.cursors
 import json
@@ -20,9 +20,13 @@ app.secret_key = config.SECRET_KEY
 
 def get_db_cursor():
     # Easier to access db and cursor.
-    db = MySQLdb.connect(host='localhost', port=3306, user='5cbookfinder',
-            passwd='g4G5IkDOM3a91EV', db='5cbookfinder', 
-            cursorclass=MySQLdb.cursors.DictCursor)
+    # db = MySQLdb.connect(host='localhost', port=3306, user='5cbookfinder',
+    #         passwd='g4G5IkDOM3a91EV', db='5cbookfinder',
+    #         cursorclass=MySQLdb.cursors.DictCursor)
+    db = MySQLdb.connect(host='bookfinder.5capps.com', port=3306, user='5cbookfinder',
+             passwd='g4G5IkDOM3a91EV', db='5cbookfinder',
+             cursorclass=MySQLdb.cursors.DictCursor)
+
     return db, db.cursor()
 
 @app.route('/')
@@ -43,7 +47,7 @@ def get_google_image_for_book(isbn):
 @app.route('/user/<userid>')
 def get_user_profile(userid):
     # Get a cursor.
-    cursor = get_db_cursor()
+    db, cursor = get_db_cursor()
 
     # Sanitize user input.
     try:
@@ -64,7 +68,7 @@ def get_user_profile(userid):
     recently_listed = cursor.fetchall()
 
     # Get the books that are currently being sold that are on their wishlist.
-    cursor.execute('''SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition, 
+    cursor.execute('''SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition,
         USB.user_id AS 'owner_id', U.name AS 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
         WHERE UTB.book_isbn = B.book_isbn AND BFS.book_isbn = B.book_isbn
@@ -72,9 +76,9 @@ def get_user_profile(userid):
     wishlist_selling = cursor.fetchall()
 
     # Then, get the books that they themselves are selling.
-    cursor.execute('''SELECT BFS.*, B.* 
+    cursor.execute('''SELECT BFS.*, B.*
         FROM BooksForSale BFS, Books B, UserSellsBook USB
-        WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND 
+        WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND
         USB.user_id = %s''', userid)
     user_selling = cursor.fetchall()
 
@@ -121,7 +125,7 @@ def signup():
         if not user:
             hashed_pw = UF.make_pw_hash(email, password)
 
-            cursor.execute('''INSERT INTO Users 
+            cursor.execute('''INSERT INTO Users
                     (name, email_address, hashed_password, phone_number)
                     VALUES (%s, %s, %s, %s)''',
                     (name, email, hashed_pw, phone_number))
@@ -130,10 +134,9 @@ def signup():
 
             # Set session to save user login status.
             set_logged_in_user_session(user_id, name)
-            response = {'type': 'success'}
+            return make_response(json.dumps( {'message': 'success'} ), 200)
         else:
-            response = {'type': 'error',
-                'message': 'This email is already in use! Please try again'}
+            return make_response(json.dumps( {'message': 'YOU ARE BAD'} ), 500)
 
     return json.dumps(response)
 
@@ -164,7 +167,7 @@ def set_logged_in_user_session(user_id, name):
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('/'))
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
