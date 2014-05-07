@@ -140,24 +140,27 @@ def signup():
 
     return json.dumps(response)
 
-@app.route('/login', methods=['POST'])
-def login(email, pw):
+@app.route('/signin', methods=['POST'])
+def signin():
     # Get a cursor.
     db, cursor = get_db_cursor()
 
     if request.method == 'POST':
+        email = str(request.form['email'])
+        password = str(request.form['password'])
+
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = "%s"', email)
-        user = cursor.fetchall()
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+        user = cursor.fetchone()
 
         if user:
-            salt = user.hashed_password.split(',')[1]
-            if user.hashed_password == UF.make_pw_hash(email, pw, salt):
-                set_logged_in_user_session(user['user_id'], user['user_name'])
-                return redirect(url_for('/'))
-        else:
-            # TODO: Fix this.
-            return {'login_error': 'Either email or password is incorrect.'}
+            salt = user['hashed_password'].split(',')[1]
+            if user['hashed_password'] == UF.make_pw_hash(email, password, salt):
+                set_logged_in_user_session(user['user_id'], user['name'])
+                return make_response('', 200)
+
+        # Whether user doesn't exists or password mismatch, we want one error.
+        return make_response('The email or password is incorrect.', 400)
 
 def set_logged_in_user_session(user_id, name):
     session['user_hash'] = UF.make_secure_val(user_id)

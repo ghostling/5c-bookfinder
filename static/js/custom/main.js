@@ -27,9 +27,11 @@ function addErrorMsgToDiv(div_id, msg) {
 };
 
 function init() {
+    /* Sign up form. */
     $('#sign-up-form').submit(function(e) {
         e.preventDefault();
     });
+
     $('#sign-up-form').on('valid', function() {
         $.ajax({
             type: 'POST',
@@ -47,6 +49,33 @@ function init() {
             error: function(response) {
                 error_message = response.responseText;
                 addErrorMsgToDiv('#sign-up-form', error_message);
+            },
+        });
+        return false;
+    });
+
+    /* Sign in form. */
+    $('#sign-in-form').submit(function(e) {
+        e.preventDefault();
+    });
+
+    $('#sign-in-form').on('valid', function() {
+        $.ajax({
+            type: 'POST',
+            url: '/signin',
+            data: $('#sign-in-form').serialize(),
+            beforeSend: function() {
+                toggleLoading('#sign-in-modal', 'show');
+            },
+            complete: function() {
+                toggleLoading('#sign-in-modal', 'hide');
+            },
+            success: function(response) {
+                document.location.href= '/';
+            },
+            error: function(response) {
+                error_message = response.responseText;
+                addErrorMsgToDiv('#sign-in-form', error_message);
             },
         });
         return false;

@@ -50,21 +50,22 @@
 
   <div id="sign-in-modal" class="reveal-modal tiny" data-reveal>
     <a class="close-reveal-modal">&#215;</a>
-    <form data-abide>
-    <div class="email-field">
-      <label>Email
-        <input type="email" placeholder="Enter your email">
-      </label>
-      <small class="error">Email must be valid.</small>
-    </div>
-    <div class="password-field">
-      <label>Password
-        <input type="password" placeholder="Please enter your password">
-      </label>
-    </div>
-    <center>
-      <a href="#" class="button small">Sign In</a>
-    </center>
+    <form id="sign-in-form" data-abide>
+      <div class="email-field">
+        <label>Email
+          <input type="email" name="email" placeholder="Enter your email">
+        </label>
+        <small class="error">Email must be valid.</small>
+      </div>
+      <div class="password-field">
+        <label>Password
+          <input type="password" name="password" 
+              placeholder="Please enter your password">
+        </label>
+      </div>
+      <center>
+        <input type="submit" class="button" value="Sign In">
+      </center>
     </form>
   </div>
   <div id="sign-up-modal" class="reveal-modal tiny" data-reveal>
