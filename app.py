@@ -119,7 +119,7 @@ def signup():
         password = str(request.form['password'])
 
         # Valid email not in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = "%s"', (email,))
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
         user = cursor.fetchall()
 
         if not user:
@@ -134,9 +134,9 @@ def signup():
 
             # Set session to save user login status.
             set_logged_in_user_session(user_id, name)
-            return make_response(json.dumps( {'message': 'success'} ), 200)
+            return make_response('', 200)
         else:
-            return make_response(json.dumps( {'message': 'YOU ARE BAD'} ), 500)
+            return make_response('Email already in use.', 400)
 
     return json.dumps(response)
 

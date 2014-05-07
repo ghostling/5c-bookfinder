@@ -20,7 +20,13 @@ function toggleLoading (div_id, action) {
     }
 };
 
-var init = function() {
+function addErrorMsgToDiv(div_id, msg) {
+    $('#error-alert').remove();
+    $(div_id).prepend('<div data-alert class="alert-box alert" id="error-alert">' 
+                      + msg + '</div>');
+};
+
+function init() {
     $('#sign-up-form').submit(function(e) {
         e.preventDefault();
     });
@@ -35,12 +41,12 @@ var init = function() {
             complete: function() {
                 toggleLoading('#sign-up-modal', 'hide');
             },
-            success: function(data) {
-                console.log(data);
+            success: function(response) {
                 document.location.href= '/';
             },
-            error: function(data) {
-                console.log(data);
+            error: function(response) {
+                error_message = response.responseText;
+                addErrorMsgToDiv('#sign-up-form', error_message);
             },
         });
         return false;
