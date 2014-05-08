@@ -57,7 +57,7 @@ def get_user_profile(userid):
         raise Exception
 
     # Select the right user and raise an error if we don't have an exact match.
-    cursor.execute('SELECT * FROM Users WHERE user_id = %s', (userid, ))
+    cursor.execute('SELECT * FROM Users WHERE user_id = %s', (userid,))
     rows_affected = cursor.rowcount
     user = cursor.fetchone()
     if int(rows_affected) is not 1:
@@ -73,14 +73,14 @@ def get_user_profile(userid):
         USB.user_id AS 'owner_id', U.name AS 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
         WHERE UTB.book_isbn = B.book_isbn AND BFS.book_isbn = B.book_isbn
-        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', (userid, ))
+        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', (userid,))
     wishlist_selling = cursor.fetchall()
 
     # Then, get the books that they themselves are selling.
     cursor.execute('''SELECT BFS.*, B.*
         FROM BooksForSale BFS, Books B, UserSellsBook USB
         WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND
-        USB.user_id = %s''', (userid, ))
+        USB.user_id = %s''', (userid,))
     user_selling = cursor.fetchall()
 
     # Prepare the image URL and book_condition.
@@ -100,18 +100,30 @@ def get_user_profile(userid):
 def get_book_information(isbn):
     db, cursor = get_db_cursor()
 
-    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', (isbn, ))
+    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', (isbn,))
     book = cursor.fetchone()
 
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRequiresBook CRB, Courses C WHERE CRB.book_isbn=%s AND
-            CRB.course_number=C.course_number''', (isbn, ))
+            CRB.course_number=C.course_number''', (isbn,))
     book['req_by_list'] = cursor.fetchall()
 
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRecommendsBook CRB, Courses C WHERE CRB.book_isbn=%s AND
-            CRB.course_number=C.course_number''', (isbn, ))
+            CRB.course_number=C.course_number''', (isbn,))
     book['rec_by_list'] = cursor.fetchall()
+
+    cursor.execute('''SELECT B.price, B.book_condition, B.comments, U.user_id,
+            UU.name, B.updated_at FROM BooksForSale B, UserSellsBook U,
+            Users UU WHERE B.book_isbn=%s AND B.listing_id=U.listing_id AND
+            U.user_id=UU.user_id''', (isbn,))
+    book['selling_list'] = cursor.fetchall()
+    for b in book['selling_list']:
+        b['updated_at'] = b['updated_at'].strftime('%m/%d/%Y')
+        b['book_condition'] = BOOK_CONDITION[b['book_condition']]
+
+    # Prepare the image URL.
+    book['img_url'] = get_google_image_for_book(book['book_isbn'])
 
     return render_template('book.html', book=book)
 
@@ -120,13 +132,13 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number, ))
+    cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
     course = cursor.fetchone()
 
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRequiresBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number, ))
+            AND B.book_isbn = CRB.book_isbn''', (course_number,))
     books_required = cursor.fetchall()
 
     for b in books_required:
@@ -138,7 +150,7 @@ def get_course_information(course_number):
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRecommendsBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number, ))
+            AND B.book_isbn = CRB.book_isbn''', (course_number,))
     books_recommended = cursor.fetchall()
 
     for b in books_recommended:
@@ -150,22 +162,21 @@ def get_course_information(course_number):
     return render_template('course.html', course=course,
             books_required=books_required, books_recommended=books_recommended)
 
-@app.route('/sell_book_auto', methods=['POST'])
-def sell_book_auto():
+@app.route('/sellbook', methods=['POST'])
+def sellbook():
     db, cursor = get_db_cursor()
 
     if request.method == 'POST':
-        course = str(request.form['course'])
         isbn = str(request.form['isbn'])
         price = str(request.form['price'])
         condition = str(request.form['condition'])
         comments = str(request.form['comments'])
         created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        user_id = session['user_id']
 
-        # Check if course req/rec's this book.
+        # Check if any course req/rec's this book.
         cursor.execute('''SELECT * FROM CourseRequiresBook RQ, CourseRecommendsBook RC
-                WHERE (RQ.book_isbn=%s AND RQ.course_number=%s) OR
-                      (RC.book_isbn=%s AND RC.course_number=%s)''')
+                WHERE RQ.book_isbn=%s OR RC.book_isbn=%s''', (isbn, isbn,))
         valid_course_book = cursor.fetchone()
 
         if not valid_course_book:
@@ -176,9 +187,12 @@ def sell_book_auto():
             return make_response('You cannot have a negative price!', 400)
         else:
             cursor.execute('''INSERT INTO BooksForSale (book_isbn, status,
-                    created_at, edition, price, book_condition, comment) VALUES
-                    (%s, %s, %s, %s, %s, %s, %s)''', (isbn, 1, created_at,
-                    edition, price, condition, comments))
+                    created_at, price, book_condition, comments) VALUES
+                    (%s, %s, %s, %s, %s, %s)''', (isbn, 1, created_at,
+                    price, condition, comments,))
+            listing_id = db.insert_id()
+            cursor.execute('''INSERT INTO UserSellsBook VALUES (%s, %s)''',
+                    (user_id, listing_id,))
             db.commit()
 
         return make_response('', 200)
@@ -199,7 +213,7 @@ def signup():
         password = str(request.form['password'])
 
         # Valid email not in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
         user = cursor.fetchall()
 
         if not user:
@@ -208,7 +222,7 @@ def signup():
             cursor.execute('''INSERT INTO Users
                     (name, email_address, hashed_password, phone_number)
                     VALUES (%s, %s, %s, %s)''',
-                    (name, email, hashed_pw, phone_number))
+                    (name, email, hashed_pw, phone_number,))
             user_id = db.insert_id()
             db.commit()
 
@@ -230,7 +244,7 @@ def signin():
         password = str(request.form['password'])
 
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
         user = cursor.fetchone()
 
         if user:
@@ -258,10 +272,10 @@ def edit_profile():
 
         # Check if user is allowed to edit this profile.
         if session['user_hash'] == UF.make_secure_val(session['user_id']):
-            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(session['user_id']), ))
+            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(session['user_id']),))
             cur_user = cursor.fetchone()
             # Check if email is already in use.
-            cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
+            cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
             user = cursor.fetchone()
             if (not user) or (user and (email == cur_user['email_address'])):
                 cursor.execute('''UPDATE Users SET name=%s, email_address=%s,

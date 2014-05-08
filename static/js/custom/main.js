@@ -22,6 +22,7 @@ function postFormInModal(form_id, modal_id, post_url, redirect_url) {
                 document.location.href = redirect_url;
             },
             error: function(response) {
+                console.log(response);
                 error_message = response.responseText;
                 addErrorMsgToDiv(modal_id, error_message);
             },
@@ -67,6 +68,9 @@ function init() {
     
     /* Edit profile form. */
     postFormInModal('#edit-profile-form', '#edit-profile-modal', '/editprofile');
+    
+    /* Sell book form.*/
+    postFormInModal('#sell-book-form', '#sell-book-modal', '/sellbook');
 };
 
 init();

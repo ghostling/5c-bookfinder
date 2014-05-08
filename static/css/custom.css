@@ -108,9 +108,13 @@ hr {
 }
 
 .book-link {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .medium-label-text {
-    font-size: 20px
+  font-size: 16px;
+}
+
+ul {
+  margin-right: 1.1rem;
 }

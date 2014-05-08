@@ -1,12 +1,12 @@
 {% extends "base.html" %} 
 {% block main_body %}
 <div class="row">
-  <div class="medium-8 columns add-padding">
+  <div class="medium-8 columns add-t-pad add-b-pad">
     <h1>{{ user.name }}</h1>
     <h4>Email: {{ user.email_address }}</h4>
     <h4>Phone Number: {{ user.phone_number }}</h4>
   </div>
-  <div class="medium-4 columns add-padding">
+  <div class="medium-4 columns add-t-pad add-b-pad">
   {% if session.user_id == user.user_id %}
     <a href="#" data-reveal-id="edit-profile-modal">
       <i class="fi-page-edit right icon-edit-style"></i>
@@ -44,35 +44,32 @@
     {% endif %}
   </div>
 </div>
-<div class="row add-padding">
-  <div class="row listed-book-heading">
-      <div class="medium-10 columns"><h3 class="sub-head">Books You're Selling</h3></div>
-      <div class="medium-2 columns">
-        <a href="#" data-reveal-id="add-book">
-          <i class="fi-plus"></i>
-        </a>
-      </div>
+<div class="row add-l-pad add-r-pad">
+  <div class="row listed-book-heading sub-head">
+      <div class="medium-10 columns"><h3>Books You're Selling</h3></div>
+    <div class="medium-2 columns">
+      <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
+    </div>
   </div>
-  
-  <ul class="book-list">
     {% if user_selling %}
-
     <ul class="book-list">
       {% for book in user_selling %}
       <li>
         <div class="row">
-          <div class="medium-3 columns book-list-image">
+          <div class="medium-2 columns book-list-image">
             <img src="{{ book.img_url }}" alt="{{ book.title }}">
           </div>
           <div class="medium-9 columns book-list-info">
             <div class="book-heading">
-                <a href="#" data-reveal-id="edit-book-{{ book.listing_id }}">
+                {# TODO: This 'edit book' modal may be problematic...instead
+                   we need to send the data into one modal, not make several. #}
+                    <a href="/book/{{book.book_isbn}}">
                 {% if book.edition != 'N/A' %}
                   {{ book.title }} ({{ book.edition }}) by {{ book.author }}
                 {% else %}
                   {{ book.title }} by {{ book.author }}
                 {% endif %}
-                </a>
+            </a>
             </div>
             <div class="book-additional">
               ISBN: {{ book.book_isbn }}
@@ -125,6 +122,11 @@
             {# End production of book modal. #}
 
           </div>
+        <div class="medium-1 columns">
+            <a href="#" data-reveal-id="edit-book-{{book.listing_id}}">
+              <i class="fi-page-edit right icon-edit-style"></i>
+            </a>
+        </div>
         </div>
       </li>
       {% endfor %}
@@ -136,9 +138,8 @@
     {% endif %}
   </ul>
 </div>
-<div class="row add-padding">
+<div class="row add-r-pad add-t-pad">
   <h3 class="sub-head">Your Wishlist</h3>
-  <ul class="book-list">
     {% if wishlist_selling %}
     <ul class="book-list">
       {% for book in wishlist_selling %}
@@ -269,7 +270,4 @@
   </div>
 </div>
 {# End code to add a book #}
-
-
-
 {% endblock %}
