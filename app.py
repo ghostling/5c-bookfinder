@@ -101,7 +101,17 @@ def get_book_information(isbn):
     db, cursor = get_db_cursor()
 
     cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', isbn)
-    book=cursor.fetchone()
+    book = cursor.fetchone()
+
+    cursor.execute('''SELECT C.course_number, C.title FROM
+            CourseRequiresBook CRB, Courses C WHERE CRB.book_isbn=%s AND
+            CRB.course_number=C.course_number''', isbn)
+    book['req_by_list'] = cursor.fetchall()
+
+    cursor.execute('''SELECT C.course_number, C.title FROM
+            CourseRecommendsBook CRB, Courses C WHERE CRB.book_isbn=%s AND
+            CRB.course_number=C.course_number''', isbn)
+    book['rec_by_list'] = cursor.fetchall()
 
     return render_template('book.html', book=book)
 

@@ -6,10 +6,11 @@
     {% else %}
     <h2>{{book.title}} by {{book.author}}</h2>
     {% endif %}
+    <div class="add-r-pad add-l-pad">
     <h4>ISBN: {{book.book_isbn}}</h4>
     {% if book.req_by_list %}
-    <h4>Required by:</h4>
-    <ul>
+    <span class="label medium-label-text success radius">Required By:</span>
+    <ul class="circle">
       {% for c in book.req_by_list%}
       <li>
         <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.course_title}}</a>
@@ -17,8 +18,8 @@
       {% endfor %}
     </ul>
     {% endif %} {% if book.rec_by_list %}
-    <h4>Recommended by:</h4>
-    <ul>
+    <span class="label medium-label-text secondary radius">Recommended By:</span>
+    <ul class="circle">
       {% for c in book.rec_by_list%}
       <li>
         <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.course_title}}</a>
@@ -26,6 +27,7 @@
       {% endfor %}
     </ul>
     {% endif %}
+  </div>
   </div>
 </div>
 {% if book.selling_list %}
