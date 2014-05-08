@@ -1,92 +1,13 @@
 {% extends "base.html" %} {% block main_body %}
 <div class="row">
-  <div class="medium-8 columns add-padding">
-    <div id="wishlist-div">
-      <h3>Your Wishlist</h3>
-      {% if wishlist_selling %}
+  <div class="medium-12 columns add-padding">
+    <h1 class="text-center">5C Book Finder</h1>
+    <p>
+      5C Book Finder allows students of the Claremont Colleges to buy and sell course textbooks.
+      Get started by typing in the book title or author, or even the name of a course you want books for!
+    </p>
 
-      <ul class="book-list">
-        {% for book in wishlist_selling %}
-        <li>
-          <div class="row">
-            <div class="medium-3 columns book-list-image">
-              <img src="{{ book.img_url }}" alt="{{ book.title }}">
-            </div>
-            <div class="medium-9 columns book-list-info">
-              <div class="book-heading">
-                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-              </div>
-              <div class="book-additional">
-                ISBN: {{ book.isbn }}
-                <br>Added: {{ book.date_added }}
-                <br>Price: ${{ book.price }}
-                <br>Condition: {{ book.condition }}
-                <br>Sold By:
-                <a href="/user/{{book.owner_id}}">{{ book.owner }}</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>
-        {% if wishlist %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
-      </p>
-      {% endif %}
-    </div>
-    <hr>
-    <div id="recentlist-div">
-      <h3>Recently Listed Books</h3>
-      <ul class="book-list">
-        {% for book in recently_listed %}
-        <li>
-          <div class="row">
-            <div class="medium-3 columns book-list-image">
-              <img src="{{ book.img_url }}" alt="{{ book.title }}">
-            </div>
-            <div class="medium-9 columns book-list-info">
-              <div class="book-heading">
-                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-              </div>
-              <div class="book-additional">
-                ISBN: {{ book.isbn }}
-                <br>Added: {{ book.date_added }}
-                <br>Price: ${{ book.price }}
-                <br>Condition: {{ book.condition }}
-                <br>Sold By:
-                <a href="/user/{{book.owner_id}}">{{ book.owner }}</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <div class="medium-4 columns add-padding">
-    {% if books_sold_by_you %}
-
-    <ul class="book-list">
-      {% for book in books_sold_by_you %}
-      <li>
-        <div class="row">
-          <div class="medium-3 columns book-list-image">
-            <img src="{{ book.img_url }}" alt="{{ book.title }}">
-          </div>
-          <div class="medium-9 columns book-list-info">
-            <div class="book-heading">
-              <a href="#" data-reveal-id="{{ book.listing_id }}">{{ book.title }} ({{ book.edition }}) by {{ book.author }}</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>You are currently not selling any books.</p>
-    {% endif %}
-
+      <input type="text" id="index-search-box" placeholder="Search for a book or course..." />
   </div>
 </div>
 {% endblock %}

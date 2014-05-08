@@ -8,6 +8,13 @@ body {
   height: 100%;
 }
 
+#index-search-box {
+  margin: 1em;
+  padding: 1em;
+  height: 75px;
+  font-size: 24px;
+}
+
 .book-list {
   list-style: none;
 }
