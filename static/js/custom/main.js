@@ -48,7 +48,7 @@ function toggleLoading(div_id, action) {
             'z-index': '90'
         });
         $('#loading').append('<img src="/static/images/spinner.gif" style="position: absolute; left: 35%; top: 35%">');
-    } else if (action == "hide") {
+    } else if (action == 'hide') {
         $('#loading').remove();
     }
 };
@@ -71,6 +71,46 @@ function init() {
     
     /* Sell book form.*/
     postFormInModal('#sell-book-form', '#sell-book-modal', '/sellbook');
+
+    $('.track-book').click(function(e) {
+        link = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: '/wishlist',
+            type: 'POST',
+            data: {isbn: link.data('isbn')},
+            success: function(response) {
+                link.removeClass('track-book');
+                link.addClass('untrack-book');
+                child = link.children()[0];
+                child.remove();
+                link.append('<span class="label success">In Wishlist</span>');
+            },
+            error: function(response) {
+                console.log(error); 
+            }
+        });
+    });
+    
+    $('.untrack-book').click(function(e) {
+        link = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: '/unwishlist',
+            type: 'POST',
+            data: {isbn: link.data('isbn')},
+            success: function(response) {
+                link.removeClass('untrack-book');
+                link.addClass('track-book');
+                child = link.children()[0];
+                child.remove();
+                link.append('<span class="label">Wishlist</span>');
+            },
+            error: function(response) {
+                console.log(error); 
+            }
+        });
+    });
 };
 
 init();

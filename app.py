@@ -6,6 +6,9 @@ import requests
 import config
 import datetime
 
+# TODO: Every time you use session['user_id'], you should check it with the
+# user hash....
+
 # Declare globals.
 BOOK_CONDITION = {
     1: 'New',
@@ -69,6 +72,7 @@ def get_user_profile(userid):
     recently_listed = cursor.fetchall()
 
     # Get the books that are currently being sold that are on their wishlist.
+    # TODO: Something wrong with this query...duplicate results.
     cursor.execute('''SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition,
         USB.user_id AS 'owner_id', U.name AS 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
@@ -132,6 +136,8 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
+    user_id = session['user_id']
+
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
     course = cursor.fetchone()
 
@@ -142,10 +148,15 @@ def get_course_information(course_number):
     books_required = cursor.fetchall()
 
     for b in books_required:
-        pass
-        # TODO
-        # count how many people are selling it
-        # put that as b['number_selling']
+        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
+                (b['book_isbn'],))
+        b['number_selling'] = cursor.rowcount
+
+        # Check if in current user's wishlist.
+        cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
+                book_isbn=%s''', (user_id, b['book_isbn'],))
+        if cursor.rowcount == 1:
+            b['in_user_wishlist'] = True
 
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRecommendsBook CRB, Books B
@@ -154,10 +165,15 @@ def get_course_information(course_number):
     books_recommended = cursor.fetchall()
 
     for b in books_recommended:
-        pass
-        # TODO
-        # count how many people are selling it
-        # put that as b['number_selling']
+        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
+                (b['book_isbn'],))
+        b['number_selling'] = cursor.rowcount
+
+        # Check if in current user's wishlist.
+        cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
+                book_isbn=%s''', (user_id, b['book_isbn'],))
+        if cursor.rowcount == 1:
+            b['in_user_wishlist'] = True
 
     return render_template('course.html', course=course,
             books_required=books_required, books_recommended=books_recommended)
@@ -195,6 +211,36 @@ def sellbook():
                     (user_id, listing_id,))
             db.commit()
 
+        return make_response('', 200)
+
+@app.route('/wishlist', methods=['POST'])
+def add_to_wishlist():
+    db, cursor = get_db_cursor()
+
+    if request.method == 'POST':
+        isbn = str(request.form['isbn'])
+        user_id = session['user_id']
+
+        cursor.execute('''INSERT INTO UserTracksBook VALUES (%s, %s)''',
+                (user_id, isbn,))
+        db.commit()
+
+        # TODO: What could possibly go wrong...? (Serious question.)
+        return make_response('', 200)
+
+@app.route('/unwishlist', methods=['POST'])
+def remove_from_wishlist():
+    db, cursor = get_db_cursor()
+
+    if request.method == 'POST':
+        isbn = str(request.form['isbn'])
+        user_id = session['user_id']
+
+        cursor.execute('''DELETE FROM UserTracksBook WHERE user_id=%s AND
+                book_isbn=%s''', (user_id, isbn,))
+        db.commit()
+
+        # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
 
 @app.route('/search')

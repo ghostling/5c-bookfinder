@@ -24,15 +24,22 @@
     </a>
       </div>
       <div class="large-2 columns text-right">
-      <a href="#" data-isbn="{{book.book_isbn}}">
+          {% if book.in_user_wishlist %}
+      <a href="#" data-isbn="{{book.book_isbn}}" class="untrack-book">
+          <span class="label success">In Wishlist</span>
+        </a>
+          {% else %}
+      <a href="#" data-isbn="{{book.book_isbn}}" class="track-book">
           <span class="label">Wish List</span>
         </a>
+        {% endif %}
       </div>
     </div>
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
-      There are {{book.number_selling}} listings for this book. <br>
-      Click the link above to see them.
+      <span data-tooltip class="has-tip" title="Click the link above to see them.">
+      There are {{book.number_selling}} listing(s) for this book.
+      </span>
       {% else %}
       No one is currently selling this book.
       {% endif %}
@@ -57,15 +64,22 @@
     </a>
       </div>
       <div class="large-2 columns text-right">
-      <a href="#" data-isbn="{{book.book_isbn}}">
+          {% if book.in_user_wishlist %}
+      <a href="#" data-isbn="{{book.book_isbn}}" class="untrack-book">
+          <span class="label success">In Wishlist</span>
+        </a>
+          {% else %}
+      <a href="#" data-isbn="{{book.book_isbn}}" class="track-book">
           <span class="label">Wish List</span>
         </a>
+        {% endif %}
       </div>
     </div>
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
-      There are {{book.number_selling}} listings for this book. <br>
-      Click the link above to see them.
+      <span data-tooltip class="has-tip" title="Click the link above to see them.">
+      There are {{book.number_selling}} listing(s) for this book.
+      </span>
       {% else %}
       No one is currently selling this book.
       {% endif %}

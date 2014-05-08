@@ -138,8 +138,12 @@
     {% endif %}
   </ul>
 </div>
-<div class="row add-r-pad add-t-pad">
-  <h3 class="sub-head">Your Wishlist</h3>
+<div class="row add-l-pad add-r-pad">
+    <div class="row listed-book-heading sub-head">
+        <div class="medium-12 columns">
+  <h3>Your Wishlist</h3>
+  </div>
+  </div>
     {% if wishlist_selling %}
     <ul class="book-list">
       {% for book in wishlist_selling %}
@@ -170,9 +174,9 @@
       {% endfor %}
     </ul>
     {% else %}
-    <p>
+    <div class="row add-all-pad">
       {% if wishlist %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
-    </p>
+    </div>
     {% endif %}
   </ul>
 </div>
