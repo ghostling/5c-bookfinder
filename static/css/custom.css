@@ -15,6 +15,45 @@ body {
   font-size: 24px;
 }
 
+.twitter-typeahead {
+  width: 100%;
+}
+
+.twitter-typeahead .tt-dropdown-menu {
+    text-align: left;
+    width: 100%;
+    margin-top: 12px;
+    margin-left: 1.45em;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.twitter-typeahead .tt-hint {
+  margin: 1em;
+  padding: 1em;
+  height: 75px;
+  font-size: 24px;
+  color: #CCC;
+}
+
+.twitter-typeahead .tt-suggestion {
+    cursor: pointer;
+    padding: 3px 0;
+    font-size: 24px;
+}
+
+.twitter-typeahead .tt-suggestion:hover {
+    background-color: rgb(2, 140, 186);
+}
+
 .book-list {
   list-style: none;
 }

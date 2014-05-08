@@ -258,8 +258,8 @@ def signup():
         phone_number = str(request.form['phone_number'])
         password = str(request.form['password'])
 
-        # Valid email not in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+        # Make sure that the e-mail address given is valid.
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
         user = cursor.fetchall()
 
         if not user:

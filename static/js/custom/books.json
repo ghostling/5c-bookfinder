@@ -1,0 +1,2622 @@
+[
+    {
+        "author": "Plato", 
+        "book_isbn": "9780023607707", 
+        "title": "Meno"
+    }, 
+    {
+        "author": "Dodge", 
+        "book_isbn": "9780028646824", 
+        "title": "Computer Music"
+    }, 
+    {
+        "author": "Simmel", 
+        "book_isbn": "9780029288405", 
+        "title": "Conflict & Web of Group Affiliations"
+    }, 
+    {
+        "author": "Stern", 
+        "book_isbn": "9780060505332", 
+        "title": "Terror in Name of God"
+    }, 
+    {
+        "author": "Plaskow", 
+        "book_isbn": "9780060666842", 
+        "title": "Standing Again at Sinai"
+    }, 
+    {
+        "author": "Benedict", 
+        "book_isbn": "9780060726041", 
+        "title": "Out Of Bounds"
+    }, 
+    {
+        "author": "Bible", 
+        "book_isbn": "9780060786847", 
+        "title": "HarperCollins Study Bible: NRSV (Fully Rev & Upd)"
+    }, 
+    {
+        "author": "Reed", 
+        "book_isbn": "9780060842499", 
+        "title": "HarperCollins Visual Gde to the New Testament"
+    }, 
+    {
+        "author": "Fountain", 
+        "book_isbn": "9780060885618", 
+        "title": "Billy Lynn's Long Halftime Walk"
+    }, 
+    {
+        "author": "Foner", 
+        "book_isbn": "9780060964313", 
+        "title": "Short History of Reconstruction"
+    }, 
+    {
+        "author": "Gonzalez", 
+        "book_isbn": "9780061855887", 
+        "title": "Story of Christianity (V1)"
+    }, 
+    {
+        "author": "Gonzalez", 
+        "book_isbn": "9780061855894", 
+        "title": "Story of Christianity (V2)"
+    }, 
+    {
+        "author": "Erdrich", 
+        "book_isbn": "9780062065254", 
+        "title": "Round House"
+    }, 
+    {
+        "author": "Simmons", 
+        "book_isbn": "9780070576421", 
+        "title": "Calculus w/Analytic Geometry"
+    }, 
+    {
+        "author": "Rosen", 
+        "book_isbn": "9780073383095", 
+        "title": "Discrete Mathematics & Its Appl (w/out ConnectPlus)"
+    }, 
+    {
+        "author": "Virgillo", 
+        "book_isbn": "9780073385372", 
+        "title": "Aproximaciones al estudio de la literatura hispanica"
+    }, 
+    {
+        "author": "Romer", 
+        "book_isbn": "9780073511375", 
+        "title": "Advanced Macroeconomics"
+    }, 
+    {
+        "author": "Dasgupta", 
+        "book_isbn": "9780073523408", 
+        "title": "Algorithms"
+    }, 
+    {
+        "author": "Machiavelli", 
+        "book_isbn": "9780075535775", 
+        "title": "Prince & Discourses"
+    }, 
+    {
+        "author": "Bodie", 
+        "book_isbn": "9780077861674", 
+        "title": "Investments"
+    }, 
+    {
+        "author": "Dornbusch", 
+        "book_isbn": "9780078021831", 
+        "title": "Macroeconomics"
+    }, 
+    {
+        "author": "Ross", 
+        "book_isbn": "9780078034770", 
+        "title": "Corporate Finance (w/out ConnectPlus Access)"
+    }, 
+    {
+        "author": "Knauft", 
+        "book_isbn": "9780078034923", 
+        "title": "Gebusi: Lives Transformed in Rainforest World"
+    }, 
+    {
+        "author": "Feldman", 
+        "book_isbn": "9780078035210", 
+        "title": "Understanding Psychology (w/out DSM-5 & Access Code)"
+    }, 
+    {
+        "author": "Nier", 
+        "book_isbn": "9780078050367", 
+        "title": "Taking Sides (Social Psychology)"
+    }, 
+    {
+        "author": "Charlop-Christy", 
+        "book_isbn": "9780100005228", 
+        "title": "HOW TO TREAT THE CHILD WITH AUTISM"
+    }, 
+    {
+        "author": "Norris", 
+        "book_isbn": "9780123948151", 
+        "title": "Vertebrate Endocrinology"
+    }, 
+    {
+        "author": "F. Hemond", 
+        "book_isbn": "9780123982568", 
+        "title": "Chemical Fate & Transport in the Environment"
+    }, 
+    {
+        "author": "Bruce", 
+        "book_isbn": "9780131424159", 
+        "title": "Java"
+    }, 
+    {
+        "author": "Mejia", 
+        "book_isbn": "9780131944121", 
+        "title": "Miradas"
+    }, 
+    {
+        "author": "Newbold", 
+        "book_isbn": "9780132745659", 
+        "title": "Statistics for Bus & Econ (w/Out Access Card)"
+    }, 
+    {
+        "author": "Hull", 
+        "book_isbn": "9780132777421", 
+        "title": "Options, Futures & Other Derivatives (w/CD)"
+    }, 
+    {
+        "author": "Froyen", 
+        "book_isbn": "9780132831529", 
+        "title": "Macroeconomics"
+    }, 
+    {
+        "author": "Berk", 
+        "book_isbn": "9780132992473", 
+        "title": "Corporate Finance"
+    }, 
+    {
+        "author": "Krugman", 
+        "book_isbn": "9780133423648", 
+        "title": "International Economics (w/out NewMyEconLab)"
+    }, 
+    {
+        "author": "Ehrenberg", 
+        "book_isbn": "9780133462784", 
+        "title": "Modern Labor Economics"
+    }, 
+    {
+        "author": "Leon", 
+        "book_isbn": "9780136009290", 
+        "title": "Linear Algebra w/Applications"
+    }, 
+    {
+        "author": "Russell", 
+        "book_isbn": "9780136042594", 
+        "title": "Artificial Intelligence"
+    }, 
+    {
+        "author": "Stock", 
+        "book_isbn": "9780138009007", 
+        "title": "Intro to Econometrics"
+    }, 
+    {
+        "author": "Oppenheim", 
+        "book_isbn": "9780138147570", 
+        "title": "Signals & Systems"
+    }, 
+    {
+        "author": "Mintz", 
+        "book_isbn": "9780140092332", 
+        "title": "Sweetness & Power"
+    }, 
+    {
+        "author": "Chadwick", 
+        "book_isbn": "9780140231991", 
+        "title": "Early Church"
+    }, 
+    {
+        "author": "Homer", 
+        "book_isbn": "9780140275360", 
+        "title": "Iliad (Tan Cover)"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780140390346", 
+        "title": "Varieties of Religious Experience"
+    }, 
+    {
+        "author": "Hobbes", 
+        "book_isbn": "9780140431957", 
+        "title": "Leviathan"
+    }, 
+    {
+        "author": "Apuleius", 
+        "book_isbn": "9780140435900", 
+        "title": "Golden Ass (New Trans Kenney)"
+    }, 
+    {
+        "author": "Augustine", 
+        "book_isbn": "9780140441147", 
+        "title": "Confessions (Trans Pine-Coffin)"
+    }, 
+    {
+        "author": "Pliny", 
+        "book_isbn": "9780140441277", 
+        "title": "Letters of Younger Pliny"
+    }, 
+    {
+        "author": "Gregory Of Tours", 
+        "book_isbn": "9780140442953", 
+        "title": "History of the Franks"
+    }, 
+    {
+        "author": "Ovid", 
+        "book_isbn": "9780140443608", 
+        "title": "Erotic Poems"
+    }, 
+    {
+        "author": "Marcellinus", 
+        "book_isbn": "9780140444063", 
+        "title": "Later Roman Empire (AD 354-378)"
+    }, 
+    {
+        "author": "Prevost", 
+        "book_isbn": "9780140445596", 
+        "title": "Manon Lescaut (Trade Ed)"
+    }, 
+    {
+        "author": "Bede", 
+        "book_isbn": "9780140445657", 
+        "title": "Ecclesiastical History of English People"
+    }, 
+    {
+        "author": "Cook", 
+        "book_isbn": "9780140447699", 
+        "title": "Njal's Saga"
+    }, 
+    {
+        "author": "Durkheim", 
+        "book_isbn": "9780140449679", 
+        "title": "On Suicide"
+    }, 
+    {
+        "author": "Twain", 
+        "book_isbn": "9780141321097", 
+        "title": "Adventures of Huckleberry Finn"
+    }, 
+    {
+        "author": "Austen", 
+        "book_isbn": "9780141439662", 
+        "title": "Sense & Sensibility (Trade Ed)"
+    }, 
+    {
+        "author": "Carroll", 
+        "book_isbn": "9780141439761", 
+        "title": "Alice's Adventures/Through Looking-Glass"
+    }, 
+    {
+        "author": "Hagedorn", 
+        "book_isbn": "9780142003909", 
+        "title": "Charlie Chan is Dead 2 (Rev & Exp)"
+    }, 
+    {
+        "author": "Greene", 
+        "book_isbn": "9780142437308", 
+        "title": "Power & Glory (Trade Ed)"
+    }, 
+    {
+        "author": "Narayan", 
+        "book_isbn": "9780143039679", 
+        "title": "Ramayana"
+    }, 
+    {
+        "author": "Azuela", 
+        "book_isbn": "9780143105275", 
+        "title": "Underdogs"
+    }, 
+    {
+        "author": "Smith", 
+        "book_isbn": "9780192892638", 
+        "title": "Europe after Rome"
+    }, 
+    {
+        "author": "Rorabaugh", 
+        "book_isbn": "9780195051896", 
+        "title": "Craft Apprentice"
+    }, 
+    {
+        "author": "Slaughter", 
+        "book_isbn": "9780195051919", 
+        "title": "Whiskey Rebellion"
+    }, 
+    {
+        "author": "Worster", 
+        "book_isbn": "9780195078060", 
+        "title": "Rivers of Empire"
+    }, 
+    {
+        "author": "Shelton", 
+        "book_isbn": "9780195089745", 
+        "title": "As the Romans Did"
+    }, 
+    {
+        "author": "Ehrman", 
+        "book_isbn": "9780195114454", 
+        "title": "After the New Testament"
+    }, 
+    {
+        "author": "Ehrman", 
+        "book_isbn": "9780195154610", 
+        "title": "Christianity in Late Antiquity 300-450"
+    }, 
+    {
+        "author": "Wolf", 
+        "book_isbn": "9780195182804", 
+        "title": "Poverty of Riches"
+    }, 
+    {
+        "author": "Peterson", 
+        "book_isbn": "9780195188332", 
+        "title": "Primer in Positive Psychology"
+    }, 
+    {
+        "author": "Monaco", 
+        "book_isbn": "9780195321050", 
+        "title": "How to Read a Film (30th Anniv Ed)"
+    }, 
+    {
+        "author": "Sandel", 
+        "book_isbn": "9780195335125", 
+        "title": "Justice: Reader"
+    }, 
+    {
+        "author": "Beezley", 
+        "book_isbn": "9780195337907", 
+        "title": "Mexico in World History"
+    }, 
+    {
+        "author": "Lock", 
+        "book_isbn": "9780195340518", 
+        "title": "Hearing Eye"
+    }, 
+    {
+        "author": "Macpherson", 
+        "book_isbn": "9780195385960", 
+        "title": "Senses"
+    }, 
+    {
+        "author": "Bornat", 
+        "book_isbn": "9780198530275", 
+        "title": "Proof & Disproof in Formal Logic"
+    }, 
+    {
+        "author": "Aristotle", 
+        "book_isbn": "9780198752714", 
+        "title": "Nicomachean Ethics (Ed Broadie & Rowe)"
+    }, 
+    {
+        "author": "Clunas", 
+        "book_isbn": "9780199217342", 
+        "title": "Art in China"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780199217946", 
+        "title": "Portrait of a Lady"
+    }, 
+    {
+        "author": "Austen", 
+        "book_isbn": "9780199535552", 
+        "title": "Persuasion"
+    }, 
+    {
+        "author": "Haleem", 
+        "book_isbn": "9780199535958", 
+        "title": "Qur'an"
+    }, 
+    {
+        "author": "Trollope", 
+        "book_isbn": "9780199537655", 
+        "title": "Barchester Towers"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780199538584", 
+        "title": "Golden Bowl"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780199538591", 
+        "title": "What Maisie Knew"
+    }, 
+    {
+        "author": "Petronius", 
+        "book_isbn": "9780199539215", 
+        "title": "Satyricon"
+    }, 
+    {
+        "author": "Confucius", 
+        "book_isbn": "9780199540617", 
+        "title": "Analects"
+    }, 
+    {
+        "author": "Cameron", 
+        "book_isbn": "9780199550999", 
+        "title": "Myth of Mars & Venus"
+    }, 
+    {
+        "author": "Stael", 
+        "book_isbn": "9780199554607", 
+        "title": "Corinne, or Italy"
+    }, 
+    {
+        "author": "Talbot", 
+        "book_isbn": "9780199556052", 
+        "title": "Life of Christina of Markyate"
+    }, 
+    {
+        "author": "Goddard", 
+        "book_isbn": "9780199560288", 
+        "title": "Semantic Analysis"
+    }, 
+    {
+        "author": "Ehrman", 
+        "book_isbn": "9780199757534", 
+        "title": "New Testament: Historical Intro etc"
+    }, 
+    {
+        "author": "Jenkins", 
+        "book_isbn": "9780199767465", 
+        "title": "Next Christendom"
+    }, 
+    {
+        "author": "Quack", 
+        "book_isbn": "9780199812622", 
+        "title": "Disenchanting India"
+    }, 
+    {
+        "author": "Camp", 
+        "book_isbn": "9780199843978", 
+        "title": "Politics in Mexico"
+    }, 
+    {
+        "author": "Satz", 
+        "book_isbn": "9780199892617", 
+        "title": "Why Some Things Should Not Be for Sale"
+    }, 
+    {
+        "author": "Igler", 
+        "book_isbn": "9780199914951", 
+        "title": "Great Ocean"
+    }, 
+    {
+        "author": "Spiegel", 
+        "book_isbn": "9780199965625", 
+        "title": "World Politics in New Era"
+    }, 
+    {
+        "author": "Wicks-Nelson", 
+        "book_isbn": "9780205036066", 
+        "title": "Abnormal Child & Adolescent Psychology"
+    }, 
+    {
+        "author": "Riggio", 
+        "book_isbn": "9780205254996", 
+        "title": "Intro to Industrial/Organizational Psychology"
+    }, 
+    {
+        "author": "Strunk", 
+        "book_isbn": "9780205309023", 
+        "title": "Elements of Style (Foreword Angell)"
+    }, 
+    {
+        "author": "Rochat", 
+        "book_isbn": "9780205628483", 
+        "title": "Contrastes: Grammaire etc (Wkbk)"
+    }, 
+    {
+        "author": "Rochat", 
+        "book_isbn": "9780205646999", 
+        "title": "Contrastes: Grammaire etc (w/out MyFrenchLab)"
+    }, 
+    {
+        "author": "Kenrick", 
+        "book_isbn": "9780205698073", 
+        "title": "Social Psychology"
+    }, 
+    {
+        "author": "Green", 
+        "book_isbn": "9780205958603", 
+        "title": "Using SPSS for Windows & Mac"
+    }, 
+    {
+        "author": "Nevid", 
+        "book_isbn": "9780205961719", 
+        "title": "Abnormal Psychology In a Changing World"
+    }, 
+    {
+        "author": "Oltmanns", 
+        "book_isbn": "9780205970742", 
+        "title": "Abnormal Psychology"
+    }, 
+    {
+        "author": "Collins", 
+        "book_isbn": "9780226113722", 
+        "title": "Threads"
+    }, 
+    {
+        "author": "Sophocles", 
+        "book_isbn": "9780226311517", 
+        "title": "Sophocles I: Three Tragedies"
+    }, 
+    {
+        "author": "Kuhn", 
+        "book_isbn": "9780226458120", 
+        "title": "Structure of Scientific Revolutions (50th ANNIV ED)"
+    }, 
+    {
+        "author": "Lipson", 
+        "book_isbn": "9780226481265", 
+        "title": "How to Write a BA Thesis"
+    }, 
+    {
+        "author": "De Tocqueville", 
+        "book_isbn": "9780226805368", 
+        "title": "Democracy in America"
+    }, 
+    {
+        "author": "Shirane", 
+        "book_isbn": "9780231142373", 
+        "title": "Envisioning the Tale of Genji"
+    }, 
+    {
+        "author": "Bao", 
+        "book_isbn": "9780252073502", 
+        "title": "Holding up More Than Half the Sky"
+    }, 
+    {
+        "author": "Mohanty", 
+        "book_isbn": "9780253206329", 
+        "title": "Third World Women & Politics of Feminism"
+    }, 
+    {
+        "author": "Feinstein", 
+        "book_isbn": "9780253206374", 
+        "title": "Jazz Poetry Anthology"
+    }, 
+    {
+        "author": "Enstice", 
+        "book_isbn": "9780253344366", 
+        "title": "Jazzwomen"
+    }, 
+    {
+        "author": "Cormen", 
+        "book_isbn": "9780262033848", 
+        "title": "Intro to Algorithms"
+    }, 
+    {
+        "author": "Moore", 
+        "book_isbn": "9780262631532", 
+        "title": "Poetics of Gardens"
+    }, 
+    {
+        "author": "Thagard", 
+        "book_isbn": "9780262701099", 
+        "title": "Mind"
+    }, 
+    {
+        "author": "Aquinas", 
+        "book_isbn": "9780268016784", 
+        "title": "Summa Contra Gentiles (Bk1)"
+    }, 
+    {
+        "author": "McWilliams", 
+        "book_isbn": "9780275932244", 
+        "title": "North from Mexico (New Updated)"
+    }, 
+    {
+        "author": "Ramos", 
+        "book_isbn": "9780292701335", 
+        "title": "Barren Lives"
+    }, 
+    {
+        "author": "Perez Firmat", 
+        "book_isbn": "9780292735996", 
+        "title": "Life on the Hyphen"
+    }, 
+    {
+        "author": "Flores", 
+        "book_isbn": "9780295977461", 
+        "title": "Floating Borderlands"
+    }, 
+    {
+        "author": "Morse", 
+        "book_isbn": "9780295983301", 
+        "title": "Nature of Gold"
+    }, 
+    {
+        "author": "Thomas", 
+        "book_isbn": "9780295983981", 
+        "title": "Jack Ward Thomas"
+    }, 
+    {
+        "author": "Walker", 
+        "book_isbn": "9780295991382", 
+        "title": "Toxic Archipelago"
+    }, 
+    {
+        "author": "Xin", 
+        "book_isbn": "9780300094473", 
+        "title": "Three Thousand Years of Chinese Painting"
+    }, 
+    {
+        "author": "Wilken", 
+        "book_isbn": "9780300098396", 
+        "title": "Christians as Romans Saw Them"
+    }, 
+    {
+        "author": "Sandler", 
+        "book_isbn": "9780300103144", 
+        "title": "Democracy by Decree"
+    }, 
+    {
+        "author": "Hick", 
+        "book_isbn": "9780300106688", 
+        "title": "Interpretation of Religion"
+    }, 
+    {
+        "author": "Hamilton", 
+        "book_isbn": "9780300118902", 
+        "title": "Federalist Papers"
+    }, 
+    {
+        "author": "Wasserstein", 
+        "book_isbn": "9780300137637", 
+        "title": "Divided Jerusalem"
+    }, 
+    {
+        "author": "Frangieh", 
+        "book_isbn": "9780300141313", 
+        "title": "Arabic for Life (w/DVD)"
+    }, 
+    {
+        "author": "Martin", 
+        "book_isbn": "9780300180855", 
+        "title": "New Testament History & Literature"
+    }, 
+    {
+        "author": "Breyer", 
+        "book_isbn": "9780307274946", 
+        "title": "Active Liberty: Interpreting Our Democratic Constitution"
+    }, 
+    {
+        "author": "Dalrymple", 
+        "book_isbn": "9780307948533", 
+        "title": "Return of a King"
+    }, 
+    {
+        "author": "Bible", 
+        "book_isbn": "9780310436010", 
+        "title": "NIV Holy Bible"
+    }, 
+    {
+        "author": "Mancall", 
+        "book_isbn": "9780312096700", 
+        "title": "Envisioning America"
+    }, 
+    {
+        "author": "Howard", 
+        "book_isbn": "9780312119089", 
+        "title": "Tools of Screenwriting"
+    }, 
+    {
+        "author": "Greer", 
+        "book_isbn": "9780312167073", 
+        "title": "Jesuit Relations"
+    }, 
+    {
+        "author": "Richter", 
+        "book_isbn": "9780312201562", 
+        "title": "Falling into Theory"
+    }, 
+    {
+        "author": "Mankiller", 
+        "book_isbn": "9780312206628", 
+        "title": "Mankiller: Chief & Her People (Upd)"
+    }, 
+    {
+        "author": "Schwartz", 
+        "book_isbn": "9780312228170", 
+        "title": "Victors & Vanquished"
+    }, 
+    {
+        "author": "Shilts", 
+        "book_isbn": "9780312374631", 
+        "title": "And the Band Played On (20th Anniv Ed)"
+    }, 
+    {
+        "author": "Perdue", 
+        "book_isbn": "9780312415990", 
+        "title": "Cherokee Removal"
+    }, 
+    {
+        "author": "Nunez", 
+        "book_isbn": "9780312422738", 
+        "title": "Feather on the Breath of God"
+    }, 
+    {
+        "author": "Ross", 
+        "book_isbn": "9780312427719", 
+        "title": "Rest Is Noise"
+    }, 
+    {
+        "author": "Hacker", 
+        "book_isbn": "9780312542542", 
+        "title": "Pocket Style Manual"
+    }, 
+    {
+        "author": "Hunt", 
+        "book_isbn": "9780312583415", 
+        "title": "Making of the West (VB)"
+    }, 
+    {
+        "author": "Scalia", 
+        "book_isbn": "9780314184719", 
+        "title": "Making Your Case"
+    }, 
+    {
+        "author": "Collins", 
+        "book_isbn": "9780316014045", 
+        "title": "When Everything Changed"
+    }, 
+    {
+        "author": "Byrne", 
+        "book_isbn": "9780316220217", 
+        "title": "Occupy Handbook"
+    }, 
+    {
+        "author": "Degroot", 
+        "book_isbn": "9780321500465", 
+        "title": "Probability & Statistics"
+    }, 
+    {
+        "author": "Kuiper", 
+        "book_isbn": "9780321586018", 
+        "title": "Practicing Statistics (w/CD)"
+    }, 
+    {
+        "author": "Ross", 
+        "book_isbn": "9780321794772", 
+        "title": "First Course in Probability"
+    }, 
+    {
+        "author": "Kapit", 
+        "book_isbn": "9780321832016", 
+        "title": "Anatomy Coloring Book"
+    }, 
+    {
+        "author": "Griffiths", 
+        "book_isbn": "9780321856562", 
+        "title": "Intro to Electrodynamics"
+    }, 
+    {
+        "author": "Williams", 
+        "book_isbn": "9780321898685", 
+        "title": "Style: Lessons in Clarity & Grace (w/out Access Code)"
+    }, 
+    {
+        "author": "Patton", 
+        "book_isbn": "9780323101240", 
+        "title": "Human Body in Health & Disease"
+    }, 
+    {
+        "author": "Balseiro", 
+        "book_isbn": "9780325002118", 
+        "title": "Running Toward Us"
+    }, 
+    {
+        "author": "Armstrong", 
+        "book_isbn": "9780345391681", 
+        "title": "Jerusalem"
+    }, 
+    {
+        "author": "Wiesel", 
+        "book_isbn": "9780374500016", 
+        "title": "Night (with New Preface)"
+    }, 
+    {
+        "author": "Homer", 
+        "book_isbn": "9780374525743", 
+        "title": "Odyssey"
+    }, 
+    {
+        "author": "Pinsky", 
+        "book_isbn": "9780374526177", 
+        "title": "Sounds of Poetry"
+    }, 
+    {
+        "author": "Kincaid", 
+        "book_isbn": "9780374527075", 
+        "title": "Small Place"
+    }, 
+    {
+        "author": "Heschel", 
+        "book_isbn": "9780374529758", 
+        "title": "Sabbath (with '05 Intro)"
+    }, 
+    {
+        "author": "Kahneman", 
+        "book_isbn": "9780374533557", 
+        "title": "Thinking, Fast & Slow"
+    }, 
+    {
+        "author": "Herrigel", 
+        "book_isbn": "9780375705090", 
+        "title": "Zen in the Art of Archery (Trade Ed)"
+    }, 
+    {
+        "author": "Meisel", 
+        "book_isbn": "9780385009485", 
+        "title": "Rule of St Benedict"
+    }, 
+    {
+        "author": "Villarreal", 
+        "book_isbn": "9780385061186", 
+        "title": "Pocho"
+    }, 
+    {
+        "author": "Mamdani", 
+        "book_isbn": "9780385515375", 
+        "title": "Good Muslim, Bad Muslim"
+    }, 
+    {
+        "author": "Levenson", 
+        "book_isbn": "9780385722346", 
+        "title": "Secret Epidemic"
+    }, 
+    {
+        "author": "Lang", 
+        "book_isbn": "9780387964058", 
+        "title": "Calculus of Several Variables"
+    }, 
+    {
+        "author": "Cederberg", 
+        "book_isbn": "9780387989723", 
+        "title": "Course in Modern Geometries"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780393002867", 
+        "title": "Eight Tales from the Major Phase"
+    }, 
+    {
+        "author": "Varian", 
+        "book_isbn": "9780393123968", 
+        "title": "Intermediate Microeconomics"
+    }, 
+    {
+        "author": "Freud", 
+        "book_isbn": "9780393304510", 
+        "title": "Civilization & Its Discontents"
+    }, 
+    {
+        "author": "Cronon", 
+        "book_isbn": "9780393308730", 
+        "title": "Nature's Metropolis"
+    }, 
+    {
+        "author": "Huff", 
+        "book_isbn": "9780393310726", 
+        "title": "How to Lie with Statistics (Trade Ed)"
+    }, 
+    {
+        "author": "Appleby", 
+        "book_isbn": "9780393312867", 
+        "title": "Telling the Truth About History"
+    }, 
+    {
+        "author": "Mauss", 
+        "book_isbn": "9780393320435", 
+        "title": "Gift"
+    }, 
+    {
+        "author": "Donald", 
+        "book_isbn": "9780393323191", 
+        "title": "Mind So Rare"
+    }, 
+    {
+        "author": "Morgan", 
+        "book_isbn": "9780393324945", 
+        "title": "American Slavery, American Freedom (New Preface)"
+    }, 
+    {
+        "author": "Oakes", 
+        "book_isbn": "9780393330656", 
+        "title": "Radical & the Republican"
+    }, 
+    {
+        "author": "Marks", 
+        "book_isbn": "9780393347043", 
+        "title": "English Bible, King James Version"
+    }, 
+    {
+        "author": "Gazzaniga", 
+        "book_isbn": "9780393912760", 
+        "title": "Psychological Science (w/out EBook & SmartWork Access)"
+    }, 
+    {
+        "author": "Gazzaniga", 
+        "book_isbn": "9780393913064", 
+        "title": "Psychological Science (SG)"
+    }, 
+    {
+        "author": "Baym", 
+        "book_isbn": "9780393913095", 
+        "title": "Norton Anthology of Amer Lit (Set:VA/VB)"
+    }, 
+    {
+        "author": "Gazzaniga", 
+        "book_isbn": "9780393913484", 
+        "title": "Cognitive Neuroscience: Biology of Mind"
+    }, 
+    {
+        "author": "Blake", 
+        "book_isbn": "9780393924985", 
+        "title": "Poetry & Designs"
+    }, 
+    {
+        "author": "Brown", 
+        "book_isbn": "9780393958034", 
+        "title": "World of Late Antiquity"
+    }, 
+    {
+        "author": "Rhys", 
+        "book_isbn": "9780393960129", 
+        "title": "Wide Sargasso Sea"
+    }, 
+    {
+        "author": "Turneaure", 
+        "book_isbn": "9780393968231", 
+        "title": "Der Treffende Ausdruck"
+    }, 
+    {
+        "author": "Balzac", 
+        "book_isbn": "9780393971668", 
+        "title": "Pere Goriot"
+    }, 
+    {
+        "author": "Borroff", 
+        "book_isbn": "9780393976588", 
+        "title": "Sir Gawain & Green Knight/Patience/Pearl"
+    }, 
+    {
+        "author": "James", 
+        "book_isbn": "9780393977103", 
+        "title": "Tales of Henry James"
+    }, 
+    {
+        "author": "Enchi", 
+        "book_isbn": "9780394722184", 
+        "title": "Masks"
+    }, 
+    {
+        "author": "Said", 
+        "book_isbn": "9780394740676", 
+        "title": "Orientalism (25th Anniversary Ed)"
+    }, 
+    {
+        "author": "Spiegelman", 
+        "book_isbn": "9780394747231", 
+        "title": "Maus I"
+    }, 
+    {
+        "author": "Durrenmatt", 
+        "book_isbn": "9780395040898", 
+        "title": "Der Besuch der Alten Dame"
+    }, 
+    {
+        "author": "Weber", 
+        "book_isbn": "9780415254069", 
+        "title": "Protestant Ethic & Spirit of Capitalism"
+    }, 
+    {
+        "author": "Butler", 
+        "book_isbn": "9780415389556", 
+        "title": "Gender Trouble"
+    }, 
+    {
+        "author": "Brown", 
+        "book_isbn": "9780415471343", 
+        "title": "Death Of Christian Britain"
+    }, 
+    {
+        "author": "Lyden", 
+        "book_isbn": "9780415601870", 
+        "title": "Routledge Companion to Religion & Film"
+    }, 
+    {
+        "author": "Tan", 
+        "book_isbn": "9780415651165", 
+        "title": "Psychology of Music"
+    }, 
+    {
+        "author": "Collins", 
+        "book_isbn": "9780415964722", 
+        "title": "Black Feminist Thought"
+    }, 
+    {
+        "author": "Shakespeare", 
+        "book_isbn": "9780451526939", 
+        "title": "King Lear (w/GOLD & WHITE COVER)(New Rev)"
+    }, 
+    {
+        "author": "Ferre", 
+        "book_isbn": "9780452277489", 
+        "title": "Sweet Diamond Dust"
+    }, 
+    {
+        "author": "Gardner", 
+        "book_isbn": "9780465027736", 
+        "title": "Leading Minds"
+    }, 
+    {
+        "author": "Norman", 
+        "book_isbn": "9780465050659", 
+        "title": "Design of Everyday Things"
+    }, 
+    {
+        "author": "Newman", 
+        "book_isbn": "9780465051045", 
+        "title": "Rampage"
+    }, 
+    {
+        "author": "Weitzman", 
+        "book_isbn": "9780465090747", 
+        "title": "Not to People Like Us: Abuse in Upscale Families"
+    }, 
+    {
+        "author": "Cheung", 
+        "book_isbn": "9780470456873", 
+        "title": "Getting Started with Mathematica"
+    }, 
+    {
+        "author": "Voet", 
+        "book_isbn": "9780470547847", 
+        "title": "Fund of Biochemistry"
+    }, 
+    {
+        "author": "Blank", 
+        "book_isbn": "9780470601983", 
+        "title": "Calculus"
+    }, 
+    {
+        "author": "Kowalski", 
+        "book_isbn": "9780470646441", 
+        "title": "Psychology"
+    }, 
+    {
+        "author": "Halliday", 
+        "book_isbn": "9780471401940", 
+        "title": "Physics (V2)"
+    }, 
+    {
+        "author": "Niven", 
+        "book_isbn": "9780471625469", 
+        "title": "Intro to Theory of Numbers"
+    }, 
+    {
+        "author": "Young", 
+        "book_isbn": "9780471727767", 
+        "title": "Vivelo! (w/out Access Code)"
+    }, 
+    {
+        "author": "Young", 
+        "book_isbn": "9780471727774", 
+        "title": "Vivelo! (Activities Manual)"
+    }, 
+    {
+        "author": "Finch", 
+        "book_isbn": "9780472067251", 
+        "title": "Exaltation of Forms"
+    }, 
+    {
+        "author": "Stern", 
+        "book_isbn": "9780486204222", 
+        "title": "Essential German Grammar"
+    }, 
+    {
+        "author": "Weaver", 
+        "book_isbn": "9780486243429", 
+        "title": "Lady Luck: Theory of Probability"
+    }, 
+    {
+        "author": "Austen", 
+        "book_isbn": "9780486284736", 
+        "title": "Pride & Prejudice"
+    }, 
+    {
+        "author": "Jacobs", 
+        "book_isbn": "9780486419312", 
+        "title": "Incidents in Life of Slave Girl"
+    }, 
+    {
+        "author": "Damiano", 
+        "book_isbn": "9780486469089", 
+        "title": "Course in Linear Algebra"
+    }, 
+    {
+        "author": "Euclid", 
+        "book_isbn": "9780486600888", 
+        "title": "Thirteen Books of the Elements (V1:Books I & II)"
+    }, 
+    {
+        "author": "Rosenlicht", 
+        "book_isbn": "9780486650388", 
+        "title": "Intro to Analysis"
+    }, 
+    {
+        "author": "Stewart", 
+        "book_isbn": "9780495011637", 
+        "title": "Calculus: Multivariable"
+    }, 
+    {
+        "author": "Joselit", 
+        "book_isbn": "9780500203682", 
+        "title": "American Art since 1945"
+    }, 
+    {
+        "author": "Wilson", 
+        "book_isbn": "9780520023994", 
+        "title": "Crazy February"
+    }, 
+    {
+        "author": "White", 
+        "book_isbn": "9780520039858", 
+        "title": "Stravinsky: Composer & His Works"
+    }, 
+    {
+        "author": "Thacker", 
+        "book_isbn": "9780520056299", 
+        "title": "History of Gardens"
+    }, 
+    {
+        "author": "Armes", 
+        "book_isbn": "9780520056909", 
+        "title": "Third World Film Making & the West"
+    }, 
+    {
+        "author": "Mitchell", 
+        "book_isbn": "9780520075689", 
+        "title": "Colonizing Egypt"
+    }, 
+    {
+        "author": "Bender", 
+        "book_isbn": "9780520077799", 
+        "title": "Antislavery Debate"
+    }, 
+    {
+        "author": "Mahomet", 
+        "book_isbn": "9780520207172", 
+        "title": "Travels of Dean Mahomet"
+    }, 
+    {
+        "author": "Benvenisti", 
+        "book_isbn": "9780520207684", 
+        "title": "City of Stone"
+    }, 
+    {
+        "author": "Caton", 
+        "book_isbn": "9780520210837", 
+        "title": "Lawrence of Arabia"
+    }, 
+    {
+        "author": "Enloe", 
+        "book_isbn": "9780520229129", 
+        "title": "Bananas, Beaches & Bases (Upd w/New Preface)"
+    }, 
+    {
+        "author": "Rosen", 
+        "book_isbn": "9780520233379", 
+        "title": "Making Sweatshops"
+    }, 
+    {
+        "author": "Jacoby", 
+        "book_isbn": "9780520239098", 
+        "title": "Crimes Against Nature"
+    }, 
+    {
+        "author": "McAlister", 
+        "book_isbn": "9780520244993", 
+        "title": "Epic Encounters (Upd)"
+    }, 
+    {
+        "author": "Quinn", 
+        "book_isbn": "9780520245662", 
+        "title": "Introduction to California Chaparral"
+    }, 
+    {
+        "author": "Portes", 
+        "book_isbn": "9780520250413", 
+        "title": "Immigrant America"
+    }, 
+    {
+        "author": "Froese", 
+        "book_isbn": "9780520255296", 
+        "title": "Plot to Kill God"
+    }, 
+    {
+        "author": "Sullivan", 
+        "book_isbn": "9780520255692", 
+        "title": "Arts of China"
+    }, 
+    {
+        "author": "Hernandez", 
+        "book_isbn": "9780520266414", 
+        "title": "Migra: History of the U.S. Border Patrol"
+    }, 
+    {
+        "author": "Wolf", 
+        "book_isbn": "9780520268180", 
+        "title": "Europe & People w/o History"
+    }, 
+    {
+        "author": "Chang", 
+        "book_isbn": "9780520271692", 
+        "title": "Pacific Connections"
+    }, 
+    {
+        "author": "Locke", 
+        "book_isbn": "9780521357302", 
+        "title": "Two Treatises of Government"
+    }, 
+    {
+        "author": "Novick", 
+        "book_isbn": "9780521357456", 
+        "title": "That Noble Dream"
+    }, 
+    {
+        "author": "Montesquieu", 
+        "book_isbn": "9780521369749", 
+        "title": "Spirit of Laws"
+    }, 
+    {
+        "author": "Arnold", 
+        "book_isbn": "9780521377966", 
+        "title": "Culture & Anarchy & Other Writings"
+    }, 
+    {
+        "author": "Bayly", 
+        "book_isbn": "9780521798426", 
+        "title": "Caste, Society & Politics In India"
+    }, 
+    {
+        "author": "Cha", 
+        "book_isbn": "9780521849661", 
+        "title": "Fund of Signals & Systems (w/CD)"
+    }, 
+    {
+        "author": "Damschroder", 
+        "book_isbn": "9780534595524", 
+        "title": "Foundations of Music & Musicianship (w/CD)"
+    }, 
+    {
+        "author": "Mankiw", 
+        "book_isbn": "9780538453080", 
+        "title": "Essen of Economics (w/out CengageNowAccessCode)"
+    }, 
+    {
+        "author": "Baumol", 
+        "book_isbn": "9780538453653", 
+        "title": "Macroeconomics (w/out APLIA Access & Aplia Sticker)"
+    }, 
+    {
+        "author": "Baumol", 
+        "book_isbn": "9780538453677", 
+        "title": "Economics"
+    }, 
+    {
+        "author": "Stewart", 
+        "book_isbn": "9780538497909", 
+        "title": "Calculus: Early Trans (w/o SSM)"
+    }, 
+    {
+        "author": "Burden", 
+        "book_isbn": "9780538733519", 
+        "title": "Numerical Analysis"
+    }, 
+    {
+        "author": "Dick", 
+        "book_isbn": "9780547572291", 
+        "title": "Ubik"
+    }, 
+    {
+        "author": "Tolstoy", 
+        "book_isbn": "9780553210354", 
+        "title": "Death of Ivan Ilych"
+    }, 
+    {
+        "author": "Miller", 
+        "book_isbn": "9780553213652", 
+        "title": "Bhagavad-Gita (Rack Size)"
+    }, 
+    {
+        "author": "Rodriguez", 
+        "book_isbn": "9780553272932", 
+        "title": "Hunger of Memory (Rack Size)"
+    }, 
+    {
+        "author": "Aidoo", 
+        "book_isbn": "9780582308459", 
+        "title": "Our Sister Killjoy"
+    }, 
+    {
+        "author": "Sperber", 
+        "book_isbn": "9780631200451", 
+        "title": "Explaining Culture"
+    }, 
+    {
+        "author": "Stam", 
+        "book_isbn": "9780631206545", 
+        "title": "Film Theory: Intro"
+    }, 
+    {
+        "author": "Brown", 
+        "book_isbn": "9780631228516", 
+        "title": "The Life of W. B. Yeats"
+    }, 
+    {
+        "author": "Shostak", 
+        "book_isbn": "9780674004320", 
+        "title": "Nisa: Life & Words of a !Kung Woman"
+    }, 
+    {
+        "author": "Williams", 
+        "book_isbn": "9780674014718", 
+        "title": "Alchemy of Race & Rights"
+    }, 
+    {
+        "author": "Haney Lopez", 
+        "book_isbn": "9780674016293", 
+        "title": "Racism on Trial: Chicano Fight for Justice"
+    }, 
+    {
+        "author": "Schreibman", 
+        "book_isbn": "9780674025691", 
+        "title": "Science & Fiction of Autism"
+    }, 
+    {
+        "author": "Ackerman", 
+        "book_isbn": "9780674050297", 
+        "title": "We the People, Vol  3: Civil Rights Revolution"
+    }, 
+    {
+        "author": "Abu-Lughod", 
+        "book_isbn": "9780674725164", 
+        "title": "Do Muslim Women Need Saving?"
+    }, 
+    {
+        "author": "Davis", 
+        "book_isbn": "9780674766914", 
+        "title": "Return of Martin Guerre"
+    }, 
+    {
+        "author": "Camus", 
+        "book_isbn": "9780679720201", 
+        "title": "Stranger (Trade Ed)"
+    }, 
+    {
+        "author": "Kingston", 
+        "book_isbn": "9780679721888", 
+        "title": "Woman Warrior (Trade Ed)"
+    }, 
+    {
+        "author": "De Tocqueville", 
+        "book_isbn": "9780679728252", 
+        "title": "Democracy in America (Trade Ed) (V1)"
+    }, 
+    {
+        "author": "Camus", 
+        "book_isbn": "9780679733737", 
+        "title": "Myth of Sisyphus etc (Trade Ed)"
+    }, 
+    {
+        "author": "Ulrich", 
+        "book_isbn": "9780679733768", 
+        "title": "Midwife's Tale"
+    }, 
+    {
+        "author": "Foucault", 
+        "book_isbn": "9780679752554", 
+        "title": "Discipline & Punish"
+    }, 
+    {
+        "author": "Davis", 
+        "book_isbn": "9780679771265", 
+        "title": "Blues Legacies & Black Feminism"
+    }, 
+    {
+        "author": "Gilligan", 
+        "book_isbn": "9780679779124", 
+        "title": "Violence"
+    }, 
+    {
+        "author": "Olson", 
+        "book_isbn": "9780684850139", 
+        "title": "Freedom's Daughters: Unsung Heroines of Civil Rights etc"
+    }, 
+    {
+        "author": "Scalia", 
+        "book_isbn": "9780691004006", 
+        "title": "Matter of Interpretation"
+    }, 
+    {
+        "author": "Walter", 
+        "book_isbn": "9780691139593", 
+        "title": "Analyzing the Global Political Economy"
+    }, 
+    {
+        "author": "Chatterjee", 
+        "book_isbn": "9780691152011", 
+        "title": "Black Hole of Empire - History of a Global Practice of Power"
+    }, 
+    {
+        "author": "West", 
+        "book_isbn": "9780700610297", 
+        "title": "Contested Plains"
+    }, 
+    {
+        "author": "Skillen", 
+        "book_isbn": "9780700618958", 
+        "title": "Nation's Largest Landlord"
+    }, 
+    {
+        "author": "Goolsbee", 
+        "book_isbn": "9780716759751", 
+        "title": "Microeconomics (w/out AccessCode)"
+    }, 
+    {
+        "author": "Harris", 
+        "book_isbn": "9780716770411", 
+        "title": "Quantitative Chemical Analysis"
+    }, 
+    {
+        "author": "Abraham", 
+        "book_isbn": "9780742558953", 
+        "title": "Justices, Presidents & Senators"
+    }, 
+    {
+        "author": "Delillo", 
+        "book_isbn": "9780743203968", 
+        "title": "Body Artist (Trade Ed)"
+    }, 
+    {
+        "author": "Yeats", 
+        "book_isbn": "9780743227988", 
+        "title": "Yeats Reader"
+    }, 
+    {
+        "author": "Shakespeare", 
+        "book_isbn": "9780743273282", 
+        "title": "Sonnets & Poems (Trade Ed)"
+    }, 
+    {
+        "author": "Shakespeare", 
+        "book_isbn": "9780743482752", 
+        "title": "Much Ado About Nothing"
+    }, 
+    {
+        "author": "Lambie", 
+        "book_isbn": "9780745330105", 
+        "title": "Cuban Revolution in the 21st Century"
+    }, 
+    {
+        "author": "Wajcman", 
+        "book_isbn": "9780745630441", 
+        "title": "TechnoFeminism"
+    }, 
+    {
+        "author": "Hann", 
+        "book_isbn": "9780745644837", 
+        "title": "Economic Anthropology"
+    }, 
+    {
+        "author": "Alexander", 
+        "book_isbn": "9780752843919", 
+        "title": "Use of the Self"
+    }, 
+    {
+        "author": "Landers", 
+        "book_isbn": "9780759108158", 
+        "title": "After the Passion Is Gone"
+    }, 
+    {
+        "author": "Zuckerman", 
+        "book_isbn": "9780761928713", 
+        "title": "Social Theory of W.E.B. Du Bois"
+    }, 
+    {
+        "author": "Adams", 
+        "book_isbn": "9780761987802", 
+        "title": "Classical Sociological Theory"
+    }, 
+    {
+        "author": "Bear", 
+        "book_isbn": "9780781760034", 
+        "title": "Neuroscience (w/CD)"
+    }, 
+    {
+        "author": "Cooper", 
+        "book_isbn": "9780787286989", 
+        "title": "Calculus & Mathematical Reasoning for Social & Life Sciences"
+    }, 
+    {
+        "author": "Taylor", 
+        "book_isbn": "9780791426463", 
+        "title": "Ecological Resistance Movements"
+    }, 
+    {
+        "author": "Lindberg", 
+        "book_isbn": "9780800625696", 
+        "title": "Beyond Charity"
+    }, 
+    {
+        "author": "Collins", 
+        "book_isbn": "9780800662073", 
+        "title": "Short Intro to Hebrew Bible"
+    }, 
+    {
+        "author": "Endo", 
+        "book_isbn": "9780800871864", 
+        "title": "Silence"
+    }, 
+    {
+        "author": "Boyd", 
+        "book_isbn": "9780801062902", 
+        "title": "God of Possible"
+    }, 
+    {
+        "author": "West", 
+        "book_isbn": "9780801485749", 
+        "title": "Four Texts on Socrates"
+    }, 
+    {
+        "author": "Thomas", 
+        "book_isbn": "9780801888526", 
+        "title": "Madisonian Constitution"
+    }, 
+    {
+        "author": "Genet", 
+        "book_isbn": "9780802130143", 
+        "title": "Thief's Journal"
+    }, 
+    {
+        "author": "Schneebaum", 
+        "book_isbn": "9780802131331", 
+        "title": "Keep the River on Your Right"
+    }, 
+    {
+        "author": "Fanon", 
+        "book_isbn": "9780802141323", 
+        "title": "Wretched of the Earth (New Trans Philcox)"
+    }, 
+    {
+        "author": "Beckett", 
+        "book_isbn": "9780802144393", 
+        "title": "Endgame & Act Without Words I"
+    }, 
+    {
+        "author": "Stackhouse", 
+        "book_isbn": "9780802806260", 
+        "title": "On Moral Business"
+    }, 
+    {
+        "author": "Hastings", 
+        "book_isbn": "9780802848758", 
+        "title": "World History of Christianity"
+    }, 
+    {
+        "author": "Rossi", 
+        "book_isbn": "9780803287648", 
+        "title": "Museum of Useless Efforts"
+    }, 
+    {
+        "author": "Newman", 
+        "book_isbn": "9780804726481", 
+        "title": "Fetal Positions"
+    }, 
+    {
+        "author": "Gelb", 
+        "book_isbn": "9780805042061", 
+        "title": "Body Learning"
+    }, 
+    {
+        "author": "Biale", 
+        "book_isbn": "9780805210491", 
+        "title": "Women & Jewish Law w/New Afterword"
+    }, 
+    {
+        "author": "Morris", 
+        "book_isbn": "9780805853292", 
+        "title": "Practice of Child Therapy"
+    }, 
+    {
+        "author": "Byrne", 
+        "book_isbn": "9780805863734", 
+        "title": "Structural Equation Modeling With AMOS"
+    }, 
+    {
+        "author": "Orleck", 
+        "book_isbn": "9780807845110", 
+        "title": "Common Sense & a Little Fire"
+    }, 
+    {
+        "author": "Delafuente", 
+        "book_isbn": "9780807849224", 
+        "title": "Nation for All"
+    }, 
+    {
+        "author": "Cronon", 
+        "book_isbn": "9780809016341", 
+        "title": "Changes in Land (20th Anniv Ed)"
+    }, 
+    {
+        "author": "Baker", 
+        "book_isbn": "9780809087037", 
+        "title": "Sisters: Lives of America's Suffragists"
+    }, 
+    {
+        "author": "Christensen", 
+        "book_isbn": "9780811214773", 
+        "title": "Alphabet"
+    }, 
+    {
+        "author": "Levertov", 
+        "book_isbn": "9780811215541", 
+        "title": "Selected Poems"
+    }, 
+    {
+        "author": "Williams", 
+        "book_isbn": "9780811218917", 
+        "title": "Spring & All"
+    }, 
+    {
+        "author": "Berssenbrugge", 
+        "book_isbn": "9780811220910", 
+        "title": "Hello, the Roses"
+    }, 
+    {
+        "author": "Amar", 
+        "book_isbn": "9780812972726", 
+        "title": "America's Constitution"
+    }, 
+    {
+        "author": "Kidder", 
+        "book_isbn": "9780812973013", 
+        "title": "Mountains Beyond Mountains"
+    }, 
+    {
+        "author": "Roy", 
+        "book_isbn": "9780812979657", 
+        "title": "God of Small Things"
+    }, 
+    {
+        "author": "Kapadia", 
+        "book_isbn": "9780813334912", 
+        "title": "Siva & Her Sisters: Gender,Caste & Class in Rural So India"
+    }, 
+    {
+        "author": "Levin", 
+        "book_isbn": "9780813339221", 
+        "title": "Hate Crimes Revisited"
+    }, 
+    {
+        "author": "Salzmann", 
+        "book_isbn": "9780813345406", 
+        "title": "Language, Culture & Society"
+    }, 
+    {
+        "author": "Rossum", 
+        "book_isbn": "9780813347479", 
+        "title": "American Constitutional Law (V2)"
+    }, 
+    {
+        "author": "Martin", 
+        "book_isbn": "9780813388304", 
+        "title": "Screening the Sacred"
+    }, 
+    {
+        "author": "Alea", 
+        "book_isbn": "9780813515373", 
+        "title": "Memories of Underdevelopment"
+    }, 
+    {
+        "author": "Brodkin", 
+        "book_isbn": "9780813525907", 
+        "title": "How Jews Became White Folks"
+    }, 
+    {
+        "author": "Dill", 
+        "book_isbn": "9780813544557", 
+        "title": "Emerging Intersections"
+    }, 
+    {
+        "author": "Contreras", 
+        "book_isbn": "9780813544823", 
+        "title": "In the Shadow of the Giant"
+    }, 
+    {
+        "author": "Brook", 
+        "book_isbn": "9780813554563", 
+        "title": "Land of Smoke & Mirrors"
+    }, 
+    {
+        "author": "Hume", 
+        "book_isbn": "9780813913230", 
+        "title": "Martin's Hundred (Rev & Exp)"
+    }, 
+    {
+        "author": "Djebar", 
+        "book_isbn": "9780813918808", 
+        "title": "Women of Algiers in Their Apartment"
+    }, 
+    {
+        "author": "Ohio State", 
+        "book_isbn": "9780814251799", 
+        "title": "Language Files"
+    }, 
+    {
+        "author": "Baskin", 
+        "book_isbn": "9780814327135", 
+        "title": "Jewish Women in Historical Perspective"
+    }, 
+    {
+        "author": "Alsultany", 
+        "book_isbn": "9780814707326", 
+        "title": "Arabs & Muslims in the Media"
+    }, 
+    {
+        "author": "Delgado", 
+        "book_isbn": "9780814721353", 
+        "title": "Critical Race Theory: Intro"
+    }, 
+    {
+        "author": "Gomez", 
+        "book_isbn": "9780814732052", 
+        "title": "Manifest Destinies"
+    }, 
+    {
+        "author": "Zuckerman", 
+        "book_isbn": "9780814797235", 
+        "title": "Society Without God"
+    }, 
+    {
+        "author": "Frankenberg", 
+        "book_isbn": "9780816622580", 
+        "title": "White Women, Race Matters"
+    }, 
+    {
+        "author": "Rafael", 
+        "book_isbn": "9780822325420", 
+        "title": "White Love & Other Events in Filipino History"
+    }, 
+    {
+        "author": "Castillo Bueno", 
+        "book_isbn": "9780822325932", 
+        "title": "Reyita"
+    }, 
+    {
+        "author": "Ho", 
+        "book_isbn": "9780822345992", 
+        "title": "Liquidated"
+    }, 
+    {
+        "author": "Fernandes", 
+        "book_isbn": "9780822346777", 
+        "title": "Who Can Stop the Drums?"
+    }, 
+    {
+        "author": "Imada", 
+        "book_isbn": "9780822352075", 
+        "title": "Aloha America"
+    }, 
+    {
+        "author": "Greenberg", 
+        "book_isbn": "9780827602267", 
+        "title": "On Women & Judaism"
+    }, 
+    {
+        "author": "Jewish Pubn Society", 
+        "book_isbn": "9780827603660", 
+        "title": "Tanakh: Holy Scriptures: Student Ed"
+    }, 
+    {
+        "author": "Atkinson", 
+        "book_isbn": "9780830812295", 
+        "title": "MESSAGE OF GENESIS 1-11"
+    }, 
+    {
+        "author": "Bouvard", 
+        "book_isbn": "9780842024877", 
+        "title": "Revolutionizing Motherhood"
+    }, 
+    {
+        "author": "Dechungara", 
+        "book_isbn": "9780853454854", 
+        "title": "Let Me Speak"
+    }, 
+    {
+        "author": "Plato", 
+        "book_isbn": "9780872201361", 
+        "title": "Republic (Trans Grube)"
+    }, 
+    {
+        "author": "Dostoyevsky", 
+        "book_isbn": "9780872201934", 
+        "title": "Grand Inquisitor"
+    }, 
+    {
+        "author": "Tzu", 
+        "book_isbn": "9780872202320", 
+        "title": "Tao Te Ching"
+    }, 
+    {
+        "author": "Euripides", 
+        "book_isbn": "9780872203921", 
+        "title": "Bacchae"
+    }, 
+    {
+        "author": "Spinoza", 
+        "book_isbn": "9780872206076", 
+        "title": "Theological-Political Treatise"
+    }, 
+    {
+        "author": "Harvey", 
+        "book_isbn": "9780872209442", 
+        "title": "Writing with Sources: Guide for Students"
+    }, 
+    {
+        "author": "Douglass", 
+        "book_isbn": "9780872865273", 
+        "title": "Narrative of the Life of Frederick Douglass, an American Slave, Written by Himself"
+    }, 
+    {
+        "author": "Strohmaier", 
+        "book_isbn": "9780874177800", 
+        "title": "Drift Smoke"
+    }, 
+    {
+        "author": "Rothman", 
+        "book_isbn": "9780874179255", 
+        "title": "Death Valley National Park"
+    }, 
+    {
+        "author": "Aparicio", 
+        "book_isbn": "9780874518177", 
+        "title": "Tropicalizations"
+    }, 
+    {
+        "author": "Pyne", 
+        "book_isbn": "9780878425440", 
+        "title": "Year of the Fires"
+    }, 
+    {
+        "author": "Meyer", 
+        "book_isbn": "9780878935109", 
+        "title": "Psychopharmacology"
+    }, 
+    {
+        "author": "Taiz", 
+        "book_isbn": "9780878935116", 
+        "title": "Plant Physiology (Loosepages)"
+    }, 
+    {
+        "author": "Hill", 
+        "book_isbn": "9780878935598", 
+        "title": "Animal Physiology"
+    }, 
+    {
+        "author": "Wolfe", 
+        "book_isbn": "9780878935727", 
+        "title": "Sensation & Perception"
+    }, 
+    {
+        "author": "Ward", 
+        "book_isbn": "9780879079345", 
+        "title": "Lives of Desert Fathers"
+    }, 
+    {
+        "author": "Clippinger", 
+        "book_isbn": "9780880115315", 
+        "title": "Dance Anatomy & Kinesiology"
+    }, 
+    {
+        "author": "Stine", 
+        "book_isbn": "9780890300718", 
+        "title": "America's Forested Wetlands"
+    }, 
+    {
+        "author": "Laduke", 
+        "book_isbn": "9780896085992", 
+        "title": "All Our Relations"
+    }, 
+    {
+        "author": "Moraga", 
+        "book_isbn": "9780896086265", 
+        "title": "Loving in the War Years (Exp)"
+    }, 
+    {
+        "author": "Louie", 
+        "book_isbn": "9780896086388", 
+        "title": "Sweatshop Warriors"
+    }, 
+    {
+        "author": "Roy", 
+        "book_isbn": "9780896086685", 
+        "title": "Power Politics"
+    }, 
+    {
+        "author": "Banerjee", 
+        "book_isbn": "9780898864380", 
+        "title": "Artic National Wildlife Refuge"
+    }, 
+    {
+        "author": "Beccaria", 
+        "book_isbn": "9780915145973", 
+        "title": "On Crimes & Punishment"
+    }, 
+    {
+        "author": "Mines", 
+        "book_isbn": "9780924304552", 
+        "title": "Caste in India"
+    }, 
+    {
+        "author": "Halsey", 
+        "book_isbn": "9780932653697", 
+        "title": "Fire, Chaparral, & Survival in Southern California"
+    }, 
+    {
+        "author": "Euripides", 
+        "book_isbn": "9780941051866", 
+        "title": "Hippolytus"
+    }, 
+    {
+        "author": "Darling Models", 
+        "book_isbn": "9780964883710", 
+        "title": "Molecular Visions Model Kit"
+    }, 
+    {
+        "author": "BERVIN", 
+        "book_isbn": "9780972768436", 
+        "title": "NETS"
+    }, 
+    {
+        "author": "Zurita", 
+        "book_isbn": "9780979975578", 
+        "title": "Song for his Disappeared Love"
+    }, 
+    {
+        "author": "Loudon", 
+        "book_isbn": "9780981519432", 
+        "title": "Organic Chemistry"
+    }, 
+    {
+        "author": "Garcia", 
+        "book_isbn": "9780982354261", 
+        "title": "Other Countries"
+    }, 
+    {
+        "author": "Green", 
+        "book_isbn": "9781107627796", 
+        "title": "Bombay Islam"
+    }, 
+    {
+        "author": "Anderson", 
+        "book_isbn": "9781107645448", 
+        "title": "Subaltern Lives"
+    }, 
+    {
+        "author": "Gravetter", 
+        "book_isbn": "9781111342258", 
+        "title": "Research Methods for Beh Sciences"
+    }, 
+    {
+        "author": "Wooldridge", 
+        "book_isbn": "9781111531041", 
+        "title": "Introductory Econometrics (w/out Access Card)"
+    }, 
+    {
+        "author": "Ryckman", 
+        "book_isbn": "9781111830663", 
+        "title": "Theories of Personality"
+    }, 
+    {
+        "author": "Kesselman", 
+        "book_isbn": "9781111831820", 
+        "title": "Intro to Comparative Politics"
+    }, 
+    {
+        "author": "Shaffer", 
+        "book_isbn": "9781111834524", 
+        "title": "Developmental Psychology Childhood & Adolescence"
+    }, 
+    {
+        "author": "Baumol", 
+        "book_isbn": "9781111969929", 
+        "title": "Economics (SG)"
+    }, 
+    {
+        "author": "Baumol", 
+        "book_isbn": "9781111969998", 
+        "title": "Macroeconomics (SG)"
+    }, 
+    {
+        "author": "Zubrick", 
+        "book_isbn": "9781118083390", 
+        "title": "Organic Chem Lab Survival Manual"
+    }, 
+    {
+        "author": "Dominicis", 
+        "book_isbn": "9781118509319", 
+        "title": "Repase y Escriba"
+    }, 
+    {
+        "author": "Pedace", 
+        "book_isbn": "9781118533840", 
+        "title": "Econometrics for Dummies"
+    }, 
+    {
+        "author": "Sipser", 
+        "book_isbn": "9781133187790", 
+        "title": "Intro to Theory of Computation"
+    }, 
+    {
+        "author": "Knapp", 
+        "book_isbn": "9781133187899", 
+        "title": "Contemporary Auditing"
+    }, 
+    {
+        "author": "Mann", 
+        "book_isbn": "9781133587576", 
+        "title": "Business Law & Regulation etc"
+    }, 
+    {
+        "author": "Feinberg", 
+        "book_isbn": "9781133608479", 
+        "title": "Reason & Responsibility (w/out Writing Philosophy Papers)"
+    }, 
+    {
+        "author": "Johnstone", 
+        "book_isbn": "9781133939153", 
+        "title": "Auditing (w/ACL CD)"
+    }, 
+    {
+        "author": "Niose", 
+        "book_isbn": "9781137278715", 
+        "title": "Nonbeliever Nation"
+    }, 
+    {
+        "author": "Gantos", 
+        "book_isbn": "9781250010230", 
+        "title": "Dead End in Norvelt"
+    }, 
+    {
+        "author": "Vanvoorst", 
+        "book_isbn": "9781285197425", 
+        "title": "Readings in Christianity"
+    }, 
+    {
+        "author": "Keller", 
+        "book_isbn": "9781285425450", 
+        "title": "Statistics for Mgmt & Econ"
+    }, 
+    {
+        "author": "Poole", 
+        "book_isbn": "9781285463247", 
+        "title": "Linear Algebra (w/out AccessCode)"
+    }, 
+    {
+        "author": "Weil", 
+        "book_isbn": "9781285990798", 
+        "title": "Financial Accounting (Looseleaf+SSM Package)"
+    }, 
+    {
+        "author": "Gandhi", 
+        "book_isbn": "9781400030507", 
+        "title": "Essen Gandhi"
+    }, 
+    {
+        "author": "Morrison", 
+        "book_isbn": "9781400033416", 
+        "title": "Beloved (with New Foreword)"
+    }, 
+    {
+        "author": "Kandel", 
+        "book_isbn": "9781400068715", 
+        "title": "Age of Insight"
+    }, 
+    {
+        "author": "Jasanoff", 
+        "book_isbn": "9781400075461", 
+        "title": "Edge of Empire"
+    }, 
+    {
+        "author": "Bird", 
+        "book_isbn": "9781403940049", 
+        "title": "Intro to International Macroeconomics"
+    }, 
+    {
+        "author": "ALLATSON", 
+        "book_isbn": "9781405102513", 
+        "title": "Key Terms in Latino/a Cultural & Literary Studies"
+    }, 
+    {
+        "author": "Singer", 
+        "book_isbn": "9781405105842", 
+        "title": "Moral of the Story"
+    }, 
+    {
+        "author": "Burke", 
+        "book_isbn": "9781405110495", 
+        "title": "Major Religions"
+    }, 
+    {
+        "author": "Brown", 
+        "book_isbn": "9781405158077", 
+        "title": "New Intro to Islam"
+    }, 
+    {
+        "author": "Hayes", 
+        "book_isbn": "9781405184113", 
+        "title": "Introductory Phonology"
+    }, 
+    {
+        "author": "Garval", 
+        "book_isbn": "9781409406037", 
+        "title": "Cleo de Merode & the Rise of Modern Celebrity Culture"
+    }, 
+    {
+        "author": "Honing", 
+        "book_isbn": "9781412852920", 
+        "title": "Musical Cognition"
+    }, 
+    {
+        "author": "Edles", 
+        "book_isbn": "9781412975643", 
+        "title": "Sociological Theory in Classical Era"
+    }, 
+    {
+        "author": "Costanzo", 
+        "book_isbn": "9781429205788", 
+        "title": "Forensic & Legal Psychology"
+    }, 
+    {
+        "author": "Comer", 
+        "book_isbn": "9781429216319", 
+        "title": "Abnormal Psychology"
+    }, 
+    {
+        "author": "Atkins", 
+        "book_isbn": "9781429218122", 
+        "title": "Physical Chemistry"
+    }, 
+    {
+        "author": "Mankiw", 
+        "book_isbn": "9781429218870", 
+        "title": "Macroeconomics"
+    }, 
+    {
+        "author": "Nolan", 
+        "book_isbn": "9781429232654", 
+        "title": "Statistics for Behavioral Sciences"
+    }, 
+    {
+        "author": "Feenstra", 
+        "book_isbn": "9781429278447", 
+        "title": "International Trade"
+    }, 
+    {
+        "author": "Krugman", 
+        "book_isbn": "9781429283427", 
+        "title": "Microeconomics (TEXT ONLY)"
+    }, 
+    {
+        "author": "Amer Psychol Assn", 
+        "book_isbn": "9781433805615", 
+        "title": "Publication Manual of APA"
+    }, 
+    {
+        "author": "Tarr", 
+        "book_isbn": "9781435462397", 
+        "title": "Judicial Process & Judicial Policymaking"
+    }, 
+    {
+        "author": "Monaghan", 
+        "book_isbn": "9781444335316", 
+        "title": "Cultural Approach to Interpersonal Communication"
+    }, 
+    {
+        "author": "Hudson", 
+        "book_isbn": "9781451536140", 
+        "title": "Green Mansions"
+    }, 
+    {
+        "author": "Northouse", 
+        "book_isbn": "9781452203409", 
+        "title": "Leadership Theory & Practice"
+    }, 
+    {
+        "author": "Coombs", 
+        "book_isbn": "9781452261362", 
+        "title": "Ongoing Crisis Communication"
+    }, 
+    {
+        "author": "Netter", 
+        "book_isbn": "9781455704187", 
+        "title": "Atlas of Human Anatomy (w/Bind-in Access Code)"
+    }, 
+    {
+        "author": "Mash", 
+        "book_isbn": "9781462516681", 
+        "title": "Child Psychopathology"
+    }, 
+    {
+        "author": "Hunt", 
+        "book_isbn": "9781469613925", 
+        "title": "Arc of Empire"
+    }, 
+    {
+        "author": "Durkheim", 
+        "book_isbn": "9781476749723", 
+        "title": "Rules of Sociological Method"
+    }, 
+    {
+        "author": "Rifaat", 
+        "book_isbn": "9781478611288", 
+        "title": "Distant View of a Minaret & Other Stories"
+    }, 
+    {
+        "author": "Sand", 
+        "book_isbn": "9781495472091", 
+        "title": "Fadette"
+    }, 
+    {
+        "author": "Shelley", 
+        "book_isbn": "9781554811038", 
+        "title": "Frankenstein"
+    }, 
+    {
+        "author": "Mullen", 
+        "book_isbn": "9781555976569", 
+        "title": "Urban Tumbleweed"
+    }, 
+    {
+        "author": "Ousmane", 
+        "book_isbn": "9781556520709", 
+        "title": "Xala"
+    }, 
+    {
+        "author": "Morgan", 
+        "book_isbn": "9781558611603", 
+        "title": "Sisterhood is Global (with New Preface)"
+    }, 
+    {
+        "author": "Johnston", 
+        "book_isbn": "9781559633031", 
+        "title": "Who Pays Price"
+    }, 
+    {
+        "author": "Himes", 
+        "book_isbn": "9781560254454", 
+        "title": "If He Hollers Let Him Go"
+    }, 
+    {
+        "author": "Sassen", 
+        "book_isbn": "9781565845183", 
+        "title": "Globalization & Its Discontents"
+    }, 
+    {
+        "author": "Traven", 
+        "book_isbn": "9781566632195", 
+        "title": "Trozas"
+    }, 
+    {
+        "author": "Mother Teresa", 
+        "book_isbn": "9781577312017", 
+        "title": "No Greater Love"
+    }, 
+    {
+        "author": "Ba", 
+        "book_isbn": "9781577668060", 
+        "title": "So Long a Letter"
+    }, 
+    {
+        "author": "Norberg-Hodge", 
+        "book_isbn": "9781578051625", 
+        "title": "Ancient Futures"
+    }, 
+    {
+        "author": "Freud", 
+        "book_isbn": "9781578988594", 
+        "title": "Civilization & Its Discontents"
+    }, 
+    {
+        "author": "Davis", 
+        "book_isbn": "9781583225813", 
+        "title": "Are Prisons Obsolete?"
+    }, 
+    {
+        "author": "Gottlieb", 
+        "book_isbn": "9781584656852", 
+        "title": "Moses Mendelssohn"
+    }, 
+    {
+        "author": "Umansky", 
+        "book_isbn": "9781584657309", 
+        "title": "Four Centuries of Jewish Women's Spirituality"
+    }, 
+    {
+        "author": "Yunus", 
+        "book_isbn": "9781586486679", 
+        "title": "Creating a World Without Poverty"
+    }, 
+    {
+        "author": "Englebert", 
+        "book_isbn": "9781588269058", 
+        "title": "Inside African Politics"
+    }, 
+    {
+        "author": "Williams", 
+        "book_isbn": "9781590171998", 
+        "title": "Stoner"
+    }, 
+    {
+        "author": "Warraq", 
+        "book_isbn": "9781591020684", 
+        "title": "Leaving Islam"
+    }, 
+    {
+        "author": "Rath", 
+        "book_isbn": "9781595620255", 
+        "title": "Strengths-Based Leadership (w/Bind-in Access Code)"
+    }, 
+    {
+        "author": "Chang", 
+        "book_isbn": "9781596915985", 
+        "title": "Bad Samaritans"
+    }, 
+    {
+        "author": "Novogratz", 
+        "book_isbn": "9781605294766", 
+        "title": "Blue Sweater"
+    }, 
+    {
+        "author": "Kline", 
+        "book_isbn": "9781606238769", 
+        "title": "Prin & Practice of Structural Equation Modeling"
+    }, 
+    {
+        "author": "Murphy", 
+        "book_isbn": "9781609301422", 
+        "title": "American Constitutional Interpretation"
+    }, 
+    {
+        "author": "Aronson", 
+        "book_isbn": "9781610911689", 
+        "title": "Ecological Restoration"
+    }, 
+    {
+        "author": "Crabtree", 
+        "book_isbn": "9781780323763", 
+        "title": "Bolivia"
+    }, 
+    {
+        "author": "Saadawi", 
+        "book_isbn": "9781842778739", 
+        "title": "Woman at Point Zero"
+    }, 
+    {
+        "author": "Menchu", 
+        "book_isbn": "9781844674183", 
+        "title": "I, Rigoberta Menchu"
+    }, 
+    {
+        "author": "Beyrer", 
+        "book_isbn": "9781856495325", 
+        "title": "War in the Blood"
+    }, 
+    {
+        "author": "Guevara", 
+        "book_isbn": "9781876175696", 
+        "title": "Che Guevara Reader"
+    }, 
+    {
+        "author": "Velez", 
+        "book_isbn": "9781879960527", 
+        "title": "Reclaiming Medusa"
+    }, 
+    {
+        "author": "Anzaldua", 
+        "book_isbn": "9781879960855", 
+        "title": "Borderlands/La Frontera: The New Mestiza"
+    }, 
+    {
+        "author": "Steinbeck", 
+        "book_isbn": "9781890771614", 
+        "title": "Harvest Gypsies"
+    }, 
+    {
+        "author": "Townsend", 
+        "book_isbn": "9781891389627", 
+        "title": "Quantum Physics"
+    }, 
+    {
+        "author": "Caulfield", 
+        "book_isbn": "9781893996885", 
+        "title": "Mapmaker's Diary"
+    }, 
+    {
+        "author": "Chavez", 
+        "book_isbn": "9781920888008", 
+        "title": "Chavez"
+    }, 
+    {
+        "author": "Taylor", 
+        "book_isbn": "9781930789883", 
+        "title": "Prin of Macroeconomics"
+    }, 
+    {
+        "author": "Vogler", 
+        "book_isbn": "9781932907360", 
+        "title": "Writer's Journey"
+    }, 
+    {
+        "author": "Heiser", 
+        "book_isbn": "9781933128399", 
+        "title": "All of a Sudden: Things that Mattern in Contemporary Art"
+    }, 
+    {
+        "author": "Harvey", 
+        "book_isbn": "9781935536321", 
+        "title": "Hemming the Water"
+    }, 
+    {
+        "author": "Saenz", 
+        "book_isbn": "9781935955320", 
+        "title": "Everything Begins & Ends at the Kentucky Club"
+    }, 
+    {
+        "author": "Caconrad", 
+        "book_isbn": "9781940696010", 
+        "title": "Ecodeviance"
+    }, 
+    {
+        "author": "Corneille", 
+        "book_isbn": "9782011678485", 
+        "title": "Le Cid"
+    }, 
+    {
+        "author": "Goscinny", 
+        "book_isbn": "9782012101371", 
+        "title": "Le Tour De Gaule D'Asterix (Hachette #5)"
+    }, 
+    {
+        "author": "Moliere", 
+        "book_isbn": "9782047303665", 
+        "title": "L'ecole des femmes (Bordas#14)"
+    }, 
+    {
+        "author": "Flaubert", 
+        "book_isbn": "9782070315260", 
+        "title": "Madame Bovary (Gallimard)"
+    }, 
+    {
+        "author": "Camus", 
+        "book_isbn": "9782070349616", 
+        "title": "La Chute"
+    }, 
+    {
+        "author": "Sarraute", 
+        "book_isbn": "9782070363902", 
+        "title": "Les Fruits d'Or (Folio #390)"
+    }, 
+    {
+        "author": "Racine", 
+        "book_isbn": "9782070386864", 
+        "title": "Berenice"
+    }, 
+    {
+        "author": "Dejean", 
+        "book_isbn": "9782246698616", 
+        "title": "DU STYLE: COMMENT LES FRANCAIS ONT INVENTE LA HAUT"
+    }, 
+    {
+        "author": "Laclos", 
+        "book_isbn": "9782253004011", 
+        "title": "Les Liasons Dangereuses (Livre Poche #354)"
+    }, 
+    {
+        "author": "Mauriac", 
+        "book_isbn": "9782253004219", 
+        "title": "Therese Desqueyroux (Livre Poche #138)"
+    }, 
+    {
+        "author": "Maupassant", 
+        "book_isbn": "9782253009634", 
+        "title": "Boule de Suif (Livre Poche #650)"
+    }, 
+    {
+        "author": "Prevost", 
+        "book_isbn": "9782253081036", 
+        "title": "Manon Lescaut (Livre Poche #21002)"
+    }, 
+    {
+        "author": "Nothomb", 
+        "book_isbn": "9782253113393", 
+        "title": "Antechrista (Livre Poche)"
+    }, 
+    {
+        "author": "Nothomb", 
+        "book_isbn": "9782253117179", 
+        "title": "Biographie de la Faim"
+    }, 
+    {
+        "author": "Sagan", 
+        "book_isbn": "9782266195584", 
+        "title": "Bonjour Tristesse"
+    }, 
+    {
+        "author": "Beyala", 
+        "book_isbn": "9782290319635", 
+        "title": "Comment Cuisine son Mari a L'africaine"
+    }, 
+    {
+        "author": "Echenoz", 
+        "book_isbn": "9782707319432", 
+        "title": "LES GRANDES BLONDES (MINUIT) (P)"
+    }, 
+    {
+        "author": "Mabanckou", 
+        "book_isbn": "9782708708136", 
+        "title": "Bleu, blanc, rouge: Roman"
+    }, 
+    {
+        "author": "Kurs", 
+        "book_isbn": "9783126758079", 
+        "title": "Passwort Deutsch Volume 1 (text/wkbk/CD)"
+    }, 
+    {
+        "author": "Kurs", 
+        "book_isbn": "9783126758277", 
+        "title": "Passwort Deutsch Volume 2 (text/wkbk/CD)"
+    }, 
+    {
+        "author": "Brode", 
+        "book_isbn": "9783518381076", 
+        "title": "DEUTSCHE LYRIK (SUHRKAMP) (P)"
+    }, 
+    {
+        "author": "Griffiths", 
+        "book_isbn": "9783527406012", 
+        "title": "Intro to Elementary Particles"
+    }, 
+    {
+        "author": "Nichols", 
+        "book_isbn": "9786070247996", 
+        "title": "Introduccion al documental"
+    }, 
+    {
+        "author": "Fuentes", 
+        "book_isbn": "9786074451849", 
+        "title": "Aura"
+    }, 
+    {
+        "author": "Rulfo", 
+        "book_isbn": "9788437604183", 
+        "title": "Pedro Paramo (Catedra #189)"
+    }, 
+    {
+        "author": "Marquez", 
+        "book_isbn": "9788497592437", 
+        "title": "Cronica de una muerte annunciada (Debols!llo #354)"
+    }, 
+    {
+        "author": "Jones", 
+        "book_isbn": "NA", 
+        "title": "Freedom to Change Selected Chapters (CP) - PO DANC 175 - FA14"
+    }
+]

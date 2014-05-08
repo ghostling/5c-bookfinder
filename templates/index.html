@@ -7,7 +7,12 @@
       Get started by typing in the book title or author, or even the name of a course you want books for!
     </p>
 
-      <input type="text" id="index-search-box" placeholder="Search for a book or course..." />
+      <input type="text" id="index-search-box" class="typeahead" autocomplete="off" placeholder="Search for a book or course..." />
   </div>
 </div>
+{% endblock %}
+
+{% block page_javascript %}
+<script src="../static/js/vendor/typeahead.js"></script>
+<script src="../static/js/custom/search.js"></script>
 {% endblock %}
