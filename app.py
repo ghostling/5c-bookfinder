@@ -57,7 +57,7 @@ def get_user_profile(userid):
         raise Exception
 
     # Select the right user and raise an error if we don't have an exact match.
-    cursor.execute('SELECT * FROM Users WHERE user_id = %s', userid)
+    cursor.execute('SELECT * FROM Users WHERE user_id = %s', (userid, ))
     rows_affected = cursor.rowcount
     user = cursor.fetchone()
     if int(rows_affected) is not 1:
@@ -73,14 +73,14 @@ def get_user_profile(userid):
         USB.user_id AS 'owner_id', U.name AS 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
         WHERE UTB.book_isbn = B.book_isbn AND BFS.book_isbn = B.book_isbn
-        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', userid)
+        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', (userid, ))
     wishlist_selling = cursor.fetchall()
 
     # Then, get the books that they themselves are selling.
     cursor.execute('''SELECT BFS.*, B.*
         FROM BooksForSale BFS, Books B, UserSellsBook USB
         WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND
-        USB.user_id = %s''', userid)
+        USB.user_id = %s''', (userid, ))
     user_selling = cursor.fetchall()
 
     # Prepare the image URL and book_condition.
@@ -100,17 +100,17 @@ def get_user_profile(userid):
 def get_book_information(isbn):
     db, cursor = get_db_cursor()
 
-    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', isbn)
+    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', (isbn, ))
     book = cursor.fetchone()
 
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRequiresBook CRB, Courses C WHERE CRB.book_isbn=%s AND
-            CRB.course_number=C.course_number''', isbn)
+            CRB.course_number=C.course_number''', (isbn, ))
     book['req_by_list'] = cursor.fetchall()
 
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRecommendsBook CRB, Courses C WHERE CRB.book_isbn=%s AND
-            CRB.course_number=C.course_number''', isbn)
+            CRB.course_number=C.course_number''', (isbn, ))
     book['rec_by_list'] = cursor.fetchall()
 
     return render_template('book.html', book=book)
@@ -120,13 +120,13 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    cursor.execute('SELECT * FROM Courses WHERE course_number = %s', course_number)
+    cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number, ))
     course = cursor.fetchone()
 
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRequiresBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', course_number)
+            AND B.book_isbn = CRB.book_isbn''', (course_number, ))
     books_required = cursor.fetchall()
 
     for b in books_required:
@@ -138,7 +138,7 @@ def get_course_information(course_number):
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRecommendsBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', course_number)
+            AND B.book_isbn = CRB.book_isbn''', (course_number, ))
     books_recommended = cursor.fetchall()
 
     for b in books_recommended:
@@ -199,7 +199,7 @@ def signup():
         password = str(request.form['password'])
 
         # Valid email not in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
         user = cursor.fetchall()
 
         if not user:
@@ -230,7 +230,7 @@ def signin():
         password = str(request.form['password'])
 
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
         user = cursor.fetchone()
 
         if user:
@@ -258,10 +258,10 @@ def edit_profile():
 
         # Check if user is allowed to edit this profile.
         if session['user_hash'] == UF.make_secure_val(session['user_id']):
-            cursor.execute('SELECT * FROM Users WHERE user_id = %s', str(session['user_id']))
+            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(session['user_id']), ))
             cur_user = cursor.fetchone()
             # Check if email is already in use.
-            cursor.execute('SELECT * FROM Users WHERE email_address = %s', email)
+            cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
             user = cursor.fetchone()
             if (not user) or (user and (email == cur_user['email_address'])):
                 cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
