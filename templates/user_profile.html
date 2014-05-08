@@ -45,7 +45,15 @@
   </div>
 </div>
 <div class="row add-padding">
-  <h3 class="sub-head">Books You're Selling</h3>
+  <div class="row listed-book-heading">
+      <div class="medium-10 columns"><h3 class="sub-head">Books You're Selling</h3></div>
+      <div class="medium-2 columns">
+        <a href="#" data-reveal-id="add-book">
+          <i class="fi-plus"></i>
+        </a>
+      </div>
+  </div>
+  
   <ul class="book-list">
     {% if user_selling %}
 
@@ -167,6 +175,101 @@
     {% endif %}
   </ul>
 </div>
+
+{# Begin code to add a book #}
+<div class="reveal-modal medium" id="add-book" data-reveal>
+  <a class="close-reveal-modal">&#215;</a>
+  <dl class="tabs" data-tab>
+    <dd class="active">
+      <a href="#add-book-tab-1">Add Book</a>
+    </dd>
+    <dd class="active">
+      <a href="#add-book-tab-2">Book Not Found?</a>
+    </dd>
+  </dl>
+  <div class="tabs-content">
+    <div class="content active" id="add-book-tab-1">
+      <p class="small-header">
+        Enter in the following information to add a book:
+      </p>
+      <form>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <label>Course
+              <input type="text" placeholder="Enter the course this book is used in">
+            </label>
+            <label>ISBN
+              <input type="text" placeholder="Enter the ISBN of the book">
+            </label>
+            <div class="row collapse">
+              <label>Price</label>
+              <div class="small-1 large-1 columns">
+                <span class="prefix">$</span>
+              </div>
+              <div class="small-11 large-11 columns">
+                <input type="text" placeholder="Enter the price">
+              </div>
+            </div>
+
+            <label>Condition
+              <select>
+                <option value="new">New</option>
+                <option value="like-new">Like New</option>
+                <option value="very-good">Very Good</option>
+                <option value="good">Good</option>
+                <option value="acceptable">Acceptable</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <center>
+          <a href="#" class="button small">Submit</a>
+        </center>
+      </form>
+    </div>
+    <div class="content" id="add-book-tab-2">
+      <p class="small-header">
+        We do not currently allow the addition of books not associated with a class according to our database. This is determined by what books are required as listed by Portal. However, you can submit the following form for review, and an administrator may add it for you. Thanks!
+      </p>
+      <form>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <label>Course
+              <input type="text" placeholder="Enter the course this book is used in">
+            </label>
+            <label>ISBN
+              <input type="text" placeholder="Enter the ISBN of the book">
+            </label>
+            <div class="row collapse">
+              <label>Price</label>
+              <div class="small-1 large-1 columns">
+                <span class="prefix">$</span>
+              </div>
+              <div class="small-11 large-11 columns">
+                <input type="text" placeholder="Enter the price">
+              </div>
+            </div>
+
+            <label>Condition
+              <select>
+                {% for c, v in condition.iteritems() %}
+                <option value="{{ c }}">{{ v }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </div>
+        </div>
+        <center>
+          <a href="#" class="button small">Submit</a>
+        </center>
+      </form>
+    </div>
+  </div>
+</div>
+{# End code to add a book #}
+
 
 
 {% endblock %}
