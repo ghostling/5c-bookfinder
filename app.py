@@ -94,7 +94,7 @@ def get_user_profile(userid):
 
     cursor.close()
 
-    return render_template('user_profile.html', wishlist_selling=wishlist_selling, user_selling=user_selling, user=user)
+    return render_template('user_profile.html', wishlist_selling=wishlist_selling, user_selling=user_selling, user=user, condition = BOOK_CONDITION)
 
 @app.route('/book/<isbn>')
 def get_book_information(isbn):

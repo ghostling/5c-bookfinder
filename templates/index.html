@@ -179,46 +179,6 @@
             <div class="book-heading">
               <a href="#" data-reveal-id="{{ book.listing_id }}">{{ book.title }} ({{ book.edition }}) by {{ book.author }}</a>
             </div>
-            <div class="book-additional reveal-modal small" id="{{ book.listing_id }}" data-reveal>
-              <a class="close-reveal-modal">&#215;</a>
-              <p class="small-header">
-                Currently editing:
-              </p>
-              <p>
-                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-                <br>ISBN: {{ book.isbn }}
-                <br>Added: {{ book.added_date }}
-              </p>
-              <form>
-                <div class="row">
-                  <div class="large-12 columns">
-                    <div class="row collapse">
-                      <label>Price</label>
-                      <div class="small-1 large-1 columns">
-                        <span class="prefix">$</span>
-                      </div>
-                      <div class="small-11 large-11 columns">
-                        <input type="text" value="{{ book.price }}">
-                      </div>
-                    </div>
-
-                    <label>Condition
-                      <select>
-                        {% for c in condition %} {% if book.condition == c.value %}
-                        <option value="{{c.value}}" selected>{{c.desc}}</option>
-                        {% else %}
-                        <option value="{{c.value}}">{{c.desc}}</option>
-                        {% endif %} {% endfor %}
-                      </select>
-                    </label>
-                  </div>
-                </div>
-                <center>
-                  <a href="#" class="button small">Submit</a>
-                  <a href="#" class="button small alert">Delete</a>
-                </center>
-              </form>
-            </div>
           </div>
         </div>
       </li>

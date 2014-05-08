@@ -1,5 +1,4 @@
 {% extends "base.html" %} 
-{# TODO: make this page different based on the currently signed in user. #} 
 {% block main_body %}
 <div class="row">
   <div class="medium-8 columns add-padding">
@@ -59,11 +58,13 @@
           </div>
           <div class="medium-9 columns book-list-info">
             <div class="book-heading">
+                <a href="#" data-reveal-id="edit-book-{{ book.listing_id }}">
                 {% if book.edition != 'N/A' %}
                   {{ book.title }} ({{ book.edition }}) by {{ book.author }}
                 {% else %}
                   {{ book.title }} by {{ book.author }}
                 {% endif %}
+                </a>
             </div>
             <div class="book-additional">
               ISBN: {{ book.book_isbn }}
@@ -71,6 +72,50 @@
               <br>Price: ${{ book.price }}
               <br>Condition: {{ book.book_condition }}
             </div>
+
+            {# Begin production of book modal. #}
+            <div class="book-additional reveal-modal small" id="edit-book-{{ book.listing_id }}" data-reveal>
+              <a class="close-reveal-modal">&#215;</a>
+              <p class="small-header">
+                Currently editing:
+              </p>
+              <p>
+                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                <br>ISBN: {{ book.isbn }}
+                <br>Added: {{ book.added_date }}
+              </p>
+              <form>
+                <div class="row">
+                  <div class="large-12 columns">
+                    <div class="row collapse">
+                      <label>Price</label>
+                      <div class="small-1 large-1 columns">
+                        <span class="prefix">$</span>
+                      </div>
+                      <div class="small-11 large-11 columns">
+                        <input type="text" value="{{ book.price }}">
+                      </div>
+                    </div>
+
+                    <label>Condition
+                      <select>
+                        {% for c, v in condition.iteritems() %} {% if book.condition == c %}
+                        <option value="{{ c }}" selected>{{v }}</option>
+                        {% else %}
+                        <option value="{{ c }}">{{ v }}</option>
+                        {% endif %} {% endfor %}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <center>
+                  <a href="#" class="button small">Submit</a>
+                  <a href="#" class="button small alert">Delete</a>
+                </center>
+              </form>
+            </div>
+            {# End production of book modal. #}
+
           </div>
         </div>
       </li>
@@ -122,4 +167,6 @@
     {% endif %}
   </ul>
 </div>
+
+
 {% endblock %}
