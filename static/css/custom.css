@@ -20,13 +20,6 @@ body {
   font-size: 12px;
 }
 
-.add-padding {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 footer {
   position: absolute;
   left: 0;
@@ -77,4 +70,36 @@ hr {
 
 .icon-edit-style {
   font-size: 30px;  
+}
+
+.text-right {
+  text-align: right;
+}
+
+.add-r-pad {
+  padding-right: 2em;
+}
+
+.add-l-pad {
+  padding-left: 2em;
+}
+
+.add-t-pad {
+  padding-top: 2em;
+}
+
+.add-ts-pad {
+  padding-top: 1em;
+}
+
+.add-b-pad {
+  padding-bottom: 2em;
+}
+
+.add-all-pad {
+  padding: 2em;
+}
+
+.book-link {
+    font-size: 20px;
 }

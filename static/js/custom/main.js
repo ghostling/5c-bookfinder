@@ -1,5 +1,4 @@
 function postFormInModal(form_id, modal_id, post_url, redirect_url) {
-    /* Needed for after editting one's profile page. */
     if (typeof(redirect_url) === 'undefined') {
         redirect_url = window.location.pathname;
     }

@@ -1,92 +1,82 @@
 {% extends "base.html" %}
 {% block main_body %}
 <div class="row">
-  <div class="medium-12 columns add-padding">
-  {% if course %}
+  <div class="medium-12 columns add-t-pad add-b-pad">
     <h1>{{course.course_number }}: {{ course.title }}</h1>
     <h4>Professor: {{ course.professor }}</h4>
     <h4>Offered: {{ course.semester_offered }}</h4>
-    {% endif %}
   </div>
 </div>
-{% if books_required or books_recommended %}
-{#
-  TODO/Note: This current organization suggests listing the title, edition, author
-  for every book required/recommended, regardless of whether or not an instance if
-  being sold. In the case that this book is on the market, additional lists will
-  show up.
-#}
+{% if books_required or books_recommended %} 
 {% if books_required %}
-<div class="row add-padding">
+<div class="row add-r-pad add-l-pad add-b-pad">
   <h3 class="sub-head">Books Required</h3>
   {% for book in books_required %}
-  <h4>{{book.title}} ({{book.edition}}) by {{book.author}}</h4>
-  <ul class="book-list">
-    {% for b in book.selling_list %}
-    <li>
-      <div class="row">
-        <div class="medium-3 columns book-list-image">
-          <img src="{{ book.img_url }}" alt="{{ book.title }}">
-        </div>
-        <div class="medium-9 columns book-list-info">
-          <div class="book-heading">
-              {% if b.edition|string == "N/A" %}
-                {{ b.title }} by {{ b.author }}
-              {% else %}
-                {{ b.title }} ({{ b.edition }}) by {{ b.author }}
-              {% endif %}
-          </div>
-          <div class="book-additional">
-            ISBN: {{ b.isbn }}
-            <br>Added: {{ b.date_added }}
-            <br>Price: ${{ b.price }}
-            <br>Condition: {{ b.condition }}
-          </div>
-        </div>
+  <div class="row add-r-pad add-l-pad">
+    <div class="row">
+      <div class="large-10 columns">
+          <a href="/book/{{book.book_isbn}}" class="book-link">
+        {% if book.edition != "N/A" %}
+        {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
+        {% else %}
+        {{book.title}} by {{book.author}}
+        {% endif %}
+    </a>
       </div>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endfor %}
+      <div class="large-2 columns text-right">
+      <a href="#" data-isbn="{{book.book_isbn}}">
+          <span class="label">Wish List</span>
+        </a>
+      </div>
+    </div>
+    <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
+      {% if book.number_selling %}
+      There are {{book.number_selling}} listings for this book. <br>
+      Click the link above to see them.
+      {% else %}
+      No one is currently selling this book.
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %} 
 </div>
 {% endif %}
 {% if books_recommended %}
-<div class="row add-padding">
+<div class="row add-t-pad add-r-pad add-l-pad add-b-pad">
   <h3 class="sub-head">Books Recommended</h3>
   {% for book in books_recommended %}
-  <h4>{{book.title}} ({{book.edition}}) by {{book.author}}</h4>
-  <ul class="book-list">
-    {% for b in book.selling_list %}
-    <li>
-      <div class="row">
-        <div class="medium-3 columns book-list-image">
-          <img src="{{ book.img_url }}" alt="{{ book.title }}">
-        </div>
-        <div class="medium-9 columns book-list-info">
-          <div class="book-heading">
-              {% if b.edition == "N/A" %}
-                {{ b.title }} by {{ b.author }}
-              {% else %}
-                {{ b.title }} ({{ b.edition }}) by {{ b.author }}
-              {% endif %}
-          </div>
-          <div class="book-additional">
-            ISBN: {{ b.isbn }}
-            <br>Added: {{ b.date_added }}
-            <br>Price: ${{ b.price }}
-            <br>Condition: {{ b.condition }}
-          </div>
-        </div>
+  <div class="row add-r-pad add-l-pad">
+    <div class="row">
+      <div class="large-10 columns">
+          <a href="/book/{{book.book_isbn}}" class="book-link">
+        {% if book.edition != "N/A" %}
+        {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
+        {% else %}
+        {{book.title}} by {{book.author}}
+        {% endif %}
+    </a>
       </div>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endfor %}
-{% endif %}
-</div>
-{% else %}
-<div class="row add-padding">
-  This course does not need any books according to the information on Portal. Please check with the instructor and/or syllabus.
+      <div class="large-2 columns text-right">
+      <a href="#" data-isbn="{{book.book_isbn}}">
+          <span class="label">Wish List</span>
+        </a>
+      </div>
+    </div>
+    <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
+      {% if book.number_selling %}
+      There are {{book.number_selling}} listings for this book. <br>
+      Click the link above to see them.
+      {% else %}
+      No one is currently selling this book.
+      {% endif %}
+    </div>
   </div>
+  {% endfor %}
+</div>
 {% endif %}
-{% endblock %}
+{% else %}
+<div class="row add-all-pad">
+    This course does not need any books according to the information on Portal. 
+    Please check with the instructor and/or syllabus.
+</div>
+{% endif %} {% endblock %}

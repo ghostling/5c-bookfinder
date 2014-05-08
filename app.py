@@ -4,6 +4,7 @@ import MySQLdb, MySQLdb.cursors
 import json
 import requests
 import config
+import datetime
 
 # Declare globals.
 BOOK_CONDITION = {
@@ -113,14 +114,59 @@ def get_course_information(course_number):
             AND B.book_isbn = CRB.book_isbn''', course_number)
     books_required = cursor.fetchall()
 
+    for b in books_required:
+        pass
+        # TODO
+        # count how many people are selling it
+        # put that as b['number_selling']
+
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRecommendsBook CRB, Books B
             WHERE CRB.course_number = %s
             AND B.book_isbn = CRB.book_isbn''', course_number)
     books_recommended = cursor.fetchall()
 
+    for b in books_recommended:
+        pass
+        # TODO
+        # count how many people are selling it
+        # put that as b['number_selling']
+
     return render_template('course.html', course=course,
             books_required=books_required, books_recommended=books_recommended)
+
+@app.route('/sell_book_auto', methods=['POST'])
+def sell_book_auto():
+    db, cursor = get_db_cursor()
+
+    if request.method == 'POST':
+        course = str(request.form['course'])
+        isbn = str(request.form['isbn'])
+        price = str(request.form['price'])
+        condition = str(request.form['condition'])
+        comments = str(request.form['comments'])
+        created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        # Check if course req/rec's this book.
+        cursor.execute('''SELECT * FROM CourseRequiresBook RQ, CourseRecommendsBook RC
+                WHERE (RQ.book_isbn=%s AND RQ.course_number=%s) OR
+                      (RC.book_isbn=%s AND RC.course_number=%s)''')
+        valid_course_book = cursor.fetchone()
+
+        if not valid_course_book:
+            return make_response('''This book is not required or recommended by
+                    this course. If this is not true, please fill out the other
+                    form.''', 400)
+        if float(price) < 0:
+            return make_response('You cannot have a negative price!', 400)
+        else:
+            cursor.execute('''INSERT INTO BooksForSale (book_isbn, status,
+                    created_at, edition, price, book_condition, comment) VALUES
+                    (%s, %s, %s, %s, %s, %s, %s)''', (isbn, 1, created_at,
+                    edition, price, condition, comments))
+            db.commit()
+
+        return make_response('', 200)
 
 @app.route('/search')
 def get_search_json():
@@ -131,7 +177,7 @@ def signup():
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    if request.method =='POST':
+    if request.method == 'POST':
         name = str(request.form['name'])
         email = str(request.form['email'])
         phone_number = str(request.form['phone_number'])
