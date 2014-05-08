@@ -98,7 +98,12 @@ def get_user_profile(userid):
 
 @app.route('/book/<isbn>')
 def get_book_information(isbn):
-    return render_template('book.html')
+    db, cursor = get_db_cursor()
+
+    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', isbn)
+    book=cursor.fetchone()
+
+    return render_template('book.html', book=book)
 
 @app.route('/course/<course_number>')
 def get_course_information(course_number):

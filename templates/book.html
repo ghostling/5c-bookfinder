@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block main_body %}
+<div class="row">
+  <div class="medium-12 columns add-t-pad add-b-pad">
+    {% if book.edition != "N/A" %}
+    <h2>{{book.title}} ({{book.edition}} Ed.) by {{book.author}}</h2>
+    {% else %}
+    <h2>{{book.title}} by {{book.author}}</h2>
+    {% endif %}
+    <h4>ISBN: {{book.book_isbn}}</h4>
+    {% if book.req_by_list %}
+    <h4>Required by:</h4>
+    <ul>
+      {% for c in book.req_by_list%}
+      <li>
+        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.course_title}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% if book.rec_by_list %}
+    <h4>Recommended by:</h4>
+    <ul>
+      {% for c in book.rec_by_list%}
+      <li>
+        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.course_title}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+{% if book.selling_list %}
+<div class="row add-r-pad add-l-pad add-b-pad">
+  <h3 class="sub-head">Listings</h3>
+  <ul class="book-list">
+    {% for b in book.selling_list %}
+    <li>
+      <div class="row add-r-pad add-l-pad">
+        created at, updated at, price, condition, notes, sold by
+        <h4>Price: {{b.price}}</h4>
+        <h4>Condition: {{b.condition}}</h4>
+        Comments: {{b.comments}}
+        <br>Sold by:
+        <a href="/profile/{{b.seller_id}}">{{b.seller_name}}</a>
+        <br>
+        <small>Last updated: {{book.last_updated}}</small>
+        {# TODO: Do we want to show created at date? #}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+<div class="row add-all-pad">
+  No one is currently selling this book.
+</div>
+{% endif %} {% endblock %}
