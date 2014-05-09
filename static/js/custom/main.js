@@ -19,7 +19,14 @@ function postFormInModal(form_id, modal_id, post_url, redirect_url) {
                 toggleLoading(modal_id, 'hide');
             },
             success: function(response) {
-                document.location.href = redirect_url;
+                // Redirect to the page the app gives us if we have a success.
+                var redir;
+                if (typeof redirect_url == 'undefined') {
+                    redir = response.responseText;
+                } else {
+                    redir = redirect_url;
+                }
+                document.location.href = redir;
             },
             error: function(response) {
                 console.log(response);
@@ -61,10 +68,10 @@ function addErrorMsgToDiv(div_id, msg) {
 
 function init() {
     /* Sign up form. */
-    postFormInModal('#sign-up-form', '#sign-up-modal', '/signup', '/');
+    postFormInModal('#sign-up-form', '#sign-up-modal', '/signup', document.location.href);
 
     /* Sign in form. */
-    postFormInModal('#sign-in-form', '#sign-in-modal', '/signin', '/');
+    postFormInModal('#sign-in-form', '#sign-in-modal', '/signin', document.location.href);
     
     /* Edit profile form. */
     postFormInModal('#edit-profile-form', '#edit-profile-modal', '/editprofile');

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, request, url_for, Response, make_response
+from flask import Flask, render_template, redirect, session, request, url_for, Response, make_response, abort
 import utility_functions as UF
 import MySQLdb, MySQLdb.cursors
 import json
@@ -24,11 +24,8 @@ app.secret_key = config.SECRET_KEY
 
 def get_db_cursor():
     # Easier to access db and cursor.
-    # db = MySQLdb.connect(host='localhost', port=3306, user='5cbookfinder',
-    #         passwd='g4G5IkDOM3a91EV', db='5cbookfinder',
-    #         cursorclass=MySQLdb.cursors.DictCursor)
-    db = MySQLdb.connect(host='bookfinder.5capps.com', port=3306, user='5cbookfinder',
-             passwd='g4G5IkDOM3a91EV', db='5cbookfinder',
+    db = MySQLdb.connect(host=config.DB_HOST, port=config.DB_PORT, user=config.DB_USER,
+             passwd=config.DB_PASSWD, db=config.DB,
              cursorclass=MySQLdb.cursors.DictCursor)
 
     return db, db.cursor()
@@ -57,19 +54,26 @@ def get_user_profile(userid):
     try:
         userid = str(int(MySQLdb.escape_string(userid)))
     except ValueError:
-        raise Exception
+        abort(404)
 
     # Select the right user and raise an error if we don't have an exact match.
     cursor.execute('SELECT * FROM Users WHERE user_id = %s', (userid,))
     rows_affected = cursor.rowcount
     user = cursor.fetchone()
     if int(rows_affected) is not 1:
-        raise Exception
+        abort(404)
 
     # Get the books that we've recently listed.
     recently_listed = []
     cursor.execute('SELECT * FROM BooksForSale B ORDER BY updated_at DESC LIMIT 10')
     recently_listed = cursor.fetchall()
+
+    # Check if they have anything in their wishlist.
+    cursor.execute('SELECT * FROM UserTracksBook WHERE user_id = %s', (userid,))
+    if cursor.rowcount > 0:
+        has_wishlist_items = True
+    else:
+        has_wishlist_items = False
 
     # Get the books that are currently being sold that are on their wishlist.
     # TODO: Something wrong with this query...duplicate results.
@@ -98,11 +102,19 @@ def get_user_profile(userid):
 
     cursor.close()
 
-    return render_template('user_profile.html', wishlist_selling=wishlist_selling, user_selling=user_selling, user=user, condition = BOOK_CONDITION)
+    return render_template('user_profile.html', wishlist_selling=wishlist_selling, user_selling=user_selling, user=user, condition = BOOK_CONDITION, has_wishlist_items=has_wishlist_items)
 
 @app.route('/book/<isbn>')
 def get_book_information(isbn):
     db, cursor = get_db_cursor()
+
+    # Check if they're signed in to display the offer to sell that book.
+    user_id = session.get('user_id')
+
+    if user_id:
+        logged_in = True
+    else:
+        logged_in = False
 
     cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', (isbn,))
     book = cursor.fetchone()
@@ -129,14 +141,19 @@ def get_book_information(isbn):
     # Prepare the image URL.
     book['img_url'] = get_google_image_for_book(book['book_isbn'])
 
-    return render_template('book.html', book=book)
+    return render_template('book.html', book=book, logged_in=logged_in)
 
 @app.route('/course/<course_number>')
 def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    user_id = session['user_id']
+    user_id = session.get('user_id')
+
+    if user_id:
+        logged_in = True
+    else:
+        logged_in = False
 
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
     course = cursor.fetchone()
@@ -152,11 +169,12 @@ def get_course_information(course_number):
                 (b['book_isbn'],))
         b['number_selling'] = cursor.rowcount
 
-        # Check if in current user's wishlist.
-        cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                book_isbn=%s''', (user_id, b['book_isbn'],))
-        if cursor.rowcount == 1:
-            b['in_user_wishlist'] = True
+        # Check if in current user's wishlist only if they're logged in.
+        if user_id:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
+                    book_isbn=%s''', (user_id, b['book_isbn'],))
+            if cursor.rowcount == 1:
+                b['in_user_wishlist'] = True
 
     cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
             CourseRecommendsBook CRB, Books B
@@ -169,14 +187,15 @@ def get_course_information(course_number):
                 (b['book_isbn'],))
         b['number_selling'] = cursor.rowcount
 
-        # Check if in current user's wishlist.
-        cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                book_isbn=%s''', (user_id, b['book_isbn'],))
-        if cursor.rowcount == 1:
-            b['in_user_wishlist'] = True
+        # Check if in current user's wishlist only if they're logged in:
+        if user_id:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
+                    book_isbn=%s''', (user_id, b['book_isbn'],))
+            if cursor.rowcount == 1:
+                b['in_user_wishlist'] = True
 
     return render_template('course.html', course=course,
-            books_required=books_required, books_recommended=books_recommended)
+            books_required=books_required, books_recommended=books_recommended, logged_in=logged_in)
 
 @app.route('/sellbook', methods=['POST'])
 def sellbook():
@@ -211,7 +230,7 @@ def sellbook():
                     (user_id, listing_id,))
             db.commit()
 
-        return make_response('', 200)
+        return make_response('/user/' + str(user_id), 200)
 
 @app.route('/wishlist', methods=['POST'])
 def add_to_wishlist():
@@ -315,10 +334,11 @@ def edit_profile():
         name = str(request.form['name'])
         email = str(request.form['email'])
         phone_number = str(request.form['phone_number'])
+        user_id = session['user_id']
 
         # Check if user is allowed to edit this profile.
-        if session['user_hash'] == UF.make_secure_val(session['user_id']):
-            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(session['user_id']),))
+        if session['user_hash'] == UF.make_secure_val(user_id):
+            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(user_id),))
             cur_user = cursor.fetchone()
             # Check if email is already in use.
             cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
@@ -326,9 +346,9 @@ def edit_profile():
             if (not user) or (user and (email == cur_user['email_address'])):
                 cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
                         phone_number=%s WHERE user_id=%s''', (name, email,
-                        phone_number, session['user_id']))
+                        phone_number, user_id))
                 db.commit()
-                return make_response('', 200)
+                return make_response('/user/' + str(user_id), 200)
             else:
                 return make_response('This email is already in use.', 400)
         else:

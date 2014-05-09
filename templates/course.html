@@ -23,6 +23,7 @@
         {% endif %}
     </a>
       </div>
+      {% if logged_in %}
       <div class="large-2 columns text-right">
           {% if book.in_user_wishlist %}
       <a href="#" data-isbn="{{book.book_isbn}}" class="untrack-book">
@@ -30,10 +31,11 @@
         </a>
           {% else %}
       <a href="#" data-isbn="{{book.book_isbn}}" class="track-book">
-          <span class="label">Wish List</span>
+          <span class="label">Add to Wish List</span>
         </a>
         {% endif %}
       </div>
+      {% endif %}
     </div>
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
@@ -63,6 +65,7 @@
         {% endif %}
     </a>
       </div>
+      {% if logged_in %}
       <div class="large-2 columns text-right">
           {% if book.in_user_wishlist %}
       <a href="#" data-isbn="{{book.book_isbn}}" class="untrack-book">
@@ -70,10 +73,11 @@
         </a>
           {% else %}
       <a href="#" data-isbn="{{book.book_isbn}}" class="track-book">
-          <span class="label">Wish List</span>
+          <span class="label">Add to Wish List</span>
         </a>
         {% endif %}
       </div>
+      {% endif %}
     </div>
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}

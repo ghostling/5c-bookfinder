@@ -13,7 +13,7 @@
     </a>
     <div id="edit-profile-modal" class="reveal-modal small" data-reveal>
       <a class="close-reveal-modal">&#215;</a>
-      <h2>Edit your profile:</h2>
+      <h2>Edit Your Profile</h2>
       <form id="edit-profile-form" data-abide>
         <div class="name-field">
           <label>Name
@@ -78,7 +78,7 @@
               <br>Condition: {{ book.book_condition }}
             </div>
 
-            {# Begin production of book modal. #}
+            {# Begin production of edit book modal. #}
             <div class="book-additional reveal-modal small" id="edit-book-{{ book.listing_id }}" data-reveal>
               <a class="close-reveal-modal">&#215;</a>
               <p class="small-header">
@@ -119,7 +119,7 @@
                 </center>
               </form>
             </div>
-            {# End production of book modal. #}
+            {# End production of edit book modal. #}
 
           </div>
         <div class="medium-1 columns">
@@ -175,14 +175,14 @@
     </ul>
     {% else %}
     <div class="row add-all-pad">
-      {% if wishlist %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
+      {% if has_wishlist_items %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
     </div>
     {% endif %}
   </ul>
 </div>
 
 {# Begin code to add a book #}
-<div class="reveal-modal medium" id="add-book" data-reveal>
+<div class="reveal-modal medium" id="sell-book-modal" data-reveal>
   <a class="close-reveal-modal">&#215;</a>
   <dl class="tabs" data-tab>
     <dd class="active">

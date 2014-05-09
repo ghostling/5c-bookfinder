@@ -13,7 +13,7 @@
     <ul class="circle">
       {% for c in book.req_by_list%}
       <li>
-        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.course_title}}</a>
+        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.title}}</a>
       </li>
       {% endfor %}
     </ul>
@@ -35,53 +35,57 @@
 </div>
 <div class="row add-r-pad add-l-pad add-b-pad">
   <div class="row sub-head">
-  <div class="medium-10 columns ">
-  <h3>Listings</h3>
-</div>
-<div class="medium-2 columns">
-  <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
-</div>
-  <div id="sell-book-modal" class="reveal-modal small" data-reveal>
-    <a class="close-reveal-modal">&#215;</a>
-    <h3 class="sub-head">Sell this book</h3>
-    <form id="sell-book-form" data-abide>
-      <div class="row">
-        <label>ISBN
-          <input type="text" name="isbn" required readonly value="{{book.book_isbn}}">
-        </label>
-      </div>
-      <div class="row collapse">
-        <label>Price</label>
-        <div class="small-1 large-1 columns">
-          <span class="prefix">$</span>
+    <div class="medium-6 columns ">
+    <h3>Listings</h3>
+    </div>
+    <div class="medium-6 columns">
+      {% if logged_in %}
+      <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
+      {% else %}
+      <h4 class="right">Sign In to Sell!</h4>
+      {% endif %}
+    </div>
+    <div id="sell-book-modal" class="reveal-modal small" data-reveal>
+      <a class="close-reveal-modal">&#215;</a>
+      <h3 class="sub-head">Sell this book</h3>
+      <form id="sell-book-form" data-abide>
+        <div class="row">
+          <label>ISBN
+            <input type="text" name="isbn" required readonly value="{{book.book_isbn}}">
+          </label>
         </div>
-        <div class="small-11 large-11 columns">
-          <input type="number" step="any" name="price" required placeholder="Enter the price">
-          <small class="error">Please enter a valid price.</small>
+        <div class="row collapse">
+          <label>Price</label>
+          <div class="small-1 large-1 columns">
+            <span class="prefix">$</span>
+          </div>
+          <div class="small-11 large-11 columns">
+            <input type="number" step="any" name="price" required placeholder="Enter the price">
+            <small class="error">Please enter a valid price.</small>
+          </div>
         </div>
-      </div>
-      <div>
-        <label>Condition
-          <select name="condition" required>
-            <option value="1">New</option>
-            <option value="2">Like New</option>
-            <option value="3">Very Good</option>
-            <option value="4">Good</option>
-            <option value="5">Acceptable</option>
-          </select> 
-        </label>
-      </div>
-      <div>
-        <label>Comments
-          <input type="text" name="comments" placeholder="Would you like to provide any additional information about the book?">
-        </label>
-      </div>
-      <center>
-        <input type="submit" class="button" value="Submit">
-      </center>
-    </form>
+        <div>
+          <label>Condition
+            <select name="condition" required>
+              <option value="1">New</option>
+              <option value="2">Like New</option>
+              <option value="3">Very Good</option>
+              <option value="4">Good</option>
+              <option value="5">Acceptable</option>
+            </select> 
+          </label>
+        </div>
+        <div>
+          <label>Comments
+            <input type="text" name="comments" placeholder="Would you like to provide any additional information about the book?">
+          </label>
+        </div>
+        <center>
+          <input type="submit" class="button" value="Submit">
+        </center>
+      </form>
+    </div>
   </div>
-</div>
 {% if book.selling_list %}
   <ul class="book-list">
     {% for b in book.selling_list %}
