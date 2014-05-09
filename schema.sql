@@ -1,97 +1,111 @@
+CREATE TABLE CurrentSemester(
+    semester VARCHAR(8) PRIMARY KEY,
+    is_current_semester TINYINT(1) NOT NULL
+);
+
 CREATE TABLE Courses (
     course_number VARCHAR(32) PRIMARY KEY,
-    title VARCHAR(256) NOT NULL,
-    professor VARCHAR(64),
-    semester_offered VARCHAR(8) NOT NULL,
+    section TINYINT(2) NOT NULL,
     dept CHAR(4) NOT NULL,
-    campus CHAR(4) NOT NULL,
-    section TINYINT(2) NOT NULL
-);
-
-CREATE TABLE Books (
-    author VARCHAR(256) NOT NULL,
-    book_isbn VARCHAR(16) PRIMARY KEY,
+    professor VARCHAR(64),
     title VARCHAR(256) NOT NULL,
-    edition VARCHAR(8)
-);
-
-CREATE TABLE BooksForSale (
-    listing_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    book_isbn VARCHAR(16) NOT NULL,
-    status TINYINT(1) NOT NULL , # 0 -- Inactive record, 1 -- Active record, for sale, 2 -- Sold.
-    created_at DATETIME DEFAULT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    edition VARCHAR(16),
-    price DOUBLE(4, 2) NOT NULL,
-    book_condition TINYINT(1) NOT NULL,
-    FOREIGN KEY (book_isbn) REFERENCES Books(book_isbn)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    FOREIGN KEY (book_condition) REFERENCES BooksForSaleStatus(id)
+    semester_offered VARCHAR(8) NOT NULL,
+    campus CHAR(4) NOT NULL,
+    building CHAR(4),
+    FOREIGN KEY (semester_offered) REFERENCES CurrentSemester(semester)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
 
-CREATE TABLE Users (
-    user_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(64) NOT NULL,
-    email_address VARCHAR(256) NOT NULL,
-    hashed_password VARCHAR(2048) NOT NULL,
-    phone_number VARCHAR(16)
+CREATE TABLE Books (
+    isbn VARCHAR(16) PRIMARY KEY,
+    author VARCHAR(256) NOT NULL,
+    title VARCHAR(256) NOT NULL,
+    edition VARCHAR(8)
 );
 
-CREATE TABLE UserSellsBook (
-    user_id INTEGER NOT NULL,
-    listing_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id)
-        REFERENCES Users(user_id)
+CREATE TABLE RecentlyUsed (
+    last_active DATETIME PRIMARY KEY,
+    recently_used TINYINT(1)
+);
+
+CREATE TABLE Users (
+    uid INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    email VARCHAR(256) UNIQUE NOT NULL,
+    hashed_pw VARCHAR(128) NOT NULL,
+    phone VARCHAR(16),
+    last_active DATETIME DEFAULT NULL,
+    FOREIGN KEY (last_active) REFERENCES RecentlyUsed(last_active)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE Admins(
+    uid INTEGER PRIMARY KEY,
+    FOREIGN KEY (uid) REFERENCES Users(uid)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE BookCondition(
+    rating TINYINT(2) PRIMARY KEY,
+    description VARCHAR(32)
+);
+
+CREATE TABLE BooksForSale (
+    listing_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    isbn VARCHAR(16) NOT NULL,
+    seller_id INTEGER NOT NULL,
+    status TINYINT(1) NOT NULL, # 0 -- Inactive, 1 -- Active; for sale, 2 -- Sold.
+    created_at DATETIME DEFAULT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    comments VARCHAR(256),
+    price DOUBLE(4, 2) NOT NULL,
+    rating TINYINT(2) NOT NULL,
+    FOREIGN KEY (isbn) REFERENCES Books(isbn)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY (listing_id)
-        REFERENCES BooksForSale(listing_id)
+    FOREIGN KEY (seller_id) REFERENCES Users(uid)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    PRIMARY KEY (user_id, listing_id)
+    FOREIGN KEY (rating) REFERENCES BookCondition(rating)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE UserTracksBook (
-    user_id INTEGER NOT NULL,
-    book_isbn VARCHAR(16) NOT NULL,
-    PRIMARY KEY (user_id, book_isbn),
-    FOREIGN KEY (user_id)
-        REFERENCES Users (user_id)
+    uid INTEGER NOT NULL,
+    isbn VARCHAR(16) NOT NULL,
+    PRIMARY KEY (uid, isbn),
+    FOREIGN KEY (uid) REFERENCES Users(uid)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY (book_isbn)
-        REFERENCES Books (book_isbn)
+    FOREIGN KEY (isbn) REFERENCES Books(isbn)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
 CREATE TABLE CourseRequiresBook (
     course_number VARCHAR(32),
-    book_isbn VARCHAR(16),
-    FOREIGN KEY (course_number)
-        REFERENCES Courses(course_number)
+    isbn VARCHAR(16),
+    FOREIGN KEY (course_number) REFERENCES Courses(course_number)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY (book_isbn)
-        REFERENCES Books(book_isbn)
+    FOREIGN KEY (isbn) REFERENCES Books(isbn)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    PRIMARY KEY (course_number, book_isbn)
+    PRIMARY KEY (course_number, isbn)
 );
 
 CREATE TABLE CourseRecommendsBook (
     course_number VARCHAR(32),
-    book_isbn VARCHAR(16),
-    FOREIGN KEY (course_number)
-        REFERENCES Courses(course_number)
+    isbn VARCHAR(16),
+    FOREIGN KEY (course_number) REFERENCES Courses(course_number)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    FOREIGN KEY (book_isbn)
-        REFERENCES Books(book_isbn)
+    FOREIGN KEY (isbn) REFERENCES Books(isbn)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    PRIMARY KEY (course_number, book_isbn)
+    PRIMARY KEY (course_number, isbn)
 );
