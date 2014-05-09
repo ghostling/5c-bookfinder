@@ -4,6 +4,10 @@ import re
 from bs4 import BeautifulSoup
 import json
 import MySQLdb
+import sys, os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+import config
 
 # NOTE: This is an adaptation of github.com/mauryquijada/5c-enrollify.
 
@@ -11,18 +15,18 @@ import MySQLdb
 SESS = "FA"
 YEAR = "2014"
 
-BASEURL = "https://portal.claremontmckenna.edu/ics/Portlets/CRM/CXWebLinks/Port\
-let.CXFacultyAdvisor/CXFacultyAdvisorPage.aspx?SessionID={{25715df1-32b9-42bf-90\
-33-e5630cfbf34a}}&MY_SCP_NAME=/cgi-bin/course/pccrscatarea.cgi&DestURL=http://cx\
--cmc.cx.claremont.edu:51081/cgi-bin/course/pccrslistarea.cgi?crsarea=%s&yr={1}\
-&sess={0}".format(SESS, YEAR)
+BASEURL = "https://portal.claremontmckenna.edu/ics/Portlets/CRM/CXWebLinks/Por\
+tlet.CXFacultyAdvisor/CXFacultyAdvisorPage.aspx?SessionID={{25715df1-32b9-42bf\
+-9033-e5630cfbf34a}}&MY_SCP_NAME=/cgi-bin/course/pccrscatarea.cgi&DestURL=http\
+://cx-cmc.cx.claremont.edu:51081/cgi-bin/course/pccrslistarea.cgi?crsarea=%s&\
+yr={1}&sess={0}".format(SESS, YEAR)
 
 # Given a department, it creates a list of dictionaries, each of which contains
 # course information for a course in that department.
 def grab_course_info_for_dept(dept_id):
 	r = requests.get(BASEURL % dept_id)
 	soup = BeautifulSoup(r.text)
-	table = soup.find_all("table")[-1]  # last table is `All Sections"
+	table = soup.find_all("table")[-1]  # last table is "All Sections"
 	department_rows = table.find_all("tr", class_="glb_data_dark")
 
 	course_list = []
@@ -43,8 +47,8 @@ def get_td_tags(tr_tag):
 	tds[-1] = remove_spaces(tds[-1])
 	return tds
 
-# Returns a string that's truncated after two double spaces (as long as it's not
-# seen in the first three characters).
+# Returns a string that's truncated after two double spaces (as long as it's 
+# not seen in the first three characters).
 def remove_spaces(string):
 	if string.find("  ") < 3:
 		return string[:string.find("  ", 3)]
@@ -58,11 +62,12 @@ def create_course_dict(td_tags, dept):
 
 	# These are the only row lengths that show full sections.
 	if length == 12 or length == 14:
-		course["course"] = remove_spaces(td_tags[0]).replace(" ", "")
+		course["number"] = remove_spaces(td_tags[0]).replace(" ", "")
 		course["dept"] = dept
 		course["section"] = td_tags[1]
 		course["instructor"] = td_tags[2]
 		course["campus"] = td_tags[7]
+		course["bldg"] = td_tags[8]
 
 		if length == 12:
 			course["title"] = td_tags[11]
@@ -112,7 +117,8 @@ def populate_database_with_courses():
     f.close()
 
     # Prepare the connection to the database.
-    db = MySQLdb.connect(host="localhost", port=3306, user="5cbookfinder", passwd="g4G5IkDOM3a91EV", db="5cbookfinder")
+    db = MySQLdb.connect(host=config.DB_HOST, port=config.DB_PORT, \
+    	user=config.DB_USER, passwd=config.DB_PASSWD, db=config.DB)
     cursor = db.cursor()
 
     courses_added = {}
@@ -120,23 +126,33 @@ def populate_database_with_courses():
     # Add each of the courses individally to the database.
     for course in courses:
         # Create the course number attribute.
-        course["course"] = course["course"] + " " + course["campus"] + "-" + course["section"]
+        course["number"] = course["number"] + " " + course["campus"] \
+        + "-" + course["section"]
 
         # Add default value to campus if it isn't available.
         if not course["campus"]:
             course["campus"] = "NA"
+
+        # Add default value to building if it isn't available.
+        if not course["bldg"]:
+        	course["bldg"] = "NA"
         
-        # Only insert if we haven't seen it before (put in place for crosslisted courses).
-        if course["course"] not in courses_added:
-            # Grab the department from the course code. This is seen as the "ultimate" department,
-            # preferred in case the course is cross-listed.
-            dept = re.match("^([A-Z]+).*", course["course"]).group(1)
+        # Only insert if we haven't seen it before (put in place for
+        # crosslisted courses).
+        if course["number"] not in courses_added:
+            # Grab the department from the course code. This is seen as the
+            # "ultimate" department, preferred in case the course is cross-listed.
+            dept = re.match("^([A-Z]+).*", course["number"]).group(1)
             # Insert it!
-            cursor.execute("INSERT INTO Courses VALUES (%s, %s, %s, %s, %s, %s, %s)", (course["course"], course["title"], course["instructor"], semester_offered, dept, course["campus"], course["section"]))
+            cursor.execute('''INSERT INTO Courses VALUES
+            	(%s, %s, %s, %s, %s, %s, %s, %s)''',
+            	(course["number"], course["section"], dept, \
+            		course["instructor"], course["title"], \
+            		semester_offered, course["campus"], course["bldg"]))
             db.commit()
 
         # Add the course to the hash table.
-        courses_added[course["course"]] = True
+        courses_added[course["number"]] = True
     
     db.close()
 
