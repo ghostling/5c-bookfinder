@@ -3,11 +3,11 @@
 <div class="row">
   <div class="medium-8 columns add-t-pad add-b-pad">
     <h1>{{ user.name }}</h1>
-    <h4>Email: {{ user.email_address }}</h4>
-    <h4>Phone Number: {{ user.phone_number }}</h4>
+    <h4>Email: {{ user.email }}</h4>
+    <h4>Phone Number: {{ user.phone }}</h4>
   </div>
   <div class="medium-4 columns add-t-pad add-b-pad">
-  {% if session.user_id == user.user_id %}
+  {% if session.uid == user.uid %}
     <a href="#" data-reveal-id="edit-profile-modal">
       <i class="fi-page-edit right icon-edit-style"></i>
     </a>
@@ -24,7 +24,7 @@
         </div>
         <div class="email-field">
           <label>Email
-            <input type="email" value="{{ user.email_address }}"
+            <input type="email" value="{{ user.email }}"
                 name="email">
           </label>
           <small class="error">Please enter a valid email.</small>
@@ -32,7 +32,7 @@
         <div class="tel-field">
           <label>Phone Number
             <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}" 
-                name="phone_number" value="{{ user.phone_number }}">
+                name="phone_number" value="{{ user.phone }}">
           </label>
           <small class="error">Please enter a valid phone number.</small>
         </div>
@@ -63,7 +63,7 @@
             <div class="book-heading">
                 {# TODO: This 'edit book' modal may be problematic...instead
                    we need to send the data into one modal, not make several. #}
-                    <a href="/book/{{book.book_isbn}}">
+                    <a href="/book/{{ book.isbn }}">
                 {% if book.edition != 'N/A' %}
                   {{ book.title }} ({{ book.edition }}) by {{ book.author }}
                 {% else %}
@@ -72,10 +72,10 @@
             </a>
             </div>
             <div class="book-additional">
-              ISBN: {{ book.book_isbn }}
+              ISBN: {{ book.isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.book_condition }}
+              <br>Condition: {{ book.description }}
             </div>
 
             {# Begin production of edit book modal. #}
@@ -104,10 +104,10 @@
 
                     <label>Condition
                       <select>
-                        {% for c, v in condition.iteritems() %} {% if book.condition == c %}
-                        <option value="{{ c }}" selected>{{v }}</option>
+                        {% for c in condition_options %} {% if book.description == c %}
+                        <option value="{{ c.rating }}" selected>{{ c.description }}</option>
                         {% else %}
-                        <option value="{{ c }}">{{ v }}</option>
+                        <option value="{{ c.rating }}">{{ c.description }}</option>
                         {% endif %} {% endfor %}
                       </select>
                     </label>
@@ -161,12 +161,12 @@
                 {% endif %}
             </div>
             <div class="book-additional">
-              ISBN: {{ book.book_isbn }}
+              ISBN: {{ book.isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.book_condition }}
+              <br>Condition: {{ book.condition }}
               <br>Sold By:
-              <a href="/user/{{book.owner_id}}">{{ book.owner }}</a>
+              <a href="/user/{{book.seller_id}}">{{ book.owner }}</a>
             </div>
           </div>
         </div>
@@ -219,11 +219,9 @@
 
             <label>Condition
               <select>
-                <option value="new">New</option>
-                <option value="like-new">Like New</option>
-                <option value="very-good">Very Good</option>
-                <option value="good">Good</option>
-                <option value="acceptable">Acceptable</option>
+                {% for c in condition_options %}
+                <option value="{{ c.rating }}">{{ c.description }}</option>
+                {% endfor %}
               </select>
             </label>
           </div>
@@ -259,8 +257,8 @@
 
             <label>Condition
               <select>
-                {% for c, v in condition.iteritems() %}
-                <option value="{{ c }}">{{ v }}</option>
+                {% for c in condition_options %}
+                <option value="{{ c.rating }}">{{ c.description }}</option>
                 {% endfor %}
               </select>
             </label>

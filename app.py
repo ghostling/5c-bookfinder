@@ -45,19 +45,47 @@ def get_google_image_for_book(isbn):
 
     return book["volumeInfo"]["imageLinks"]["thumbnail"]
 
-@app.route('/user/<userid>')
-def get_user_profile(userid):
+def get_book_condition_options():
+    # Get a cursor.
+    db, cursor = get_db_cursor()
+
+    cursor.execute('SELECT * FROM BookCondition ORDER BY rating DESC')
+    result = cursor.fetchall()
+
+    db.close()
+
+    return result
+
+def add_book_information(book):
+    # Set the image.
+    book['img_url'] = get_google_image_for_book(book['isbn'])
+
+    # Get the book condition options.
+    condition_options = get_book_condition_options()
+    index = 0
+
+    for option in condition_options:
+        if book['rating'] is option['rating']:
+            index = condition_options.index(option)
+            break
+
+    book['description'] = condition_options[index]['description']
+
+    return book
+
+@app.route('/user/<uid>')
+def get_user_profile(uid):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
     # Sanitize user input.
     try:
-        userid = str(int(MySQLdb.escape_string(userid)))
+        uid = str(int(MySQLdb.escape_string(uid)))
     except ValueError:
         abort(404)
 
     # Select the right user and raise an error if we don't have an exact match.
-    cursor.execute('SELECT * FROM Users WHERE user_id = %s', (userid,))
+    cursor.execute('SELECT * FROM Users WHERE uid = %s', (uid,))
     rows_affected = cursor.rowcount
     user = cursor.fetchone()
     if int(rows_affected) is not 1:
@@ -69,7 +97,7 @@ def get_user_profile(userid):
     recently_listed = cursor.fetchall()
 
     # Check if they have anything in their wishlist.
-    cursor.execute('SELECT * FROM UserTracksBook WHERE user_id = %s', (userid,))
+    cursor.execute('SELECT * FROM UserTracksBook WHERE uid = %s', (uid,))
     if cursor.rowcount > 0:
         has_wishlist_items = True
     else:
@@ -77,32 +105,30 @@ def get_user_profile(userid):
 
     # Get the books that are currently being sold that are on their wishlist.
     # TODO: Something wrong with this query...duplicate results.
-    cursor.execute('''SELECT B.*, BFS.created_at, BFS.price, BFS.book_condition,
-        USB.user_id AS 'owner_id', U.name AS 'owner'
-        FROM Books B, UserTracksBook UTB, BooksForSale BFS, UserSellsBook USB, Users U
-        WHERE UTB.book_isbn = B.book_isbn AND BFS.book_isbn = B.book_isbn
-        AND BFS.status = 1 AND U.user_id = USB.user_id AND UTB.user_id = %s''', (userid,))
+    cursor.execute('''SELECT B.*, BFS.*, U.name as 'owner'
+        FROM Books B, UserTracksBook UTB, BooksForSale BFS, Users U
+        WHERE UTB.uid = %s AND UTB.isbn = B.isbn AND B.isbn = BFS.isbn
+        AND BFS.status = 1 AND BFS.seller_id = U.uid''', (uid,))
     wishlist_selling = cursor.fetchall()
 
     # Then, get the books that they themselves are selling.
     cursor.execute('''SELECT BFS.*, B.*
-        FROM BooksForSale BFS, Books B, UserSellsBook USB
-        WHERE  B.book_isbn = BFS.book_isbn AND USB.listing_id = BFS.listing_id AND
-        USB.user_id = %s''', (userid,))
+        FROM BooksForSale BFS, Books B
+        WHERE  B.isbn = BFS.isbn AND BFS.seller_id = %s''', (uid,))
     user_selling = cursor.fetchall()
 
     # Prepare the image URL and book_condition.
     for book in wishlist_selling:
-        book['img_url'] = get_google_image_for_book(book['book_isbn'])
-        book['book_condition'] = BOOK_CONDITION[book['book_condition']]
+        book = add_book_information(book)
 
     for book in user_selling:
-        book['img_url'] = get_google_image_for_book(book['book_isbn'])
-        book['book_condition'] = BOOK_CONDITION[book['book_condition']]
+        book = add_book_information(book)
 
     cursor.close()
 
-    return render_template('user_profile.html', wishlist_selling=wishlist_selling, user_selling=user_selling, user=user, condition = BOOK_CONDITION, has_wishlist_items=has_wishlist_items)
+    return render_template('user_profile.html', wishlist_selling=wishlist_selling, \
+        user_selling=user_selling, user=user, condition_options=get_book_condition_options(), \
+        has_wishlist_items=has_wishlist_items)
 
 @app.route('/book/<isbn>')
 def get_book_information(isbn):
