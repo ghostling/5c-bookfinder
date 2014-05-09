@@ -2,6 +2,10 @@ import scrape_books as sb
 import MySQLdb, MySQLdb.cursors
 import re
 import logging
+import sys, os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+import config
 
 # Global variables.
 TERM = 'FA2014'
@@ -10,8 +14,9 @@ logging.basicConfig(filename='../logs/fetch_books.log', filemode='w', level=logg
 
 def populate_database_with_books():
     # Connect to database.
-    db = MySQLdb.connect(host='localhost', port=3306, user='5cbookfinder',
-            passwd='g4G5IkDOM3a91EV', db='5cbookfinder', cursorclass=MySQLdb.cursors.DictCursor)
+    db = MySQLdb.connect(host=config.DB_HOST, port=config.DB_PORT, \
+        user=config.DB_USER, passwd=config.DB_PASSWD, db=config.DB, \
+        cursorclass=MySQLdb.cursors.DictCursor)
 
     cursor = db.cursor()
 
@@ -49,30 +54,34 @@ def populate_database_with_books():
 
         if type(booklist) == list:
             for b in booklist:
-                # Add book to database if not added already.
-                if b.isbn not in books_added:
-                    cursor.execute('INSERT INTO Books VALUES (%s, %s, %s, %s)',
-                            (b.author, b.isbn, b.title, b.edition))
-                    db.commit()
+                # Throw a warning if the book doesn't have an ISBN.
+                if b.isbn:
+                    # Add book to database if not added already.
+                    if b.isbn not in books_added:
+                        cursor.execute('INSERT INTO Books VALUES (%s, %s, %s, %s)',
+                                (b.isbn, b.author, b.title, b.edition))
+                        db.commit()
 
-                    # Record that book has been updated in database.
-                    books_added[b.isbn] = True
-                    logging.info('Successfully added %s to DB!' % str(b))
-                else:
-                    logging.info(str(b) + ' is already in DB!')
+                        # Record that book has been updated in database.
+                        books_added[b.isbn] = True
+                        logging.info('Successfully added %s to DB!' % str(b))
+                    else:
+                        logging.info(str(b) + ' is already in DB!')
 
-                # After book is in database, we want to add the respective
-                # association of the book with the course.
-                if b.required:
-                    cursor.execute('INSERT INTO CourseRequiresBook VALUES (%s, %s)',
-                            (c['course_number'], b.isbn))
-                    db.commit()
-                    logging.info('This book is required.')
+                    # After book is in database, we want to add the respective
+                    # association of the book with the course.
+                    if b.required:
+                        cursor.execute('INSERT INTO CourseRequiresBook VALUES (%s, %s)',
+                                (c['course_number'], b.isbn))
+                        db.commit()
+                        logging.info('This book is required.')
+                    else:
+                        cursor.execute('INSERT INTO CourseRecommendsBook VALUES (%s, %s)',
+                                (c['course_number'], b.isbn))
+                        db.commit()
+                        logging.info('This book is recommended.')
                 else:
-                    cursor.execute('INSERT INTO CourseRecommendsBook VALUES (%s, %s)',
-                            (c['course_number'], b.isbn))
-                    db.commit()
-                    logging.info('This book is recommended.')
+                    logging.warn('%s is invalid!' % str(b))
         else:
             logging.warn(booklist)
             logging.warn('At this url:\n' + sb.base_url % course_params)
