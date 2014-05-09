@@ -6,9 +6,6 @@ import requests
 import config
 import datetime
 
-# TODO: Every time you use session['user_id'], you should check it with the
-# user hash....
-
 GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q={0}'
 
 app = Flask(__name__)
@@ -132,9 +129,8 @@ def get_book_information(isbn):
     db, cursor = get_db_cursor()
 
     # Check if they're signed in to display the offer to sell that book.
-    uid = session.get('uid')
-
-    if uid:
+    if UF.check_valid_user_session(session):
+        uid = session.get('user_id')
         logged_in = True
     else:
         logged_in = False
@@ -181,12 +177,7 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    user_id = session.get('user_id')
-
-    if user_id:
-        logged_in = True
-    else:
-        logged_in = False
+    logged_in = UF.check_valid_user_session(session)
 
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
     course = cursor.fetchone()
@@ -234,7 +225,7 @@ def get_course_information(course_number):
 def sellbook():
     db, cursor = get_db_cursor()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and UF.check_valid_user_session(session):
         isbn = str(request.form['isbn'])
         price = str(request.form['price'])
         condition = str(request.form['condition'])
@@ -264,12 +255,15 @@ def sellbook():
             db.commit()
 
         return make_response('/user/' + str(user_id), 200)
+    else:
+        session.clear()
+        abort(404)
 
 @app.route('/wishlist', methods=['POST'])
 def add_to_wishlist():
     db, cursor = get_db_cursor()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and UF.check_valid_user_session(session):
         isbn = str(request.form['isbn'])
         user_id = session['user_id']
 
@@ -279,12 +273,15 @@ def add_to_wishlist():
 
         # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
+    else:
+        session.clear()
+        abort(404)
 
 @app.route('/unwishlist', methods=['POST'])
 def remove_from_wishlist():
     db, cursor = get_db_cursor()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and UF.check_valid_user_session(session):
         isbn = str(request.form['isbn'])
         user_id = session['user_id']
 
@@ -294,6 +291,9 @@ def remove_from_wishlist():
 
         # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
+    else:
+        session.clear()
+        abort(404)
 
 @app.route('/search')
 def get_search_json():
@@ -325,7 +325,7 @@ def signup():
             db.commit()
 
             # Set session to save user login status.
-            set_logged_in_user_session(user_id, name)
+            UF.set_logged_in_user_session(user_id, name)
             return make_response('', 200)
         else:
             return make_response('Email already in use.', 400)
@@ -348,45 +348,38 @@ def signin():
         if user:
             salt = user['hashed_password'].split(',')[1]
             if user['hashed_password'] == UF.make_pw_hash(email, password, salt):
-                set_logged_in_user_session(user['user_id'], user['name'])
+                UF.set_logged_in_user_session(user['user_id'], user['name'])
                 return make_response('', 200)
 
         # Whether user doesn't exists or password mismatch, we want one error.
         return make_response('The email or password is incorrect.', 400)
 
-def set_logged_in_user_session(user_id, name):
-    session['user_hash'] = UF.make_secure_val(user_id)
-    session['user_id'] = user_id
-    session['user_name'] = name
-
 @app.route('/editprofile', methods=['POST'])
 def edit_profile():
     db, cursor = get_db_cursor()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and UF.check_valid_user_session(session):
         name = str(request.form['name'])
         email = str(request.form['email'])
         phone_number = str(request.form['phone_number'])
         user_id = session['user_id']
 
-        # Check if user is allowed to edit this profile.
-        if session['user_hash'] == UF.make_secure_val(user_id):
-            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(user_id),))
-            cur_user = cursor.fetchone()
-            # Check if email is already in use.
-            cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
-            user = cursor.fetchone()
-            if (not user) or (user and (email == cur_user['email_address'])):
-                cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
-                        phone_number=%s WHERE user_id=%s''', (name, email,
-                        phone_number, user_id))
-                db.commit()
-                return make_response('/user/' + str(user_id), 200)
-            else:
-                return make_response('This email is already in use.', 400)
+        cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(user_id),))
+        cur_user = cursor.fetchone()
+        # Check if email is already in use.
+        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+        user = cursor.fetchone()
+        if (not user) or (user and (email == cur_user['email_address'])):
+            cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
+                    phone_number=%s WHERE user_id=%s''', (name, email,
+                    phone_number, user_id))
+            db.commit()
+            return make_response('/user/' + str(user_id), 200)
         else:
-            session.clear()
-            return make_response('You are not allowed to edit this profile.', 400)
+            return make_response('This email is already in use.', 400)
+    else:
+        session.clear()
+        abort(404)
 
 @app.route('/logout')
 def logout():

@@ -27,3 +27,12 @@ def make_pw_hash(email, pw, salt=""):
 def validate_login(email, pw, h):
     salt = h.split(',')[1]
     return h == make_pw_hash(email, pw, salt)
+
+def set_logged_in_user_session(user_id, name):
+    session['user_hash'] = make_secure_val(user_id+name)
+    session['user_id'] = user_id
+    session['user_name'] = name
+
+def check_valid_user_session(session):
+    return session['user_hash'] == make_secure_val(session['user_id'] 
+            + session['user_name'])
