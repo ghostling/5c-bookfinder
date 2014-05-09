@@ -181,49 +181,58 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    user_id = session.get('user_id')
+    uid = session.get('uid')
 
-    if user_id:
+    if uid:
         logged_in = True
     else:
         logged_in = False
 
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
+
+    # Check if the course number is valid.
+    if int(cursor.rowcount) < 1:
+        abort(404)
+
     course = cursor.fetchone()
 
-    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+    # Get the course's required books.
+    cursor.execute('''SELECT B.* FROM
             CourseRequiresBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number,))
+            AND B.isbn = CRB.isbn''', (course_number,))
     books_required = cursor.fetchall()
 
+    # Process the required books.
     for b in books_required:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
-                (b['book_isbn'],))
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+                (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
         # Check if in current user's wishlist only if they're logged in.
-        if user_id:
-            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                    book_isbn=%s''', (user_id, b['book_isbn'],))
+        if uid:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid=%s AND
+                    isbn=%s''', (uid, b['isbn'],))
             if cursor.rowcount == 1:
                 b['in_user_wishlist'] = True
 
-    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+    # Get the course's recommended books.
+    cursor.execute('''SELECT B.* FROM
             CourseRecommendsBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number,))
+            AND B.isbn = CRB.isbn''', (course_number,))
     books_recommended = cursor.fetchall()
 
+    # Process the recommended books.
     for b in books_recommended:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
-                (b['book_isbn'],))
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+                (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
         # Check if in current user's wishlist only if they're logged in:
-        if user_id:
-            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                    book_isbn=%s''', (user_id, b['book_isbn'],))
+        if uid:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid = %s AND
+                    isbn = %s''', (uid, b['isbn'],))
             if cursor.rowcount == 1:
                 b['in_user_wishlist'] = True
 

@@ -40,7 +40,11 @@
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
       <span data-tooltip class="has-tip" title="Click the link above to see them.">
-      There are {{book.number_selling}} listing(s) for this book.
+      {% if book.number_selling > 1 %}
+      There are {{book.number_selling}} listings for this book.
+      {% else %}
+      There is 1 listing for this book.
+      {% endif %}
       </span>
       {% else %}
       No one is currently selling this book.
