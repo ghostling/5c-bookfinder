@@ -75,7 +75,7 @@
               ISBN: {{ book.isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.description }}
+              <br>Condition: {{ book.condition_desc }}
             </div>
 
             {# Begin production of edit book modal. #}
@@ -104,7 +104,7 @@
 
                     <label>Condition
                       <select>
-                        {% for c in condition_options %} {% if book.description == c %}
+                        {% for c in condition_options %} {% if book.condition_desc == c %}
                         <option value="{{ c.rating }}" selected>{{ c.description }}</option>
                         {% else %}
                         <option value="{{ c.rating }}">{{ c.description }}</option>
@@ -164,7 +164,7 @@
               ISBN: {{ book.isbn }}
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.condition }}
+              <br>Condition: {{ book.condition_desc }}
               <br>Sold By:
               <a href="/user/{{book.seller_id}}">{{ book.owner }}</a>
             </div>

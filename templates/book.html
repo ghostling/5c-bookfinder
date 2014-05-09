@@ -6,7 +6,7 @@
     {% else %}
     <h2>{{book.title}}</h2><h2> by {{book.author}}</h2>
     {% endif %}
-    <h4>ISBN: {{book.book_isbn}}</h4>
+    <h4>ISBN: {{book.isbn}}</h4>
     <div class="add-r-pad add-l-pad add-t-pad">
     {% if book.req_by_list %}
     <span class="label medium-label-text success radius">Required By:</span>
@@ -67,11 +67,9 @@
         <div>
           <label>Condition
             <select name="condition" required>
-              <option value="1">New</option>
-              <option value="2">Like New</option>
-              <option value="3">Very Good</option>
-              <option value="4">Good</option>
-              <option value="5">Acceptable</option>
+              {% for c in condition_options %}
+                <option value="{{ c.rating }}">{{ c.description }}</option>
+                {% endfor %}
             </select> 
           </label>
         </div>
@@ -92,7 +90,7 @@
     <li>
       <div class="row add-r-pad add-l-pad">
         <h5>Price: ${{b.price}}</h5>
-        <h5>Condition: {{b.book_condition}}</h5>
+        <h5>Condition: {{b.condition_desc}}</h5>
         <h5>Comments: {{b.comments|default("None", True)}}</h5>
         <h5>Sold By: <a href="/user/{{b.user_id}}">{{b.name}}</a></h5>
         <h5><small>Last updated: {{b.updated_at}}</small></h5>

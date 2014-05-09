@@ -9,14 +9,6 @@ import datetime
 # TODO: Every time you use session['user_id'], you should check it with the
 # user hash....
 
-# Declare globals.
-BOOK_CONDITION = {
-    1: 'New',
-    2: 'Like New',
-    3: 'Very Good',
-    4: 'Good',
-    5: 'Acceptable'
-}
 GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q={0}'
 
 app = Flask(__name__)
@@ -56,10 +48,7 @@ def get_book_condition_options():
 
     return result
 
-def add_book_information(book):
-    # Set the image.
-    book['img_url'] = get_google_image_for_book(book['isbn'])
-
+def add_book_condition(book):
     # Get the book condition options.
     condition_options = get_book_condition_options()
     index = 0
@@ -69,7 +58,7 @@ def add_book_information(book):
             index = condition_options.index(option)
             break
 
-    book['description'] = condition_options[index]['description']
+    book['condition_desc'] = condition_options[index]['description']
 
     return book
 
@@ -119,10 +108,18 @@ def get_user_profile(uid):
 
     # Prepare the image URL and book_condition.
     for book in wishlist_selling:
-        book = add_book_information(book)
+        # Set the image.
+        book['img_url'] = get_google_image_for_book(book['isbn'])
+
+        # Add book condition.
+        book = add_book_condition(book)
 
     for book in user_selling:
-        book = add_book_information(book)
+        # Set the image.
+        book['img_url'] = get_google_image_for_book(book['isbn'])
+
+        # Add book condition.
+        book = add_book_condition(book)
 
     cursor.close()
 
@@ -135,39 +132,49 @@ def get_book_information(isbn):
     db, cursor = get_db_cursor()
 
     # Check if they're signed in to display the offer to sell that book.
-    user_id = session.get('user_id')
+    uid = session.get('uid')
 
-    if user_id:
+    if uid:
         logged_in = True
     else:
         logged_in = False
 
-    cursor.execute('SELECT * FROM Books WHERE book_isbn=%s', (isbn,))
+    cursor.execute('SELECT * FROM Books WHERE isbn=%s', (isbn,))
+
+    # Check if the ISBN is valid.
+    if int(cursor.rowcount) < 1:
+        abort(404)
+
     book = cursor.fetchone()
 
+    # Get the required books.
     cursor.execute('''SELECT C.course_number, C.title FROM
-            CourseRequiresBook CRB, Courses C WHERE CRB.book_isbn=%s AND
-            CRB.course_number=C.course_number''', (isbn,))
+            CourseRequiresBook CRB, Courses C WHERE CRB.isbn = %s AND
+            CRB.course_number = C.course_number''', (isbn,))
     book['req_by_list'] = cursor.fetchall()
 
+    # Get the recommended books.
     cursor.execute('''SELECT C.course_number, C.title FROM
-            CourseRecommendsBook CRB, Courses C WHERE CRB.book_isbn=%s AND
+            CourseRecommendsBook CRB, Courses C WHERE CRB.isbn = %s AND
             CRB.course_number=C.course_number''', (isbn,))
     book['rec_by_list'] = cursor.fetchall()
 
-    cursor.execute('''SELECT B.price, B.book_condition, B.comments, U.user_id,
-            UU.name, B.updated_at FROM BooksForSale B, UserSellsBook U,
-            Users UU WHERE B.book_isbn=%s AND B.listing_id=U.listing_id AND
-            U.user_id=UU.user_id''', (isbn,))
+    # Get all of the books that are being sold.
+    cursor.execute('''SELECT B.*, U.name
+        FROM BooksForSale B, Users U
+        WHERE B.isbn = %s AND B.seller_id = U.uid AND B.status = 1''', (isbn,))
     book['selling_list'] = cursor.fetchall()
+
+    # Add the appropriate information.
     for b in book['selling_list']:
         b['updated_at'] = b['updated_at'].strftime('%m/%d/%Y')
-        b['book_condition'] = BOOK_CONDITION[b['book_condition']]
+        b = add_book_condition(b)
 
     # Prepare the image URL.
-    book['img_url'] = get_google_image_for_book(book['book_isbn'])
+    book['img_url'] = get_google_image_for_book(book['isbn'])
 
-    return render_template('book.html', book=book, logged_in=logged_in)
+    return render_template('book.html', book=book, \
+        condition_options=get_book_condition_options(), logged_in=logged_in)
 
 @app.route('/course/<course_number>')
 def get_course_information(course_number):
