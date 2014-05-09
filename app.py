@@ -249,11 +249,11 @@ def sellbook():
         condition = str(request.form['condition'])
         comments = str(request.form['comments'])
         created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        user_id = session['user_id']
+        uid = session['uid']
 
         # Check if any course req/rec's this book.
         cursor.execute('''SELECT * FROM CourseRequiresBook RQ, CourseRecommendsBook RC
-                WHERE RQ.book_isbn=%s OR RC.book_isbn=%s''', (isbn, isbn,))
+                WHERE RQ.isbn = %s OR RC.isbn = %s''', (isbn, isbn,))
         valid_course_book = cursor.fetchone()
 
         if not valid_course_book:
@@ -263,16 +263,13 @@ def sellbook():
         if float(price) < 0:
             return make_response('You cannot have a negative price!', 400)
         else:
-            cursor.execute('''INSERT INTO BooksForSale (book_isbn, status,
-                    created_at, price, book_condition, comments) VALUES
-                    (%s, %s, %s, %s, %s, %s)''', (isbn, 1, created_at,
+            cursor.execute('''INSERT INTO BooksForSale (isbn, seller_id, status,
+                    created_at, price, rating, comments) VALUES
+                    (%s, %s, %s, %s, %s, %s, %s)''', (isbn, uid, 1, created_at, \
                     price, condition, comments,))
-            listing_id = db.insert_id()
-            cursor.execute('''INSERT INTO UserSellsBook VALUES (%s, %s)''',
-                    (user_id, listing_id,))
             db.commit()
 
-        return make_response('/user/' + str(user_id), 200)
+        return make_response('/user/' + str(uid), 200)
 
 @app.route('/wishlist', methods=['POST'])
 def add_to_wishlist():
@@ -280,10 +277,10 @@ def add_to_wishlist():
 
     if request.method == 'POST':
         isbn = str(request.form['isbn'])
-        user_id = session['user_id']
+        uid = session['uid']
 
         cursor.execute('''INSERT INTO UserTracksBook VALUES (%s, %s)''',
-                (user_id, isbn,))
+                (uid, isbn,))
         db.commit()
 
         # TODO: What could possibly go wrong...? (Serious question.)
@@ -295,18 +292,14 @@ def remove_from_wishlist():
 
     if request.method == 'POST':
         isbn = str(request.form['isbn'])
-        user_id = session['user_id']
+        uid = session['uid']
 
-        cursor.execute('''DELETE FROM UserTracksBook WHERE user_id=%s AND
-                book_isbn=%s''', (user_id, isbn,))
+        cursor.execute('''DELETE FROM UserTracksBook WHERE uid=%s AND
+                isbn=%s''', (uid, isbn,))
         db.commit()
 
         # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
-
-@app.route('/search')
-def get_search_json():
-    return 'Hello, world!'
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -316,20 +309,20 @@ def signup():
     if request.method == 'POST':
         name = str(request.form['name'])
         email = str(request.form['email'])
-        phone_number = str(request.form['phone_number'])
+        phone = str(request.form['phone_number'])
         password = str(request.form['password'])
 
         # Make sure that the e-mail address given is valid.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
+        cursor.execute('SELECT * FROM Users WHERE email = %s', (email, ))
         user = cursor.fetchall()
 
         if not user:
             hashed_pw = UF.make_pw_hash(email, password)
 
             cursor.execute('''INSERT INTO Users
-                    (name, email_address, hashed_password, phone_number)
+                    (name, email, hashed_pw, phone)
                     VALUES (%s, %s, %s, %s)''',
-                    (name, email, hashed_pw, phone_number,))
+                    (name, email, hashed_pw, phone,))
             user_id = db.insert_id()
             db.commit()
 
@@ -338,8 +331,6 @@ def signup():
             return make_response('', 200)
         else:
             return make_response('Email already in use.', 400)
-
-    return json.dumps(response)
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -351,21 +342,21 @@ def signin():
         password = str(request.form['password'])
 
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+        cursor.execute('SELECT * FROM Users WHERE email = %s', (email,))
         user = cursor.fetchone()
 
         if user:
-            salt = user['hashed_password'].split(',')[1]
-            if user['hashed_password'] == UF.make_pw_hash(email, password, salt):
-                set_logged_in_user_session(user['user_id'], user['name'])
+            salt = user['hashed_pw'].split(',')[1]
+            if user['hashed_pw'] == UF.make_pw_hash(email, password, salt):
+                set_logged_in_user_session(user['uid'], user['name'])
                 return make_response('', 200)
 
         # Whether user doesn't exists or password mismatch, we want one error.
         return make_response('The email or password is incorrect.', 400)
 
-def set_logged_in_user_session(user_id, name):
-    session['user_hash'] = UF.make_secure_val(user_id)
-    session['user_id'] = user_id
+def set_logged_in_user_session(uid, name):
+    session['user_hash'] = UF.make_secure_val(uid)
+    session['uid'] = uid
     session['user_name'] = name
 
 @app.route('/editprofile', methods=['POST'])
@@ -375,22 +366,22 @@ def edit_profile():
     if request.method == 'POST':
         name = str(request.form['name'])
         email = str(request.form['email'])
-        phone_number = str(request.form['phone_number'])
-        user_id = session['user_id']
+        phone = str(request.form['phone_number'])
+        uid = session['uid']
 
         # Check if user is allowed to edit this profile.
-        if session['user_hash'] == UF.make_secure_val(user_id):
-            cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(user_id),))
+        if session['user_hash'] == UF.make_secure_val(uid):
+            cursor.execute('SELECT * FROM Users WHERE uid = %s', (str(uid),))
             cur_user = cursor.fetchone()
             # Check if email is already in use.
-            cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+            cursor.execute('SELECT * FROM Users WHERE email = %s', (email,))
             user = cursor.fetchone()
-            if (not user) or (user and (email == cur_user['email_address'])):
-                cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
-                        phone_number=%s WHERE user_id=%s''', (name, email,
-                        phone_number, user_id))
+            if (not user) or (user and (email == cur_user['email'])):
+                cursor.execute('''UPDATE Users SET name = %s, email = %s,
+                        phone = %s WHERE uid = %s''', (name, email,
+                        phone, uid))
                 db.commit()
-                return make_response('/user/' + str(user_id), 200)
+                return make_response('/user/' + str(uid), 200)
             else:
                 return make_response('This email is already in use.', 400)
         else:
