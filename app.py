@@ -63,11 +63,6 @@ def get_user_profile(uid):
     if int(rows_affected) is not 1:
         abort(404)
 
-    # Get the books that we've recently listed.
-    recently_listed = []
-    cursor.execute('SELECT * FROM BooksForSale B ORDER BY updated_at DESC LIMIT 10')
-    recently_listed = cursor.fetchall()
-
     # Check if they have anything in their wishlist.
     cursor.execute('SELECT * FROM UserTracksBook WHERE uid = %s', (uid,))
     if cursor.rowcount > 0:
@@ -76,7 +71,6 @@ def get_user_profile(uid):
         has_wishlist_items = False
 
     # Get the books that are currently being sold that are on their wishlist.
-    # TODO: Something wrong with this query...duplicate results.
     cursor.execute('''SELECT B.*, BFS.*, U.name as 'owner'
         FROM Books B, UserTracksBook UTB, BooksForSale BFS, Users U
         WHERE UTB.uid = %s AND UTB.isbn = B.isbn AND B.isbn = BFS.isbn
@@ -86,7 +80,7 @@ def get_user_profile(uid):
     # Then, get the books that they themselves are selling.
     cursor.execute('''SELECT BFS.*, B.*
         FROM BooksForSale BFS, Books B
-        WHERE  B.isbn = BFS.isbn AND BFS.seller_id = %s''', (uid,))
+        WHERE  B.isbn = BFS.isbn AND BFS.seller_id = %s AND BFS.status = 1''', (uid,))
     user_selling = cursor.fetchall()
 
     # Prepare the image URL and book_condition.
@@ -121,7 +115,7 @@ def get_book_information(isbn):
     else:
         logged_in = False
 
-    cursor.execute('SELECT * FROM Books WHERE isbn=%s', (isbn,))
+    cursor.execute('SELECT * FROM Books WHERE isbn = %s', (isbn,))
 
     # Check if the ISBN is valid.
     if int(cursor.rowcount) < 1:
@@ -138,7 +132,7 @@ def get_book_information(isbn):
     # Get the recommended books.
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRecommendsBook CRB, Courses C WHERE CRB.isbn = %s AND
-            CRB.course_number=C.course_number''', (isbn,))
+            CRB.course_number = C.course_number''', (isbn,))
     book['rec_by_list'] = cursor.fetchall()
 
     # Get all of the books that are being sold.
@@ -178,35 +172,32 @@ def get_course_information(course_number):
     course = cursor.fetchone()
 
     # Get the course's required books.
-    cursor.execute('''SELECT B.* FROM
-            CourseRequiresBook CRB, Books B
-            WHERE CRB.course_number = %s
-            AND B.isbn = CRB.isbn''', (course_number,))
+    cursor.execute('''SELECT B.* FROM CourseRequiresBook CRB, Books B
+            WHERE CRB.course_number = %s AND B.isbn = CRB.isbn''', (course_number,))
     books_required = cursor.fetchall()
 
     # Process the required books.
     for b in books_required:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s AND status = 1''',
                 (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
         # Check if in current user's wishlist only if they're logged in.
         if uid:
-            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid=%s AND
-                    isbn=%s''', (uid, b['isbn'],))
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid = %s AND
+                    isbn = %s''', (uid, b['isbn'],))
             if cursor.rowcount == 1:
                 b['in_user_wishlist'] = True
 
     # Get the course's recommended books.
     cursor.execute('''SELECT B.* FROM
             CourseRecommendsBook CRB, Books B
-            WHERE CRB.course_number = %s
-            AND B.isbn = CRB.isbn''', (course_number,))
+            WHERE CRB.course_number = %s AND B.isbn = CRB.isbn''', (course_number,))
     books_recommended = cursor.fetchall()
 
     # Process the recommended books.
     for b in books_recommended:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s AND status = 1''',
                 (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
@@ -280,8 +271,8 @@ def remove_from_wishlist():
         isbn = str(request.form['isbn'])
         uid = session['uid']
 
-        cursor.execute('''DELETE FROM UserTracksBook WHERE uid=%s AND
-                isbn=%s''', (uid, isbn,))
+        cursor.execute('''DELETE FROM UserTracksBook WHERE uid = %s AND
+                isbn = %s''', (uid, isbn,))
         db.commit()
 
         return make_response('', 200)
