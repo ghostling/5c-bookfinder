@@ -161,6 +161,7 @@ def get_course_information(course_number):
         uid = session.get('uid')
         logged_in = True
     else:
+        uid = None
         logged_in = False
 
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
@@ -306,7 +307,7 @@ def signup():
             db.commit()
 
             # Set session to save user login status.
-            UF.set_logged_in_user_session(uid, name)
+            session = UF.set_logged_in_user_session(uid, name)
             return make_response('', 200)
         else:
             return make_response('Email already in use.', 400)
@@ -327,7 +328,7 @@ def signin():
         if user:
             salt = user['hashed_pw'].split(',')[1]
             if user['hashed_pw'] == UF.make_pw_hash(email, password, salt):
-                UF.set_logged_in_user_session(user['uid'], user['name'])
+                session = UF.set_logged_in_user_session(user['uid'], user['name'])
                 return make_response('', 200)
 
         # Whether user doesn't exists or password mismatch, we want one error.

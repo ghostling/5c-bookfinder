@@ -1,3 +1,4 @@
+from flask import session
 import config
 import hashlib
 import hmac
@@ -29,7 +30,7 @@ def check_secure_val(secure_val):
     sec_val = secure_val.split('|')[0]
     if sec_val == make_secure_val(val):
         return sec_val
- 
+
 def make_salt():
     return ''.join(random.choice(string.letters) for x in xrange(8))
 
@@ -44,10 +45,15 @@ def validate_login(email, pw, h):
     return h == make_pw_hash(email, pw, salt)
 
 def set_logged_in_user_session(uid, name):
-    session['user_hash'] = make_secure_val(uid+name)
+    session['user_hash'] = make_secure_val(str(uid)+name)
     session['uid'] = uid
     session['user_name'] = name
 
+    return session
+
 def check_valid_user_session(session):
-    return session['user_hash'] == make_secure_val(str(session['uid'])
+    try:
+        return session['user_hash'] == make_secure_val(str(session['uid'])
             + session['user_name'])
+    except:
+        return False

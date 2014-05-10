@@ -157,3 +157,11 @@ hr {
 ul {
   margin-right: 1.1rem;
 }
+
+.gray-bg {
+  background-color: #efefef;
+}
+
+.white-bg {
+  background-color: #ffffff;
+}

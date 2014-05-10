@@ -46,9 +46,17 @@
 </div>
 <div class="row add-l-pad add-r-pad">
   <div class="row listed-book-heading sub-head">
-      <div class="medium-10 columns"><h3>Books You're Selling</h3></div>
+      <div class="medium-10 columns">
+          {% if session.uid == user.uid %}
+          <h3>Books You're Selling</h3>
+          {% else %}
+          <h3>{{user.name}} is Selling</h3>
+          {% endif %}
+      </div>
     <div class="medium-2 columns">
+          {% if session.uid == user.uid %}
       <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
+          {% endif %}
     </div>
   </div>
     {% if user_selling %}
@@ -79,6 +87,7 @@
             </div>
 
             {# Begin production of edit book modal. #}
+            {% if user.uid == session.uid %}
             <div class="book-additional reveal-modal small" id="edit-book-{{ book.listing_id }}" data-reveal>
               <a class="close-reveal-modal">&#215;</a>
               <p class="small-header">
@@ -123,13 +132,16 @@
                 </center>
               </form>
             </div>
+            {% endif %}
             {# End production of edit book modal. #}
 
           </div>
         <div class="medium-1 columns">
+          {% if session.uid == user.uid %}
             <a href="#" data-reveal-id="edit-book-{{book.listing_id}}">
               <i class="fi-page-edit right icon-edit-style"></i>
             </a>
+          {% endif %}
         </div>
         </div>
       </li>
@@ -145,7 +157,11 @@
 <div class="row add-l-pad add-r-pad">
     <div class="row listed-book-heading sub-head">
         <div class="medium-12 columns">
+  {% if user.uid == session.uid %}
   <h3>Your Wishlist</h3>
+  {% else %}
+  <h3>{{user.name}}'s Wishlist</h3>
+  {% endif %}
   </div>
   </div>
     {% if wishlist_selling %}
@@ -179,20 +195,26 @@
     </ul>
     {% else %}
     <div class="row add-all-pad">
+      {% if session.uid == user.uid  %}
       {% if has_wishlist_items %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
+      {% else %}
+      {% if has_wishlist_items %} Nothing on {{user.name}}'s wishlist is currently being sold. {% else %} {{user.name}}'s wishlist is currently empty. {% endif %}
+      {% endif %}
     </div>
     {% endif %}
   </ul>
 </div>
 
 {# Begin code to add a book #}
-<div class="reveal-modal medium" id="sell-book-modal" data-reveal>
+{% if session.uid == user.uid %}
+<div class="reveal-modal medium gray-bg" id="sell-book-modal" data-reveal>
+<div class="white-bg">
   <a class="close-reveal-modal">&#215;</a>
-  <dl class="tabs" data-tab>
+  <dl class="tabs gray-bg" data-tab>
     <dd class="active">
       <a href="#add-book-tab-1">Add Book</a>
     </dd>
-    <dd class="active">
+    <dd>
       <a href="#add-book-tab-2">Book Not Found?</a>
     </dd>
   </dl>
@@ -274,6 +296,8 @@
       </form>
     </div>
   </div>
+  </div>
 </div>
+{% endif %}
 {# End code to add a book #}
 {% endblock %}
