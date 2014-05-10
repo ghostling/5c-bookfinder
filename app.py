@@ -1,12 +1,9 @@
 from flask import Flask, render_template, redirect, session, request, url_for, Response, make_response, abort
-import utility_functions as UF
 import MySQLdb, MySQLdb.cursors
-import json
-import requests
 import config
 import datetime
+import utility_functions as UF
 
-GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q={0}'
 
 app = Flask(__name__)
 app.secret_key = config.SECRET_KEY
@@ -22,17 +19,6 @@ def get_db_cursor():
 @app.route('/')
 def index():
     return render_template('index.html')
-
-# TODO: Cache this response so that we don't have to fetch it everytime!
-def get_google_image_for_book(isbn):
-    # Get the content and parse the JSON response.
-    r = requests.get(GOOGLE_BOOKS_API_BASE_URL.format(isbn))
-    response = json.loads(r.text)
-
-    # Get the first item in the list and hope that's the right one.
-    book = response["items"][0]
-
-    return book["volumeInfo"]["imageLinks"]["thumbnail"]
 
 def get_book_condition_options():
     # Get a cursor.
@@ -130,7 +116,7 @@ def get_book_information(isbn):
 
     # Check if they're signed in to display the offer to sell that book.
     if UF.check_valid_user_session(session):
-        uid = session.get('user_id')
+        uid = session.get('uid')
         logged_in = True
     else:
         logged_in = False
@@ -177,44 +163,57 @@ def get_course_information(course_number):
     # Get a cursor.
     db, cursor = get_db_cursor()
 
-    logged_in = UF.check_valid_user_session(session)
+    if UF.check_valid_user_session(session):
+        uid = session.get('uid')
+        logged_in = True
+    else:
+        logged_in = False
 
     cursor.execute('SELECT * FROM Courses WHERE course_number = %s', (course_number,))
+
+    # Check if the course number is valid.
+    if int(cursor.rowcount) < 1:
+        abort(404)
+
     course = cursor.fetchone()
 
-    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+    # Get the course's required books.
+    cursor.execute('''SELECT B.* FROM
             CourseRequiresBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number,))
+            AND B.isbn = CRB.isbn''', (course_number,))
     books_required = cursor.fetchall()
 
+    # Process the required books.
     for b in books_required:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
-                (b['book_isbn'],))
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+                (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
         # Check if in current user's wishlist only if they're logged in.
-        if user_id:
-            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                    book_isbn=%s''', (user_id, b['book_isbn'],))
+        if uid:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid=%s AND
+                    isbn=%s''', (uid, b['isbn'],))
             if cursor.rowcount == 1:
                 b['in_user_wishlist'] = True
 
-    cursor.execute('''SELECT B.author, B.book_isbn, B.title, B.edition FROM
+    # Get the course's recommended books.
+    cursor.execute('''SELECT B.* FROM
             CourseRecommendsBook CRB, Books B
             WHERE CRB.course_number = %s
-            AND B.book_isbn = CRB.book_isbn''', (course_number,))
+            AND B.isbn = CRB.isbn''', (course_number,))
     books_recommended = cursor.fetchall()
 
+    # Process the recommended books.
     for b in books_recommended:
-        cursor.execute('''SELECT * FROM BooksForSale WHERE book_isbn=%s''',
-                (b['book_isbn'],))
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn = %s''',
+                (b['isbn'],))
         b['number_selling'] = cursor.rowcount
 
         # Check if in current user's wishlist only if they're logged in:
-        if user_id:
-            cursor.execute('''SELECT * FROM UserTracksBook WHERE user_id=%s AND
-                    book_isbn=%s''', (user_id, b['book_isbn'],))
+        if uid:
+            cursor.execute('''SELECT * FROM UserTracksBook WHERE uid = %s AND
+                    isbn = %s''', (uid, b['isbn'],))
             if cursor.rowcount == 1:
                 b['in_user_wishlist'] = True
 
@@ -231,11 +230,11 @@ def sellbook():
         condition = str(request.form['condition'])
         comments = str(request.form['comments'])
         created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        user_id = session['user_id']
+        uid = session['uid']
 
         # Check if any course req/rec's this book.
         cursor.execute('''SELECT * FROM CourseRequiresBook RQ, CourseRecommendsBook RC
-                WHERE RQ.book_isbn=%s OR RC.book_isbn=%s''', (isbn, isbn,))
+                WHERE RQ.isbn = %s OR RC.isbn = %s''', (isbn, isbn,))
         valid_course_book = cursor.fetchone()
 
         if not valid_course_book:
@@ -245,19 +244,16 @@ def sellbook():
         if float(price) < 0:
             return make_response('You cannot have a negative price!', 400)
         else:
-            cursor.execute('''INSERT INTO BooksForSale (book_isbn, status,
-                    created_at, price, book_condition, comments) VALUES
-                    (%s, %s, %s, %s, %s, %s)''', (isbn, 1, created_at,
+            cursor.execute('''INSERT INTO BooksForSale (isbn, seller_id, status,
+                    created_at, price, rating, comments) VALUES
+                    (%s, %s, %s, %s, %s, %s, %s)''', (isbn, uid, 1, created_at, \
                     price, condition, comments,))
-            listing_id = db.insert_id()
-            cursor.execute('''INSERT INTO UserSellsBook VALUES (%s, %s)''',
-                    (user_id, listing_id,))
             db.commit()
 
-        return make_response('/user/' + str(user_id), 200)
+        return make_response('', 200)
     else:
         session.clear()
-        abort(404)
+        return make_response('You are not authorized to sell a book.', 401)
 
 @app.route('/wishlist', methods=['POST'])
 def add_to_wishlist():
@@ -265,17 +261,16 @@ def add_to_wishlist():
 
     if request.method == 'POST' and UF.check_valid_user_session(session):
         isbn = str(request.form['isbn'])
-        user_id = session['user_id']
+        uid = session['uid']
 
         cursor.execute('''INSERT INTO UserTracksBook VALUES (%s, %s)''',
-                (user_id, isbn,))
+                (uid, isbn,))
         db.commit()
 
-        # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
     else:
         session.clear()
-        abort(404)
+        return make_response('', 401)
 
 @app.route('/unwishlist', methods=['POST'])
 def remove_from_wishlist():
@@ -283,21 +278,16 @@ def remove_from_wishlist():
 
     if request.method == 'POST' and UF.check_valid_user_session(session):
         isbn = str(request.form['isbn'])
-        user_id = session['user_id']
+        uid = session['uid']
 
-        cursor.execute('''DELETE FROM UserTracksBook WHERE user_id=%s AND
-                book_isbn=%s''', (user_id, isbn,))
+        cursor.execute('''DELETE FROM UserTracksBook WHERE uid=%s AND
+                isbn=%s''', (uid, isbn,))
         db.commit()
 
-        # TODO: What could possibly go wrong...? (Serious question.)
         return make_response('', 200)
     else:
         session.clear()
-        abort(404)
-
-@app.route('/search')
-def get_search_json():
-    return 'Hello, world!'
+        return make_response('', 401)
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -307,30 +297,28 @@ def signup():
     if request.method == 'POST':
         name = str(request.form['name'])
         email = str(request.form['email'])
-        phone_number = str(request.form['phone_number'])
+        phone = str(request.form['phone_number'])
         password = str(request.form['password'])
 
         # Make sure that the e-mail address given is valid.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email, ))
+        cursor.execute('SELECT * FROM Users WHERE email = %s', (email, ))
         user = cursor.fetchall()
 
         if not user:
             hashed_pw = UF.make_pw_hash(email, password)
 
             cursor.execute('''INSERT INTO Users
-                    (name, email_address, hashed_password, phone_number)
+                    (name, email, hashed_pw, phone)
                     VALUES (%s, %s, %s, %s)''',
-                    (name, email, hashed_pw, phone_number,))
-            user_id = db.insert_id()
+                    (name, email, hashed_pw, phone,))
+            uid = db.insert_id()
             db.commit()
 
             # Set session to save user login status.
-            UF.set_logged_in_user_session(user_id, name)
+            UF.set_logged_in_user_session(uid, name)
             return make_response('', 200)
         else:
             return make_response('Email already in use.', 400)
-
-    return json.dumps(response)
 
 @app.route('/signin', methods=['POST'])
 def signin():
@@ -342,13 +330,13 @@ def signin():
         password = str(request.form['password'])
 
         # Get account associated with email.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+        cursor.execute('SELECT * FROM Users WHERE email = %s', (email,))
         user = cursor.fetchone()
 
         if user:
-            salt = user['hashed_password'].split(',')[1]
-            if user['hashed_password'] == UF.make_pw_hash(email, password, salt):
-                UF.set_logged_in_user_session(user['user_id'], user['name'])
+            salt = user['hashed_pw'].split(',')[1]
+            if user['hashed_pw'] == UF.make_pw_hash(email, password, salt):
+                UF.set_logged_in_user_session(user['uid'], user['name'])
                 return make_response('', 200)
 
         # Whether user doesn't exists or password mismatch, we want one error.
@@ -361,25 +349,25 @@ def edit_profile():
     if request.method == 'POST' and UF.check_valid_user_session(session):
         name = str(request.form['name'])
         email = str(request.form['email'])
-        phone_number = str(request.form['phone_number'])
-        user_id = session['user_id']
+        phone = str(request.form['phone_number'])
+        uid = session['uid']
 
-        cursor.execute('SELECT * FROM Users WHERE user_id = %s', (str(user_id),))
+        cursor.execute('SELECT * FROM Users WHERE uid = %s', (str(uid),))
         cur_user = cursor.fetchone()
         # Check if email is already in use.
-        cursor.execute('SELECT * FROM Users WHERE email_address = %s', (email,))
+        cursor.execute('SELECT * FROM Users WHERE email = %s', (email,))
         user = cursor.fetchone()
-        if (not user) or (user and (email == cur_user['email_address'])):
-            cursor.execute('''UPDATE Users SET name=%s, email_address=%s,
-                    phone_number=%s WHERE user_id=%s''', (name, email,
-                    phone_number, user_id))
+        if (not user) or (user and (email == cur_user['email'])):
+            cursor.execute('''UPDATE Users SET name = %s, email = %s,
+                    phone = %s WHERE uid = %s''', (name, email,
+                    phone, uid))
             db.commit()
-            return make_response('/user/' + str(user_id), 200)
+            return make_response('', 200)
         else:
             return make_response('This email is already in use.', 400)
     else:
         session.clear()
-        abort(404)
+        return make_response('You are not authorized to edit this profile.', 401)
 
 @app.route('/logout')
 def logout():

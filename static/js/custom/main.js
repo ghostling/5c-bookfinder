@@ -1,5 +1,5 @@
 function postFormInModal(form_id, modal_id, post_url, redirect_url) {
-    if (typeof(redirect_url) === 'undefined') {
+    if (typeof(redirect_url) == 'undefined') {
         redirect_url = window.location.pathname;
     }
 
@@ -19,14 +19,7 @@ function postFormInModal(form_id, modal_id, post_url, redirect_url) {
                 toggleLoading(modal_id, 'hide');
             },
             success: function(response) {
-                // Redirect to the page the app gives us if we have a success.
-                var redir;
-                if (typeof redirect_url == 'undefined') {
-                    redir = response.responseText;
-                } else {
-                    redir = redirect_url;
-                }
-                document.location.href = redir;
+                document.location.href = redirect_url;
             },
             error: function(response) {
                 console.log(response);
@@ -76,7 +69,7 @@ function init() {
     /* Edit profile form. */
     postFormInModal('#edit-profile-form', '#edit-profile-modal', '/editprofile');
     
-    /* Sell book form.*/
+    /* Sell book form. */
     postFormInModal('#sell-book-form', '#sell-book-modal', '/sellbook');
 
     $('.track-book').click(function(e) {

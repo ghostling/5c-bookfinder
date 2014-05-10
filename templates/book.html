@@ -51,7 +51,7 @@
       <form id="sell-book-form" data-abide>
         <div class="row">
           <label>ISBN
-            <input type="text" name="isbn" required readonly value="{{book.book_isbn}}">
+            <input type="text" name="isbn" required readonly value="{{book.isbn}}">
           </label>
         </div>
         <div class="row collapse">
@@ -92,7 +92,7 @@
         <h5>Price: ${{b.price}}</h5>
         <h5>Condition: {{b.condition_desc}}</h5>
         <h5>Comments: {{b.comments|default("None", True)}}</h5>
-        <h5>Sold By: <a href="/user/{{b.user_id}}">{{b.name}}</a></h5>
+        <h5>Sold By: <a href="/user/{{b.seller_id}}">{{b.name}}</a></h5>
         <h5><small>Last updated: {{b.updated_at}}</small></h5>
         {# TODO: Do we want to show created at date? #}
       </div>

@@ -22,7 +22,7 @@
       <ul class="right">
         {% if session.user_hash %}
         <li>
-          <a href="/user/{{ session.user_id }}" class="custom-link">
+          <a href="/user/{{ session.uid }}" class="custom-link">
           {{ session.user_name }}
           </a>
         </li>
@@ -107,8 +107,8 @@
     <div class="row">
       <div class="medium-8 columns">
         Made with &hearts; by
-        <a href="#">Jiexi Cao</a> and
-        <a href="#">Maury Quijada</a>.
+        <a href="http://www.jiexicao.com">Jiexi Cao</a> and
+        <a href="http://www.mauryquijada.me">Maury Quijada</a>.
       </div>
       <div class="medium-4 columns">
         
