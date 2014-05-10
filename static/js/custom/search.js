@@ -15,7 +15,8 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     prefetch: {
       url: '../static/js/custom/courses.json'
-    }
+    },
+    limit: 3
   });
   courses.initialize();
 
@@ -33,7 +34,8 @@ $(document).ready(function() {
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     prefetch: {
       url: '../static/js/custom/books.json'
-    }
+    },
+    limit: 3
   });
   books.initialize();
 
