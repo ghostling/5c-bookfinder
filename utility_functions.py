@@ -22,7 +22,7 @@ def get_google_image_for_book(isbn):
 
 # Used in cookie to maintain login status
 def make_secure_val(val):
-    return '%s|%s' % (val, hmac.new(config.SECRET, str(val)).hexdigest())
+    return '%s|%s' % (val, hmac.new(config.SECRET_KEY, str(val)).hexdigest())
 
 # Used to check cookie.
 def check_secure_val(secure_val):
