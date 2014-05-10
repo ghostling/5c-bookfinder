@@ -49,5 +49,5 @@ def set_logged_in_user_session(uid, name):
     session['user_name'] = name
 
 def check_valid_user_session(session):
-    return session['user_hash'] == make_secure_val(session['uid'] 
+    return session['user_hash'] == make_secure_val(str(session['uid'])
             + session['user_name'])
