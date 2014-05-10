@@ -86,14 +86,14 @@ def get_user_profile(uid):
     # Prepare the image URL and book_condition.
     for book in wishlist_selling:
         # Set the image.
-        book['img_url'] = get_google_image_for_book(book['isbn'])
+        book['img_url'] = UF.get_google_image_for_book(book['isbn'])
 
         # Add book condition.
         book = add_book_condition(book)
 
     for book in user_selling:
         # Set the image.
-        book['img_url'] = get_google_image_for_book(book['isbn'])
+        book['img_url'] = UF.get_google_image_for_book(book['isbn'])
 
         # Add book condition.
         book = add_book_condition(book)
@@ -147,7 +147,7 @@ def get_book_information(isbn):
         b = add_book_condition(b)
 
     # Prepare the image URL.
-    book['img_url'] = get_google_image_for_book(book['isbn'])
+    book['img_url'] = UF.get_google_image_for_book(book['isbn'])
 
     return render_template('book.html', book=book, \
         condition_options=get_book_condition_options(), logged_in=logged_in)
