@@ -115,7 +115,7 @@ hr {
 }
 
 .icon-edit-style {
-  font-size: 30px;  
+  font-size: 24px;  
 }
 
 .text-right {
@@ -164,4 +164,17 @@ ul {
 
 .white-bg {
   background-color: #ffffff;
+}
+
+.side-icons {
+  margin:  0 auto;
+}
+
+.button-group li {
+  border: 1px solid white;
+  box-shadow: 0 0px 0px; 
+}
+
+i {
+  margin: 5px;
 }

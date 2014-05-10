@@ -67,10 +67,8 @@
           <div class="medium-2 columns book-list-image">
             <img src="{{ book.img_url }}" alt="{{ book.title }}">
           </div>
-          <div class="medium-9 columns book-list-info">
+          <div class="medium-8 columns book-list-info">
             <div class="book-heading">
-                {# TODO: This 'edit book' modal may be problematic...instead
-                   we need to send the data into one modal, not make several. #}
                     <a href="/book/{{ book.isbn }}">
                 {% if book.edition != 'N/A' %}
                   {{ book.title }} ({{ book.edition }}) by {{ book.author }}
@@ -84,19 +82,45 @@
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
               <br>Condition: {{ book.condition_desc }}
+              <br>Comments: {{ book.comments }}
             </div>
+        </div>
+
+            {% if user.uid == session.uid %}
+        <div class="medium-2 columns">
+          <div class="side-icons">
+              <a href="#" class="edit-book" data-reveal-id="edit-book-modal" 
+                  data-title="{{book.title}}" data-isbn="{{book.isbn}}"
+                  data-author="{{book.author}}" data-price="{{book.price}}"
+                  data-condition="{{book.condition_desc}}" data-comments="{{book.comments}}"
+                  data-edition="{{book.edition}}" data-created-at="{{book.created_at}}"
+                  data-listing-id="{{book.listing_id}}">
+              <i class="fi-pencil icon-edit-style"></i>
+            </a>
+            <a href="#" class="delete-book" data-reveal-id="delete-book-{{book.listing_id}}"
+                data-isbn="{{book.isbn}}">
+              <i class="fi-x icon-edit-style"></i>
+            </a>
+            <a href="#" class="sold-book" data-reveal-id="sold-book-{{book.listing_id}}"
+                data-isbn="{{book.isbn}}">
+              <i class="fi-dollar icon-edit-style"></i>
+          </a>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+  </ul>
 
             {# Begin production of edit book modal. #}
-            {% if user.uid == session.uid %}
-            <div class="book-additional reveal-modal small" id="edit-book-{{ book.listing_id }}" data-reveal>
+            <div class="book-additional reveal-modal small" id="edit-book-modal" data-reveal>
               <a class="close-reveal-modal">&#215;</a>
               <p class="small-header">
                 Currently editing:
               </p>
               <p>
-                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-                <br>ISBN: {{ book.isbn }}
-                <br>Added: {{ book.added_date }}
+                  <span id="edit-book-heading"></span>
+                  <br>ISBN: <span id="edit-book-isbn"></span>
+                  <br>Added: <span id="edit-book-created-at"></span>
               </p>
               <form>
                 <div class="row">
@@ -107,46 +131,30 @@
                         <span class="prefix">$</span>
                       </div>
                       <div class="small-11 large-11 columns">
-                        <input type="text" value="{{ book.price }}">
+                        <input type="text" name="price" id="edit-book-price" value="">
                       </div>
                     </div>
 
                     <label>Condition
-                      <select>
-                        {% for c in condition_options %} {% if book.condition_desc == c %}
-                        <option value="{{ c.rating }}" selected>{{ c.description }}</option>
-                        {% else %}
+                      <select name="condition" id="edit-condition">
+                        {% for c in condition_options %}
                         <option value="{{ c.rating }}">{{ c.description }}</option>
-                        {% endif %} {% endfor %}
+                        {% endfor %}
                       </select>
                     </label>
+                  <label>Comments
+                      <input type="text" name="comments" id="edit-book-comments" value="">
+                  </label>
                   </div>
                 </div>
                 <center>
                   <input type="submit" class="button" value="Submit">
                 </center>
               </form>
-              <form>
-                <center>
-                <input type="submit" class="button alert" value="Delete">
-                </center>
-              </form>
             </div>
-            {% endif %}
             {# End production of edit book modal. #}
 
-          </div>
-        <div class="medium-1 columns">
-          {% if session.uid == user.uid %}
-            <a href="#" data-reveal-id="edit-book-{{book.listing_id}}">
-              <i class="fi-page-edit right icon-edit-style"></i>
-            </a>
-          {% endif %}
-        </div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
+
     {% else %}
     <p>
       {{ user.name }} is currently not selling any books.
@@ -185,6 +193,7 @@
               <br>Added: {{ book.created_at }}
               <br>Price: ${{ book.price }}
               <br>Condition: {{ book.condition_desc }}
+              <br>Comments: {{ book.comments}}
               <br>Sold By:
               <a href="/user/{{book.seller_id}}">{{ book.owner }}</a>
             </div>

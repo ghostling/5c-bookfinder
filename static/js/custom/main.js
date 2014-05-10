@@ -1,6 +1,6 @@
 function postFormInModal(form_id, modal_id, post_url, redirect_url) {
     if (typeof(redirect_url) == 'undefined') {
-        redirect_url = window.location.pathname;
+        var redirect_url = window.location.pathname;
     }
 
     $(form_id).submit(function(e) {
@@ -60,20 +60,20 @@ function addErrorMsgToDiv(div_id, msg) {
 };
 
 function init() {
-    /* Sign up form. */
+    // Sign up form.
     postFormInModal('#sign-up-form', '#sign-up-modal', '/signup', document.location.href);
 
-    /* Sign in form. */
+    // Sign in form.
     postFormInModal('#sign-in-form', '#sign-in-modal', '/signin', document.location.href);
     
-    /* Edit profile form. */
+    // Edit profile form.
     postFormInModal('#edit-profile-form', '#edit-profile-modal', '/editprofile');
     
-    /* Sell book form. */
+    // Sell book form.
     postFormInModal('#sell-book-form', '#sell-book-modal', '/sellbook');
 
     $('.track-book').click(function(e) {
-        link = $(this);
+        var link = $(this);
         e.preventDefault();
         $.ajax({
             url: '/wishlist',
@@ -93,7 +93,7 @@ function init() {
     });
     
     $('.untrack-book').click(function(e) {
-        link = $(this);
+        var link = $(this);
         e.preventDefault();
         $.ajax({
             url: '/unwishlist',
@@ -110,6 +110,38 @@ function init() {
                 console.log(error); 
             }
         });
+    });
+
+    // Passes data about a book into a modal to edit it.
+    $('.edit-book').click(function(e) {
+        var isbn = $(this).data('isbn');
+        var title = $(this).data('title');
+        var author = $(this).data('author');
+        var price = $(this).data('price');
+        var condition = $(this).data('condition');
+        var edition = $(this).data('edition');
+        var comments = $(this).data('comments');
+        var createdAt = $(this).data('created-at');
+        var listingId = $(this).data('listing-id');
+
+        var modal = '#edit-book-modal';
+
+        var heading = '';
+        if (edition) {
+            var heading = title + ' (' + edition + ' Ed.) by ' + author; 
+        } else {
+            var heading = title + ' by ' + author; 
+        }
+
+        $(modal + ' #edit-book-heading').text(heading);
+        $(modal + ' #edit-book-isbn').text(isbn);
+        $(modal + ' #edit-book-created-at').text(createdAt);
+        $(modal + ' #edit-book-price').val(price);
+        $(modal + ' #edit-book-comments').val(comments);
+        var cond_val = $('#edit-condition option').filter(function() {
+            return $(this).html() == condition;
+        }).val();
+        $('select').val(cond_val);
     });
 };
 
