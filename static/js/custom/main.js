@@ -136,12 +136,48 @@ function init() {
         $(modal + ' #edit-book-heading').text(heading);
         $(modal + ' #edit-book-isbn').text(isbn);
         $(modal + ' #edit-book-created-at').text(createdAt);
+        $(modal + ' #edit-book-listing').val(listingId);
         $(modal + ' #edit-book-price').val(price);
         $(modal + ' #edit-book-comments').val(comments);
         var cond_val = $('#edit-condition option').filter(function() {
             return $(this).html() == condition;
         }).val();
         $('select').val(cond_val);
+    });
+
+    // Edit book form.
+    postFormInModal('#edit-book-form', '#edit-book-modal', '/editbook');
+
+    $('.delete-book').click(function(e) {
+        var link = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: '/deletebook',
+            type: 'POST',
+            data: {listing_id: link.data('listingId')}, // somehow it renames listing-id to listingId
+            success: function(response) {
+                document.location.href = window.location.pathname;
+            },
+            error: function(response) {
+                console.log(error); 
+            }
+        });
+    });
+    
+    $('.sold-book').click(function(e) {
+        var link = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: '/soldbook',
+            type: 'POST',
+            data: {listing_id: link.data('listingId')}, // somehow it renames listing-id to listingId
+            success: function(response) {
+                document.location.href = window.location.pathname;
+            },
+            error: function(response) {
+                console.log(error); 
+            }
+        });
     });
 };
 

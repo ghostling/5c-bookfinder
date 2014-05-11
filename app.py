@@ -213,7 +213,7 @@ def get_course_information(course_number):
             books_required=books_required, books_recommended=books_recommended, logged_in=logged_in)
 
 @app.route('/sellbook', methods=['POST'])
-def sellbook():
+def sell_book():
     db, cursor = get_db_cursor()
 
     if request.method == 'POST' and UF.check_valid_user_session(session):
@@ -246,6 +246,71 @@ def sellbook():
     else:
         session.clear()
         return make_response('You are not authorized to sell a book.', 401)
+
+@app.route('/editbook', methods=['POST'])
+def edit_book():
+    db, cursor = get_db_cursor()
+
+    if request.method == 'POST' and UF.check_valid_user_session(session):
+        listing_id = str(request.form['listing_id'])
+        price = str(request.form['price'])
+        condition = str(request.form['condition'])
+        comments = str(request.form['comments'])
+        uid = session['uid']
+
+        # Check if user is allowed to edit this listing.
+        cursor.execute('''SELECT * FROM BooksForSale WHERE seller_id=%s AND
+                listing_id=%s''', (uid, listing_id,))
+        if not cursor.fetchone():
+            return make_response('You are not allowed to edit this book!', 200)
+
+        if float(price) < 0:
+            return make_response('You cannot have a negative price!', 400)
+        else:
+            cursor.execute('''UPDATE BooksForSale SET price=%s, rating=%s,
+                    comments=%s WHERE listing_id=%s''', (price, condition,
+                    comments, listing_id, ))
+            db.commit()
+
+        return make_response('', 200)
+    else:
+        session.clear()
+        return make_response('You are not authorized to sell a book.', 401)
+
+def change_book_status(listing_id, status):
+    db, cursor = get_db_cursor()
+    uid = session['uid']
+
+    # Check if user is allowed to edit this listing.
+    cursor.execute('''SELECT * FROM BooksForSale WHERE seller_id=%s AND
+            listing_id=%s''', (uid, listing_id,))
+    if not cursor.fetchone():
+        return make_response('You are not allowed to edit this book!', 401)
+    else:
+        cursor.execute('''UPDATE BooksForSale SET status=%s WHERE
+                listing_id=%s''', (status, listing_id,))
+        db.commit()
+    return make_response('', 200)
+
+@app.route('/deletebook', methods=['POST'])
+def delete_book():
+    if request.method == 'POST' and UF.check_valid_user_session(session):
+        listing_id = str(request.form['listing_id'])
+        status = 0 # Inactive
+        return change_book_status(listing_id, status)
+    else:
+        session.clear()
+        return make_response('You are not authorized to change this book status.', 401)
+
+@app.route('/soldbook', methods=['POST'])
+def sold_book():
+    if request.method == 'POST' and UF.check_valid_user_session(session):
+        listing_id = str(request.form['listing_id'])
+        status = 2 # Inactive
+        return change_book_status(listing_id, status)
+    else:
+        session.clear()
+        return make_response('You are not authorized to change this book status.', 401)
 
 @app.route('/wishlist', methods=['POST'])
 def add_to_wishlist():
@@ -361,8 +426,8 @@ def edit_profile():
         session.clear()
         return make_response('You are not authorized to edit this profile.', 401)
 
-@app.route('/logout')
-def logout():
+@app.route('/signout')
+def signout():
     session.clear()
     return redirect(url_for('index'))
 

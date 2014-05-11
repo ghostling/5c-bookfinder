@@ -97,12 +97,10 @@
                   data-listing-id="{{book.listing_id}}">
               <i class="fi-pencil icon-edit-style"></i>
             </a>
-            <a href="#" class="delete-book" data-reveal-id="delete-book-{{book.listing_id}}"
-                data-isbn="{{book.isbn}}">
+            <a href="#" class="delete-book" data-listing-id="{{book.listing_id}}">
               <i class="fi-x icon-edit-style"></i>
             </a>
-            <a href="#" class="sold-book" data-reveal-id="sold-book-{{book.listing_id}}"
-                data-isbn="{{book.isbn}}">
+            <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}">
               <i class="fi-dollar icon-edit-style"></i>
           </a>
           {% endif %}
@@ -122,16 +120,17 @@
                   <br>ISBN: <span id="edit-book-isbn"></span>
                   <br>Added: <span id="edit-book-created-at"></span>
               </p>
-              <form>
+              <form id="edit-book-form" data-abide>
                 <div class="row">
                   <div class="large-12 columns">
                     <div class="row collapse">
+                        <input type="hidden" id="edit-book-listing" name="listing_id"> 
                       <label>Price</label>
                       <div class="small-1 large-1 columns">
                         <span class="prefix">$</span>
                       </div>
                       <div class="small-11 large-11 columns">
-                        <input type="text" name="price" id="edit-book-price" value="">
+                        <input type="number" step="any" name="price" id="edit-book-price" value="">
                       </div>
                     </div>
 
