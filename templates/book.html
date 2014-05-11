@@ -16,13 +16,15 @@
     {% if logged_in %}
 
     {% if book.in_user_wishlist %}
-    <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
-      <span class="label success">In Wishlist</span>
-    </a>
-    {% else %}
-    <a href="#" data-isbn="{{book.isbn}}" class="track-book">
-      <span class="label">Add to Wish List</span>
-    </a>
+    <div class="wishlist-toggle">
+      <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
+        <span class="label success">In Wishlist</span>
+      </a>
+      {% else %}
+      <a href="#" data-isbn="{{book.isbn}}" class="track-book">
+        <span class="label">Add to Wish List</span>
+      </a>
+    </div>
     {% endif %}
 
     {% endif %}
