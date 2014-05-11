@@ -14,9 +14,8 @@
     {% endif %}
     <h4>ISBN: {{book.isbn}}</h4>
     {% if logged_in %}
-
-    {% if book.in_user_wishlist %}
     <div class="wishlist-toggle">
+    {% if book.in_user_wishlist %}
       <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
         <span class="label success">In Wishlist</span>
       </a>
@@ -24,9 +23,8 @@
       <a href="#" data-isbn="{{book.isbn}}" class="track-book">
         <span class="label">Add to Wish List</span>
       </a>
-    </div>
     {% endif %}
-
+    </div>
     {% endif %}
     
     <div class="add-r-pad add-l-pad add-t-pad">
