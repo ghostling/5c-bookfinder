@@ -1,4 +1,9 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
+
+{% block title %}
+{{ user.name }}'s Profile - 5C Book Finder
+{% endblock %}
+
 {% block main_body %}
 <div class="row">
   <div class="medium-8 columns add-t-pad add-b-pad">
@@ -86,7 +91,7 @@
             </div>
         </div>
 
-            {% if user.uid == session.uid %}
+        {% if user.uid == session.uid %}
         <div class="medium-2 columns">
           <div class="side-icons">
               <a href="#" class="edit-book" data-reveal-id="edit-book-modal" 
@@ -103,8 +108,8 @@
             <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}">
               <i class="fi-dollar icon-edit-style"></i>
           </a>
-          {% endif %}
         </div>
+        {% endif %}
       </li>
       {% endfor %}
   </ul>
