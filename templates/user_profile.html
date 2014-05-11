@@ -7,7 +7,7 @@
     <h4>Phone Number: {{ user.phone }}</h4>
   </div>
   <div class="medium-4 columns add-t-pad add-b-pad">
-  {% if session.uid == user.uid %}
+    {% if session.uid == user.uid %}
     <a href="#" data-reveal-id="edit-profile-modal">
       <i class="fi-page-edit right icon-edit-style"></i>
     </a>
@@ -17,27 +17,24 @@
       <form id="edit-profile-form" data-abide>
         <div class="name-field">
           <label>Name
-            <input type="text" value="{{ user.name }}" name="name"
-                required pattern="[a-zA-Z]+ [a-zA-Z]+">
+            <input type="text" value="{{ user.name }}" name="name" required pattern="[a-zA-Z]+ [a-zA-Z]+">
           </label>
           <small class="error">Please just enter the first and last name.</small>
         </div>
         <div class="email-field">
           <label>Email
-            <input type="email" value="{{ user.email }}"
-                name="email">
+            <input type="email" value="{{ user.email }}" name="email">
           </label>
           <small class="error">Please enter a valid email.</small>
         </div>
         <div class="tel-field">
           <label>Phone Number
-            <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}" 
-                name="phone_number" value="{{ user.phone }}">
+            <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}" name="phone_number" value="{{ user.phone }}">
           </label>
           <small class="error">Please enter a valid phone number.</small>
         </div>
         <center>
-            <input type="submit" class="button" value="Submit">
+          <input type="submit" class="button" value="Submit">
         </center>
       </form>
     </div>
@@ -46,55 +43,53 @@
 </div>
 <div class="row add-l-pad add-r-pad">
   <div class="row listed-book-heading sub-head">
-      <div class="medium-10 columns">
-          {% if session.uid == user.uid %}
-          <h3>Books You're Selling</h3>
-          {% else %}
-          <h3>{{user.name}} is Selling</h3>
-          {% endif %}
-      </div>
+    <div class="medium-10 columns">
+      {% if session.uid == user.uid %}
+      <h3>Books You're Selling</h3>
+      {% else %}
+      <h3>{{user.name}} is Selling</h3>
+      {% endif %}
+    </div>
     <div class="medium-2 columns">
-          {% if session.uid == user.uid %}
-      <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
-          {% endif %}
+      {% if session.uid == user.uid %}
+      <h3 class="right">
+        <a href="#" data-reveal-id="sell-book-modal">
+          <i class="fi-plus"></i>Sell</a>
+      </h3>
+      {% endif %}
     </div>
   </div>
-    {% if user_selling %}
-    <ul class="book-list">
-      {% for book in user_selling %}
-      <li>
-        <div class="row">
-          <div class="medium-2 columns book-list-image">
-            <img src="{{ book.img_url }}" alt="{{ book.title }}">
-          </div>
-          <div class="medium-8 columns book-list-info">
-            <div class="book-heading">
-                    <a href="/book/{{ book.isbn }}">
-                {% if book.edition != 'N/A' %}
-                  {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-                {% else %}
-                  {{ book.title }} by {{ book.author }}
-                {% endif %}
+  {% if user_selling %}
+  <ul class="book-list">
+    {% for book in user_selling %}
+    <li>
+      <div class="row">
+        <div class="medium-2 columns book-list-image">
+          <img src="{{ book.img_url }}" alt="{{ book.title }}">
+        </div>
+        <div class="medium-8 columns book-list-info">
+          <div class="book-heading">
+            <a href="/book/{{ book.isbn }}">
+              {% if book.edition != 'N/A' %} 
+              {{ book.title }} ({{ book.edition }}) by {{ book.author }} 
+              {% else %} 
+              {{ book.title }} by {{ book.author }} 
+              {% endif %}
             </a>
-            </div>
-            <div class="book-additional">
-              ISBN: {{ book.isbn }}
-              <br>Added: {{ book.created_at }}
-              <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.condition_desc }}
-              <br>Comments: {{ book.comments }}
-            </div>
+          </div>
+          <div class="book-additional">
+            ISBN: {{ book.isbn }}
+            <br>Added: {{ book.created_at }}
+            <br>Price: ${{ book.price }}
+            <br>Condition: {{ book.condition_desc }}
+            <br>Comments: {{ book.comments }}
+          </div>
         </div>
 
-            {% if user.uid == session.uid %}
+        {% if user.uid == session.uid %}
         <div class="medium-2 columns">
           <div class="side-icons">
-              <a href="#" class="edit-book" data-reveal-id="edit-book-modal" 
-                  data-title="{{book.title}}" data-isbn="{{book.isbn}}"
-                  data-author="{{book.author}}" data-price="{{book.price}}"
-                  data-condition="{{book.condition_desc}}" data-comments="{{book.comments}}"
-                  data-edition="{{book.edition}}" data-created-at="{{book.created_at}}"
-                  data-listing-id="{{book.listing_id}}">
+            <a href="#" class="edit-book" data-reveal-id="edit-book-modal" data-title="{{book.title}}" data-isbn="{{book.isbn}}" data-author="{{book.author}}" data-price="{{book.price}}" data-condition="{{book.condition_desc}}" data-comments="{{book.comments}}" data-edition="{{book.edition}}" data-created-at="{{book.created_at}}" data-listing-id="{{book.listing_id}}">
               <i class="fi-pencil icon-edit-style"></i>
             </a>
             <a href="#" class="delete-book" data-listing-id="{{book.listing_id}}">
@@ -102,75 +97,75 @@
             </a>
             <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}">
               <i class="fi-dollar icon-edit-style"></i>
-          </a>
-          {% endif %}
-        </div>
-      </li>
-      {% endfor %}
+            </a>
+            {% endif %}
+          </div>
+    </li>
+    {% endfor %}
   </ul>
 
-            {# Begin production of edit book modal. #}
-            <div class="book-additional reveal-modal small" id="edit-book-modal" data-reveal>
-              <a class="close-reveal-modal">&#215;</a>
-              <p class="small-header">
-                Currently editing:
-              </p>
-              <p>
-                  <span id="edit-book-heading"></span>
-                  <br>ISBN: <span id="edit-book-isbn"></span>
-                  <br>Added: <span id="edit-book-created-at"></span>
-              </p>
-              <form id="edit-book-form" data-abide>
-                <div class="row">
-                  <div class="large-12 columns">
-                    <div class="row collapse">
-                        <input type="hidden" id="edit-book-listing" name="listing_id"> 
-                      <label>Price</label>
-                      <div class="small-1 large-1 columns">
-                        <span class="prefix">$</span>
-                      </div>
-                      <div class="small-11 large-11 columns">
-                        <input type="number" step="any" name="price" id="edit-book-price" value="">
-                      </div>
-                    </div>
-
-                    <label>Condition
-                      <select name="condition" id="edit-condition">
-                        {% for c in condition_options %}
-                        <option value="{{ c.rating }}">{{ c.description }}</option>
-                        {% endfor %}
-                      </select>
-                    </label>
-                  <label>Comments
-                      <input type="text" name="comments" id="edit-book-comments" value="">
-                  </label>
-                  </div>
-                </div>
-                <center>
-                  <input type="submit" class="button" value="Submit">
-                </center>
-              </form>
+  {# Begin production of edit book modal. #}
+  <div class="book-additional reveal-modal small" id="edit-book-modal" data-reveal>
+    <a class="close-reveal-modal">&#215;</a>
+    <p class="small-header">
+      Currently editing:
+    </p>
+    <p>
+      <span id="edit-book-heading"></span>
+      <br>ISBN:
+      <span id="edit-book-isbn"></span>
+      <br>Added:
+      <span id="edit-book-created-at"></span>
+    </p>
+    <form id="edit-book-form" data-abide>
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row collapse">
+            <input type="hidden" id="edit-book-listing" name="listing_id">
+            <label>Price</label>
+            <div class="small-1 large-1 columns">
+              <span class="prefix">$</span>
             </div>
-            {# End production of edit book modal. #}
+            <div class="small-11 large-11 columns">
+              <input type="number" step="any" name="price" id="edit-book-price" value="">
+            </div>
+          </div>
 
-
-    {% else %}
-    <div class="row add-all-pad">
-      {{ user.name }} is currently not selling any books.
-    </div>
-    {% endif %}
-  </ul>
-</div>
-<div class="row add-l-pad add-r-pad">
-    <div class="row listed-book-heading sub-head">
-        <div class="medium-12 columns">
-  {% if user.uid == session.uid %}
-  <h3>Your Wishlist</h3>
+          <label>Condition
+            <select name="condition" id="edit-condition">
+              {% for c in condition_options %}
+              <option value="{{ c.rating }}">{{ c.description }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>Comments
+            <input type="text" name="comments" id="edit-book-comments" value="">
+          </label>
+        </div>
+      </div>
+      <center>
+        <input type="submit" class="button" value="Submit">
+      </center>
+    </form>
+  </div>
+  {# End production of edit book modal. #} 
   {% else %}
-  <h3>{{user.name}}'s Wishlist</h3>
+  <div class="row add-all-pad">
+    {{ user.name }} is currently not selling any books.
+  </div>
   {% endif %}
+  </ul>
   </div>
-  </div>
+  <div class="row add-l-pad add-r-pad">
+    <div class="row listed-book-heading sub-head">
+      <div class="medium-12 columns">
+        {% if user.uid == session.uid %}
+        <h3>Your Wishlist</h3>
+        {% else %}
+        <h3>{{user.name}}'s Wishlist</h3>
+        {% endif %}
+      </div>
+    </div>
     {% if wishlist %}
     <ul class="book-list">
       {% for book in wishlist %}
@@ -181,29 +176,30 @@
           </div>
           <div class="medium-7 columns book-list-info">
             <div class="book-heading">
-                <a href="/book/{{book.isbn}}">
-                {% if book.edition != 'N/A' %}
-                  {{ book.title }} ({{ book.edition }}) by {{ book.author }}
-                {% else %}
-                  {{ book.title }} by {{ book.author }}
-                  {% endif %}
+              <a href="/book/{{book.isbn}}">
+                {% if book.edition != 'N/A' %} 
+                {{ book.title }} ({{ book.edition }}) by {{ book.author }} 
+                {% else %} 
+                {{ book.title }} by {{ book.author }} 
+                {% endif %}
               </a>
             </div>
             <div class="book-additional">
-                ISBN: {{ book.isbn }} <br>
-                <p>
-                    {% if book.number_selling > 0 %}
-                    There are {{book.number_selling}} books of this kind being sold.
-                    {% else %}
-                    No one is currently selling this book.
-                    {% endif %}
-                </p>
+              ISBN: {{ book.isbn }}
+              <br>
+              <p>
+                {% if book.number_selling > 0 %} 
+                There are {{book.number_selling}} books of this kind being sold. 
+                {% else %} 
+                No one is currently selling this book. 
+                {% endif %}
+              </p>
             </div>
           </div>
           <div class="medium-2 columns">
-              <a href="#" data-isbn="{{book.isbn}}" class="profile-untrack-book">
+            <a href="#" data-isbn="{{book.isbn}}" class="profile-untrack-book">
               <span class="label success right">In Wishlist</span>
-          </a>
+            </a>
           </div>
         </div>
       </li>
@@ -211,109 +207,109 @@
     </ul>
     {% else %}
     <div class="row add-all-pad">
-      {% if session.uid == user.uid  %}
-      Your wishlist is currently empty.
-      {% else %}
-      {{user.name}}'s wishlist is currently empty.
+      {% if session.uid == user.uid %} 
+      Your wishlist is currently empty. 
+      {% else %} 
+      {{user.name}}'s wishlist is currently empty. 
       {% endif %}
     </div>
     {% endif %}
-  </ul>
-</div>
+    </ul>
+  </div>
 
-{# Begin code to add a book #}
-{% if session.uid == user.uid %}
-<div class="reveal-modal medium gray-bg" id="sell-book-modal" data-reveal>
-<div class="white-bg">
-  <a class="close-reveal-modal">&#215;</a>
-  <dl class="tabs gray-bg" data-tab>
-    <dd class="active">
-      <a href="#add-book-tab-1">Add Book</a>
-    </dd>
-    <dd>
-      <a href="#add-book-tab-2">Book Not Found?</a>
-    </dd>
-  </dl>
-  <div class="tabs-content">
-    <div class="content active" id="add-book-tab-1">
-      <p class="small-header">
-        Enter in the following information to add a book:
-      </p>
-      <form>
+  {# Begin code to add a book #} 
+  {% if session.uid == user.uid %}
+  <div class="reveal-modal medium gray-bg" id="sell-book-modal" data-reveal>
+    <div class="white-bg">
+      <a class="close-reveal-modal">&#215;</a>
+      <dl class="tabs gray-bg" data-tab>
+        <dd class="active">
+          <a href="#add-book-tab-1">Add Book</a>
+        </dd>
+        <dd>
+          <a href="#add-book-tab-2">Book Not Found?</a>
+        </dd>
+      </dl>
+      <div class="tabs-content">
+        <div class="content active" id="add-book-tab-1">
+          <p class="small-header">
+            Enter in the following information to add a book:
+          </p>
+          <form>
 
-        <div class="row">
-          <div class="large-12 columns">
-            <label>Course
-              <input type="text" placeholder="Enter the course this book is used in">
-            </label>
-            <label>ISBN
-              <input type="text" placeholder="Enter the ISBN of the book">
-            </label>
-            <div class="row collapse">
-              <label>Price</label>
-              <div class="small-1 large-1 columns">
-                <span class="prefix">$</span>
-              </div>
-              <div class="small-11 large-11 columns">
-                <input type="text" placeholder="Enter the price">
+            <div class="row">
+              <div class="large-12 columns">
+                <label>Course
+                  <input type="text" placeholder="Enter the course this book is used in">
+                </label>
+                <label>ISBN
+                  <input type="text" placeholder="Enter the ISBN of the book">
+                </label>
+                <div class="row collapse">
+                  <label>Price</label>
+                  <div class="small-1 large-1 columns">
+                    <span class="prefix">$</span>
+                  </div>
+                  <div class="small-11 large-11 columns">
+                    <input type="text" placeholder="Enter the price">
+                  </div>
+                </div>
+
+                <label>Condition
+                  <select>
+                    {% for c in condition_options %}
+                    <option value="{{ c.rating }}">{{ c.description }}</option>
+                    {% endfor %}
+                  </select>
+                </label>
               </div>
             </div>
-
-            <label>Condition
-              <select>
-                {% for c in condition_options %}
-                <option value="{{ c.rating }}">{{ c.description }}</option>
-                {% endfor %}
-              </select>
-            </label>
-          </div>
+            <center>
+              <input type="submit" class="button" value="Submit">
+            </center>
+          </form>
         </div>
-        <center>
-          <input type="submit" class="button" value="Submit">
-        </center>
-      </form>
-    </div>
-    <div class="content" id="add-book-tab-2">
-      <p class="small-header">
-        We do not currently allow the addition of books not associated with a class according to our database. This is determined by what books are required as listed by Portal. However, you can submit the following form for review, and an administrator may add it for you. Thanks!
-      </p>
-      <form>
+        <div class="content" id="add-book-tab-2">
+          <p class="small-header">
+            We do not currently allow the addition of books not associated with a class according to our database. This is determined by what books are required as listed by Portal. However, you can submit the following form for review, and an administrator may add it for you. Thanks!
+          </p>
+          <form>
 
-        <div class="row">
-          <div class="large-12 columns">
-            <label>Course
-              <input type="text" placeholder="Enter the course this book is used in">
-            </label>
-            <label>ISBN
-              <input type="text" placeholder="Enter the ISBN of the book">
-            </label>
-            <div class="row collapse">
-              <label>Price</label>
-              <div class="small-1 large-1 columns">
-                <span class="prefix">$</span>
-              </div>
-              <div class="small-11 large-11 columns">
-                <input type="text" placeholder="Enter the price">
+            <div class="row">
+              <div class="large-12 columns">
+                <label>Course
+                  <input type="text" placeholder="Enter the course this book is used in">
+                </label>
+                <label>ISBN
+                  <input type="text" placeholder="Enter the ISBN of the book">
+                </label>
+                <div class="row collapse">
+                  <label>Price</label>
+                  <div class="small-1 large-1 columns">
+                    <span class="prefix">$</span>
+                  </div>
+                  <div class="small-11 large-11 columns">
+                    <input type="text" placeholder="Enter the price">
+                  </div>
+                </div>
+
+                <label>Condition
+                  <select>
+                    {% for c in condition_options %}
+                    <option value="{{ c.rating }}">{{ c.description }}</option>
+                    {% endfor %}
+                  </select>
+                </label>
               </div>
             </div>
-
-            <label>Condition
-              <select>
-                {% for c in condition_options %}
-                <option value="{{ c.rating }}">{{ c.description }}</option>
-                {% endfor %}
-              </select>
-            </label>
-          </div>
+            <center>
+              <a href="#" class="button small">Submit</a>
+            </center>
+          </form>
         </div>
-        <center>
-          <a href="#" class="button small">Submit</a>
-        </center>
-      </form>
+      </div>
     </div>
   </div>
-  </div>
-</div>
-{% endif %}
-{# End code to add a book #}
+  {% endif %} 
+  {# End code to add a book #} 
 {% endblock %}

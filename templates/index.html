@@ -1,23 +1,17 @@
-{% extends "base.html" %}
-
-{% block title %}
-Home - 5C Book Finder
-{% endblock %}
-
+{% extends "base.html" %} 
+{% block title %} Home - 5C Book Finder {% endblock %} 
 {% block main_body %}
 <div class="row">
   <div class="medium-12 columns add-padding">
     <h1 class="text-center">5C Book Finder</h1>
     <p>
-      5C Book Finder allows students of the Claremont Colleges to buy and sell course textbooks.
-      Get started by typing in the book title or author, or even the name of a course you want books for!
+      5C Book Finder allows students of the Claremont Colleges to buy and sell course textbooks. Get started by typing in the book title or author, or even the name of a course you want books for!
     </p>
 
-      <input type="text" id="index-search-box" class="typeahead" autocomplete="off" placeholder="Search for a book or course..." />
+    <input type="text" id="index-search-box" class="typeahead" autocomplete="off" placeholder="Search for a book or course..." />
   </div>
 </div>
-{% endblock %}
-
+{% endblock %} 
 {% block page_javascript %}
 <script src="../static/js/vendor/typeahead.js"></script>
 <script src="../static/js/custom/search.js"></script>

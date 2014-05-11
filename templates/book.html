@@ -1,21 +1,20 @@
-{% extends "base.html" %}
-
-{% block title %}
-{{ book.title }} - 5C Book Finder
-{% endblock %}
-
+{% extends "base.html" %} 
+{% block title %} 
+{{ book.title }} - 5C Book Finder {% endblock %} 
 {% block main_body %}
 <div class="row">
   <div class="medium-10 columns add-t-pad add-b-pad">
     {% if book.edition != "N/A" %}
-    <h2>{{book.title}} ({{book.edition}} Ed.)</h2><h2> by {{book.author}}</h2>
+    <h2>{{book.title}} ({{book.edition}} Ed.)</h2>
+    <h2>by {{book.author}}</h2>
     {% else %}
-    <h2>{{book.title}}</h2><h2> by {{book.author}}</h2>
+    <h2>{{book.title}}</h2>
+    <h2>by {{book.author}}</h2>
     {% endif %}
     <h4>ISBN: {{book.isbn}}</h4>
     {% if logged_in %}
     <div class="wishlist-toggle">
-    {% if book.in_user_wishlist %}
+      {% if book.in_user_wishlist %}
       <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
         <span class="label success">In Wishlist</span>
       </a>
@@ -23,44 +22,47 @@
       <a href="#" data-isbn="{{book.isbn}}" class="track-book">
         <span class="label">Add to Wish List</span>
       </a>
-    {% endif %}
+      {% endif %}
     </div>
     {% endif %}
-    
+
     <div class="add-r-pad add-l-pad add-t-pad">
-    {% if book.req_by_list %}
-    <span class="label medium-label-text success radius">Required By</span>
-    <ul class="circle">
-      {% for c in book.req_by_list%}
-      <li>
-        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.title}}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% if book.rec_by_list %}
-    <span class="label medium-label-text secondary radius">Recommended By</span>
-    <ul class="circle">
-      {% for c in book.rec_by_list%}
-      <li>
-        <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.title}}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </div>
+      {% if book.req_by_list %}
+      <span class="label medium-label-text success radius">Required By</span>
+      <ul class="circle">
+        {% for c in book.req_by_list%}
+        <li>
+          <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% if book.rec_by_list %}
+      <span class="label medium-label-text secondary radius">Recommended By</span>
+      <ul class="circle">
+        {% for c in book.rec_by_list%}
+        <li>
+          <a href="/course/{{c.course_number}}">{{c.course_number}}: {{c.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
   </div>
   <div class="medium-2 columns add-t-pad add-b-pad">
-      <img src="{{book.img_url}}" class="right">
+    <img src="{{book.img_url}}" class="right">
   </div>
 </div>
 <div class="row add-r-pad add-l-pad add-b-pad">
   <div class="row sub-head">
     <div class="medium-6 columns ">
-    <h3>Listings</h3>
+      <h3>Listings</h3>
     </div>
     <div class="medium-6 columns">
       {% if logged_in %}
-      <h3 class="right"><a href="#" data-reveal-id="sell-book-modal"><i class="fi-plus"></i> Sell</a></h3>
+      <h3 class="right">
+        <a href="#" data-reveal-id="sell-book-modal">
+          <i class="fi-plus"></i>Sell</a>
+      </h3>
       {% else %}
       <h4 class="right">Sign In to Sell!</h4>
       {% endif %}
@@ -88,9 +90,9 @@
           <label>Condition
             <select name="condition" required>
               {% for c in condition_options %}
-                <option value="{{ c.rating }}">{{ c.description }}</option>
-                {% endfor %}
-            </select> 
+              <option value="{{ c.rating }}">{{ c.description }}</option>
+              {% endfor %}
+            </select>
           </label>
         </div>
         <div>
@@ -104,7 +106,7 @@
       </form>
     </div>
   </div>
-{% if book.selling_list %}
+  {% if book.selling_list %}
   <ul class="book-list">
     {% for b in book.selling_list %}
     <li>
@@ -112,8 +114,12 @@
         <h5>Price: ${{b.price}}</h5>
         <h5>Condition: {{b.condition_desc}}</h5>
         <h5>Comments: {{b.comments|default("None", True)}}</h5>
-        <h5>Sold By: <a href="/user/{{b.seller_id}}">{{b.name}}</a></h5>
-        <h5><small>Last updated: {{b.updated_at}}</small></h5>
+        <h5>Sold By:
+          <a href="/user/{{b.seller_id}}">{{b.name}}</a>
+        </h5>
+        <h5>
+          <small>Last updated: {{b.updated_at}}</small>
+        </h5>
         {# TODO: Do we want to show created at date? #}
       </div>
     </li>
@@ -124,4 +130,5 @@
 <div class="row add-all-pad">
   No one is currently selling this book.
 </div>
-{% endif %} {% endblock %}
+{% endif %} 
+{% endblock %}

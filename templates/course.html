@@ -1,10 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}
-{{ course.course_number }} - 5C Book Finder
-{% endblock %}
-
-{% block main_body %}
+{% extends "base.html" %} {% block title %} {{ course.course_number }} - 5C Book Finder {% endblock %} {% block main_body %}
 <div class="row">
   <div class="medium-12 columns add-t-pad add-b-pad">
     <h2>{{course.course_number }}: {{ course.title }}</h2>
@@ -21,22 +15,22 @@
   <div class="row add-r-pad add-l-pad">
     <div class="row">
       <div class="large-10 columns">
-          <a href="/book/{{book.isbn}}" class="book-link">
-        {% if book.edition != "N/A" %}
-        {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
-        {% else %}
-        {{book.title}} by {{book.author}}
-        {% endif %}
-    </a>
+        <a href="/book/{{book.isbn}}" class="book-link">
+          {% if book.edition != "N/A" %} 
+          {{book.title}} ({{book.edition}} Ed.) by {{book.author}} 
+          {% else %} 
+          {{book.title}} by {{book.author}} 
+          {% endif %}
+        </a>
       </div>
       {% if logged_in %}
       <div class="large-2 columns text-right wishlist-toggle">
-          {% if book.in_user_wishlist %}
-      <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
+        {% if book.in_user_wishlist %}
+        <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
           <span class="label success">In Wishlist</span>
         </a>
-          {% else %}
-      <a href="#" data-isbn="{{book.isbn}}" class="track-book">
+        {% else %}
+        <a href="#" data-isbn="{{book.isbn}}" class="track-book">
           <span class="label">Add to Wish List</span>
         </a>
         {% endif %}
@@ -46,20 +40,20 @@
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
       <span data-tooltip class="has-tip" title="Click the link above to see them.">
-      {% if book.number_selling > 1 %}
-      There are {{book.number_selling}} listings for this book.
-      {% else %}
-      There is 1 listing for this book.
-      {% endif %}
+        {% if book.number_selling > 1 %} 
+        There are {{book.number_selling}} listings for this book. 
+        {% else %} 
+        There is 1 listing for this book. 
+        {% endif %}
       </span>
-      {% else %}
-      No one is currently selling this book.
+      {% else %} 
+      No one is currently selling this book. 
       {% endif %}
     </div>
   </div>
-  {% endfor %} 
+  {% endfor %}
 </div>
-{% endif %}
+{% endif %} 
 {% if books_recommended %}
 <div class="row add-t-pad add-r-pad add-l-pad add-b-pad">
   <h3 class="sub-head">Books Recommended</h3>
@@ -67,22 +61,22 @@
   <div class="row add-r-pad add-l-pad">
     <div class="row">
       <div class="large-10 columns">
-          <a href="/book/{{book.isbn}}" class="book-link">
-        {% if book.edition != "N/A" %}
-        {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
-        {% else %}
-        {{book.title}} by {{book.author}}
-        {% endif %}
-    </a>
+        <a href="/book/{{book.isbn}}" class="book-link">
+          {% if book.edition != "N/A" %} 
+          {{book.title}} ({{book.edition}} Ed.) by {{book.author}} 
+          {% else %} 
+          {{book.title}} by {{book.author}} 
+          {% endif %}
+        </a>
       </div>
       {% if logged_in %}
       <div class="large-2 columns text-right wishlist-toggle">
-          {% if book.in_user_wishlist %}
-      <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
+        {% if book.in_user_wishlist %}
+        <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
           <span class="label success">In Wishlist</span>
         </a>
-          {% else %}
-      <a href="#" data-isbn="{{book.isbn}}" class="track-book">
+        {% else %}
+        <a href="#" data-isbn="{{book.isbn}}" class="track-book">
           <span class="label">Add to Wish List</span>
         </a>
         {% endif %}
@@ -92,19 +86,19 @@
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
       <span data-tooltip class="has-tip" title="Click the link above to see them.">
-      There are {{book.number_selling}} listing(s) for this book.
+        There are {{book.number_selling}} listing(s) for this book.
       </span>
-      {% else %}
-      No one is currently selling this book.
+      {% else %} 
+      No one is currently selling this book. 
       {% endif %}
     </div>
   </div>
   {% endfor %}
 </div>
-{% endif %}
+{% endif %} 
 {% else %}
 <div class="row add-all-pad">
-    This course does not need any books according to the information on Portal. 
-    Please check with the instructor and/or syllabus.
+  This course does not need any books according to the information on Portal. Please check with the instructor and/or syllabus.
 </div>
-{% endif %} {% endblock %}
+{% endif %} 
+{% endblock %}

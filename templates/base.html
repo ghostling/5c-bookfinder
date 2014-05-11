@@ -23,7 +23,7 @@
         {% if session.user_hash %}
         <li>
           <a href="/user/{{ session.uid }}" class="custom-link">
-          {{ session.user_name }}
+            {{ session.user_name }}
           </a>
         </li>
         <li>
@@ -52,8 +52,7 @@
       </div>
       <div class="password-field">
         <label>Password
-          <input type="password" name="password" 
-              placeholder="Please enter your password">
+          <input type="password" name="password" placeholder="Please enter your password">
         </label>
       </div>
       <center>
@@ -64,56 +63,51 @@
   <div id="sign-up-modal" class="reveal-modal tiny" data-reveal>
     <a class="close-reveal-modal">&#215;</a>
     <form id="sign-up-form" data-abide>
-    <div class="name-field">
-      <label>Name
-        <input type="text" required pattern="[a-zA-Z]+ [a-zA-Z]+"
-            name="name" placeholder="Foo Bar">
-      </label>
-      <small class="error">Please just enter the first and last name.</small>
-    </div>
-    <div class="email-field">
-      <label>Email
-        <input type="email" required placeholder="example@hmc.edu"
-            name="email">
-      </label>
-      <small class="error">Email must be valid.</small>
-    </div>
-    <div class="tel-field">
-      <label>Phone Number
-        <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}"
-            name="phone_number" placeholder="123-456-7890">
-      </label>
-      <small class="error">Phone number format must be valid.</small>
-    </div>
-    <div class="password-field">
-      <label>Password
-        <input type="password" required pattern=".{8}.*"
-            name="password" placeholder="Please enter your password">
-      </label>
-      <small class="error">Password must be at least 8 characters.</small>
-    </div>
-    <center>
-      <input type="submit" class="button" value="Sign Up">
-    </center>
-  </form>
+      <div class="name-field">
+        <label>Name
+          <input type="text" required pattern="[a-zA-Z]+ [a-zA-Z]+" name="name" placeholder="Foo Bar">
+        </label>
+        <small class="error">Please just enter the first and last name.</small>
+      </div>
+      <div class="email-field">
+        <label>Email
+          <input type="email" required placeholder="example@hmc.edu" name="email">
+        </label>
+        <small class="error">Email must be valid.</small>
+      </div>
+      <div class="tel-field">
+        <label>Phone Number
+          <input type="tel" required pattern="\d{3}[\-]\d{3}[\-]\d{4}" name="phone_number" placeholder="123-456-7890">
+        </label>
+        <small class="error">Phone number format must be valid.</small>
+      </div>
+      <div class="password-field">
+        <label>Password
+          <input type="password" required pattern=".{8}.*" name="password" placeholder="Please enter your password">
+        </label>
+        <small class="error">Password must be at least 8 characters.</small>
+      </div>
+      <center>
+        <input type="submit" class="button" value="Sign Up">
+      </center>
+    </form>
   </div>
 
   <section role="main" class="scroll-container main-body">
-    {% block main_body %}
-    {% endblock %}
+    {% block main_body %} {% endblock %}
   </section>
 
   <footer>
     <div class="row">
       <div class="medium-8 columns">
         Made with &hearts; by
-        <a href="http://www.jiexicao.com">Jiexi Cao</a> and
+        <a href="http://www.jiexicao.com">Jiexi Cao</a> and 
         <a href="http://www.mauryquijada.me">Maury Quijada</a>.
       </div>
       <div class="medium-4 columns">
         <i class="fi-social-github" style="font-size: 20px;"></i>
-        <a href="http://www.github.com/ghostling/5c-bookfinder">Fork us on Github!</a>        
-       </div>
+        <a href="http://www.github.com/ghostling/5c-bookfinder">Fork us on Github!</a>
+      </div>
     </div>
   </footer>
   <script src="../static/js/vendor/jquery.js"></script>
@@ -125,8 +119,7 @@
   <script src="../static/js/foundation/foundation.abide.js"></script>
   <script src="../static/js/foundation/foundation.tooltip.js"></script>
   <!-- Other JS plugins can be included here -->
-  {% block page_javascript %}
-  {% endblock %}
+  {% block page_javascript %} {% endblock %}
 
   <script>
     $(document).foundation();
