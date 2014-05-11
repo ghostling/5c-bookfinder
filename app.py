@@ -70,12 +70,16 @@ def get_user_profile(uid):
     else:
         has_wishlist_items = False
 
-    # Get the books that are currently being sold that are on their wishlist.
-    cursor.execute('''SELECT B.*, BFS.*, U.name as 'owner'
-        FROM Books B, UserTracksBook UTB, BooksForSale BFS, Users U
-        WHERE UTB.uid = %s AND UTB.isbn = B.isbn AND B.isbn = BFS.isbn
-        AND BFS.status = 1 AND BFS.seller_id = U.uid''', (uid,))
-    wishlist_selling = cursor.fetchall()
+    # Get the books that are currently on their wishlist.
+    cursor.execute('''SELECT B.* FROM UserTracksBook UTB, Books B WHERE
+            UTB.uid=%s AND UTB.isbn=B.isbn''', (uid,))
+    wishlist = cursor.fetchall()
+
+    # Get how many books are on the list:
+    for b in wishlist:
+        cursor.execute('''SELECT * FROM BooksForSale WHERE isbn=%s''',
+                (b['isbn'],))
+        b['number_selling'] = cursor.rowcount
 
     # Then, get the books that they themselves are selling.
     cursor.execute('''SELECT BFS.*, B.*
@@ -84,12 +88,9 @@ def get_user_profile(uid):
     user_selling = cursor.fetchall()
 
     # Prepare the image URL and book_condition.
-    for book in wishlist_selling:
+    for book in wishlist:
         # Set the image.
         book['img_url'] = UF.get_google_image_for_book(book['isbn'])
-
-        # Add book condition.
-        book = add_book_condition(book)
 
     for book in user_selling:
         # Set the image.
@@ -100,7 +101,7 @@ def get_user_profile(uid):
 
     cursor.close()
 
-    return render_template('user_profile.html', wishlist_selling=wishlist_selling, \
+    return render_template('user_profile.html', wishlist=wishlist, \
         user_selling=user_selling, user=user, condition_options=get_book_condition_options(), \
         has_wishlist_items=has_wishlist_items)
 
@@ -120,23 +121,16 @@ def get_book_information(isbn):
     # Check if the ISBN is valid.
     if int(cursor.rowcount) < 1:
         abort(404)
+
     book = cursor.fetchone()
 
-    # Check if this book is in their wishlist.
-    if logged_in:
-        cursor.execute('''SELECT * FROM UserTracksBook WHERE uid = %s AND
-            isbn = %s''', (uid, isbn,))
-        print cursor.rowcount
-        if cursor.rowcount == 1:
-            book['in_user_wishlist'] = True
-
-    # Get the courses this book is associated with as a requirement.
+    # Get the required books.
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRequiresBook CRB, Courses C WHERE CRB.isbn = %s AND
             CRB.course_number = C.course_number''', (isbn,))
     book['req_by_list'] = cursor.fetchall()
 
-    # Get the courses this book is associated with as a recommendation.
+    # Get the recommended books.
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRecommendsBook CRB, Courses C WHERE CRB.isbn = %s AND
             CRB.course_number = C.course_number''', (isbn,))
@@ -328,7 +322,7 @@ def add_to_wishlist():
         uid = session['uid']
 
         cursor.execute('''INSERT INTO UserTracksBook VALUES (%s, %s)''',
-            (uid, isbn,))
+                (uid, isbn,))
         db.commit()
 
         return make_response('', 200)
@@ -345,7 +339,7 @@ def remove_from_wishlist():
         uid = session['uid']
 
         cursor.execute('''DELETE FROM UserTracksBook WHERE uid = %s AND
-            isbn = %s''', (uid, isbn,))
+                isbn = %s''', (uid, isbn,))
         db.commit()
 
         return make_response('', 200)

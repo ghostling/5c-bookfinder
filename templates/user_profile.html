@@ -1,9 +1,4 @@
-{% extends "base.html" %}
-
-{% block title %}
-{{ user.name }}'s Profile - 5C Book Finder
-{% endblock %}
-
+{% extends "base.html" %} 
 {% block main_body %}
 <div class="row">
   <div class="medium-8 columns add-t-pad add-b-pad">
@@ -91,7 +86,7 @@
             </div>
         </div>
 
-        {% if user.uid == session.uid %}
+            {% if user.uid == session.uid %}
         <div class="medium-2 columns">
           <div class="side-icons">
               <a href="#" class="edit-book" data-reveal-id="edit-book-modal" 
@@ -108,8 +103,8 @@
             <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}">
               <i class="fi-dollar icon-edit-style"></i>
           </a>
+          {% endif %}
         </div>
-        {% endif %}
       </li>
       {% endfor %}
   </ul>
@@ -176,31 +171,39 @@
   {% endif %}
   </div>
   </div>
-    {% if wishlist_selling %}
+    {% if wishlist %}
     <ul class="book-list">
-      {% for book in wishlist_selling %}
+      {% for book in wishlist %}
       <li>
         <div class="row">
           <div class="medium-3 columns book-list-image">
             <img src="{{ book.img_url }}" alt="{{ book.title }}">
           </div>
-          <div class="medium-9 columns book-list-info">
+          <div class="medium-7 columns book-list-info">
             <div class="book-heading">
+                <a href="/book/{{book.isbn}}">
                 {% if book.edition != 'N/A' %}
                   {{ book.title }} ({{ book.edition }}) by {{ book.author }}
                 {% else %}
                   {{ book.title }} by {{ book.author }}
-                {% endif %}
+                  {% endif %}
+              </a>
             </div>
             <div class="book-additional">
-              ISBN: {{ book.isbn }}
-              <br>Added: {{ book.created_at }}
-              <br>Price: ${{ book.price }}
-              <br>Condition: {{ book.condition_desc }}
-              <br>Comments: {{ book.comments}}
-              <br>Sold By:
-              <a href="/user/{{book.seller_id}}">{{ book.owner }}</a>
+                ISBN: {{ book.isbn }} <br>
+                <p>
+                    {% if book.number_selling > 0 %}
+                    There are {{book.number_selling}} books of this kind being sold.
+                    {% else %}
+                    No one is currently selling this book.
+                    {% endif %}
+                </p>
             </div>
+          </div>
+          <div class="medium-2 columns">
+              <a href="#" data-isbn="{{book.isbn}}" class="profile-untrack-book">
+              <span class="label success right">In Wishlist</span>
+          </a>
           </div>
         </div>
       </li>
@@ -209,9 +212,9 @@
     {% else %}
     <div class="row add-all-pad">
       {% if session.uid == user.uid  %}
-      {% if has_wishlist_items %} Nothing on your wishlist is currently being sold. {% else %} Your wishlist is currently empty. {% endif %}
+      Your wishlist is currently empty.
       {% else %}
-      {% if has_wishlist_items %} Nothing on {{user.name}}'s wishlist is currently being sold. {% else %} {{user.name}}'s wishlist is currently empty. {% endif %}
+      {{user.name}}'s wishlist is currently empty.
       {% endif %}
     </div>
     {% endif %}

@@ -72,27 +72,19 @@ function init() {
     // Sell book form.
     postFormInModal('#sell-book-form', '#sell-book-modal', '/sellbook');
 
-    $('.wishlist-toggle').on('click', '.track-book', function(e) {
-        console.log('tracked');
-        // Create the new link node.
+    $('.track-book').click(function(e) {
         var link = $(this);
-        var linkParent = link.parent();
-        var linkCopy = link.clone(false);
-
-
         e.preventDefault();
         $.ajax({
             url: '/wishlist',
             type: 'POST',
             data: {isbn: link.data('isbn')},
             success: function(response) {
-                link.remove();
-                linkCopy.removeClass('track-book');
-                linkCopy.addClass('untrack-book');
-                child = linkCopy.children()[0];
+                link.removeClass('track-book');
+                link.addClass('untrack-book');
+                child = link.children()[0];
                 child.remove();
-                linkCopy.append('<span class="label success">In Wishlist</span>');
-                linkParent.append(linkCopy);
+                link.append('<span class="label success">In Wishlist</span>');
             },
             error: function(response) {
                 console.log(error); 
@@ -100,27 +92,19 @@ function init() {
         });
     });
     
-    $('.wishlist-toggle').on('click', '.untrack-book', function(e) {
-        console.log('untracked');
-        // Create the new link node.
+    $('.untrack-book').click(function(e) {
         var link = $(this);
-        var linkParent = link.parent();
-        var linkCopy = link.clone(false);
-
-
         e.preventDefault();
         $.ajax({
             url: '/unwishlist',
             type: 'POST',
             data: {isbn: link.data('isbn')},
             success: function(response) {
-                link.remove();
-                linkCopy.removeClass('untrack-book');
-                linkCopy.addClass('track-book');
-                child = linkCopy.children()[0];
+                link.removeClass('untrack-book');
+                link.addClass('track-book');
+                child = link.children()[0];
                 child.remove();
-                linkCopy.append('<span class="label">Add to Wish List</span>');
-                linkParent.append(linkCopy);
+                link.append('<span class="label">Wishlist</span>');
             },
             error: function(response) {
                 console.log(error); 
@@ -187,6 +171,22 @@ function init() {
             url: '/soldbook',
             type: 'POST',
             data: {listing_id: link.data('listingId')}, // somehow it renames listing-id to listingId
+            success: function(response) {
+                document.location.href = window.location.pathname;
+            },
+            error: function(response) {
+                console.log(error); 
+            }
+        });
+    });
+
+    $('.profile-untrack-book').click(function(e) {
+        var link = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: '/unwishlist',
+            type: 'POST',
+            data: {isbn: link.data('isbn')},
             success: function(response) {
                 document.location.href = window.location.pathname;
             },
