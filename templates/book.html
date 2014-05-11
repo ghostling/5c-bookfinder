@@ -7,9 +7,23 @@
     <h2>{{book.title}}</h2><h2> by {{book.author}}</h2>
     {% endif %}
     <h4>ISBN: {{book.isbn}}</h4>
+    {% if logged_in %}
+
+    {% if book.in_user_wishlist %}
+    <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
+      <span class="label success">In Wishlist</span>
+    </a>
+    {% else %}
+    <a href="#" data-isbn="{{book.isbn}}" class="track-book">
+      <span class="label">Add to Wish List</span>
+    </a>
+    {% endif %}
+
+    {% endif %}
+    
     <div class="add-r-pad add-l-pad add-t-pad">
     {% if book.req_by_list %}
-    <span class="label medium-label-text success radius">Required By:</span>
+    <span class="label medium-label-text success radius">Required By</span>
     <ul class="circle">
       {% for c in book.req_by_list%}
       <li>
@@ -18,7 +32,7 @@
       {% endfor %}
     </ul>
     {% endif %} {% if book.rec_by_list %}
-    <span class="label medium-label-text secondary radius">Recommended By:</span>
+    <span class="label medium-label-text secondary radius">Recommended By</span>
     <ul class="circle">
       {% for c in book.rec_by_list%}
       <li>

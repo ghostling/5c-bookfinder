@@ -120,16 +120,23 @@ def get_book_information(isbn):
     # Check if the ISBN is valid.
     if int(cursor.rowcount) < 1:
         abort(404)
-
     book = cursor.fetchone()
 
-    # Get the required books.
+    # Check if this book is in their wishlist.
+    if logged_in:
+        cursor.execute('''SELECT * FROM UserTracksBook WHERE uid = %s AND
+            isbn = %s''', (uid, isbn,))
+        print cursor.rowcount
+        if cursor.rowcount == 1:
+            book['in_user_wishlist'] = True
+
+    # Get the courses this book is associated with as a requirement.
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRequiresBook CRB, Courses C WHERE CRB.isbn = %s AND
             CRB.course_number = C.course_number''', (isbn,))
     book['req_by_list'] = cursor.fetchall()
 
-    # Get the recommended books.
+    # Get the courses this book is associated with as a recommendation.
     cursor.execute('''SELECT C.course_number, C.title FROM
             CourseRecommendsBook CRB, Courses C WHERE CRB.isbn = %s AND
             CRB.course_number = C.course_number''', (isbn,))
@@ -256,7 +263,7 @@ def add_to_wishlist():
         uid = session['uid']
 
         cursor.execute('''INSERT INTO UserTracksBook VALUES (%s, %s)''',
-                (uid, isbn,))
+            (uid, isbn,))
         db.commit()
 
         return make_response('', 200)
@@ -273,7 +280,7 @@ def remove_from_wishlist():
         uid = session['uid']
 
         cursor.execute('''DELETE FROM UserTracksBook WHERE uid = %s AND
-                isbn = %s''', (uid, isbn,))
+            isbn = %s''', (uid, isbn,))
         db.commit()
 
         return make_response('', 200)

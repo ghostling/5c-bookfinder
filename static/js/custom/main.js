@@ -104,7 +104,7 @@ function init() {
                 link.addClass('track-book');
                 child = link.children()[0];
                 child.remove();
-                link.append('<span class="label">Wishlist</span>');
+                link.append('<span class="label">Add to Wish List</span>');
             },
             error: function(response) {
                 console.log(error); 
