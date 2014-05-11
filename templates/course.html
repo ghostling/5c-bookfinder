@@ -7,7 +7,7 @@
     <h4>Location: {{ course.building }}, {{ course.campus }}</h4>
   </div>
 </div>
-{% if books_required or books_recommended %} 
+{% if books_required or books_recommended %}
 {% if books_required %}
 <div class="row add-r-pad add-l-pad add-b-pad">
   <h3 class="sub-head">Books Required</h3>
@@ -16,10 +16,10 @@
     <div class="row">
       <div class="large-10 columns">
         <a href="/book/{{book.isbn}}" class="book-link">
-          {% if book.edition != "N/A" %} 
-          {{book.title}} ({{book.edition}} Ed.) by {{book.author}} 
-          {% else %} 
-          {{book.title}} by {{book.author}} 
+          {% if book.edition != "N/A" %}
+          {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
+          {% else %}
+          {{book.title}} by {{book.author}}
           {% endif %}
         </a>
       </div>
@@ -40,20 +40,20 @@
     <div class="row add-r-pad add-l-pad add-b-pad add-ts-pad">
       {% if book.number_selling %}
       <span data-tooltip class="has-tip" title="Click the link above to see them.">
-        {% if book.number_selling > 1 %} 
-        There are {{book.number_selling}} listings for this book. 
-        {% else %} 
-        There is 1 listing for this book. 
+        {% if book.number_selling > 1 %}
+        There are {{book.number_selling}} listings for this book.
+        {% else %}
+        There is 1 listing for this book.
         {% endif %}
       </span>
-      {% else %} 
-      No one is currently selling this book. 
+      {% else %}
+      No one is currently selling this book.
       {% endif %}
     </div>
   </div>
   {% endfor %}
 </div>
-{% endif %} 
+{% endif %}
 {% if books_recommended %}
 <div class="row add-t-pad add-r-pad add-l-pad add-b-pad">
   <h3 class="sub-head">Books Recommended</h3>
@@ -62,17 +62,18 @@
     <div class="row">
       <div class="large-10 columns">
         <a href="/book/{{book.isbn}}" class="book-link">
-          {% if book.edition != "N/A" %} 
-          {{book.title}} ({{book.edition}} Ed.) by {{book.author}} 
-          {% else %} 
-          {{book.title}} by {{book.author}} 
+          {% if book.edition != "N/A" %}
+          {{book.title}} ({{book.edition}} Ed.) by {{book.author}}
+          {% else %}
+          {{book.title}} by {{book.author}}
           {% endif %}
         </a>
       </div>
       {% if logged_in %}
       <div class="large-2 columns text-right wishlist-toggle">
         {% if book.in_user_wishlist %}
-        <a href="#" data-isbn="{{book.isbn}}" class="untrack-book">
+        <a href="#" data-isbn="{{book.isbn}}" class="untrack-book"
+            title="Click to remove from wishlist.">
           <span class="label success">In Wishlist</span>
         </a>
         {% else %}
@@ -88,17 +89,17 @@
       <span data-tooltip class="has-tip" title="Click the link above to see them.">
         There are {{book.number_selling}} listing(s) for this book.
       </span>
-      {% else %} 
-      No one is currently selling this book. 
+      {% else %}
+      No one is currently selling this book.
       {% endif %}
     </div>
   </div>
   {% endfor %}
 </div>
-{% endif %} 
+{% endif %}
 {% else %}
 <div class="row add-all-pad">
   This course does not need any books according to the information on Portal. Please check with the instructor and/or syllabus.
 </div>
-{% endif %} 
+{% endif %}
 {% endblock %}

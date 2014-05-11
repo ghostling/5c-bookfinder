@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block main_body %}
 <div class="row">
   <div class="medium-8 columns add-t-pad add-b-pad">
@@ -8,7 +8,7 @@
   </div>
   <div class="medium-4 columns add-t-pad add-b-pad">
     {% if session.uid == user.uid %}
-    <a href="#" data-reveal-id="edit-profile-modal">
+    <a href="#" data-reveal-id="edit-profile-modal" title="Edit profile">
       <i class="fi-page-edit right icon-edit-style"></i>
     </a>
     <div id="edit-profile-modal" class="reveal-modal small" data-reveal>
@@ -53,8 +53,8 @@
     <div class="medium-2 columns">
       {% if session.uid == user.uid %}
       <h3 class="right">
-        <a href="#" data-reveal-id="sell-book-modal">
-          <i class="fi-plus"></i>Sell</a>
+        <!--a href="#" data-reveal-id="sell-book-modal">
+          <i class="fi-plus"></i>Sell</a-->
       </h3>
       {% endif %}
     </div>
@@ -70,10 +70,10 @@
         <div class="medium-8 columns book-list-info">
           <div class="book-heading">
             <a href="/book/{{ book.isbn }}">
-              {% if book.edition != 'N/A' %} 
-              {{ book.title }} ({{ book.edition }}) by {{ book.author }} 
-              {% else %} 
-              {{ book.title }} by {{ book.author }} 
+              {% if book.edition != 'N/A' %}
+              {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+              {% else %}
+              {{ book.title }} by {{ book.author }}
               {% endif %}
             </a>
           </div>
@@ -88,14 +88,16 @@
 
         {% if user.uid == session.uid %}
         <div class="medium-2 columns">
-          <div class="side-icons">
-            <a href="#" class="edit-book" data-reveal-id="edit-book-modal" data-title="{{book.title}}" data-isbn="{{book.isbn}}" data-author="{{book.author}}" data-price="{{book.price}}" data-condition="{{book.condition_desc}}" data-comments="{{book.comments}}" data-edition="{{book.edition}}" data-created-at="{{book.created_at}}" data-listing-id="{{book.listing_id}}">
+          <div class="side-icons right">
+            <a href="#" class="edit-book" data-reveal-id="edit-book-modal" data-title="{{book.title}}" data-isbn="{{book.isbn}}" data-author="{{book.author}}" data-price="{{book.price}}" data-condition="{{book.condition_desc}}" data-comments="{{book.comments}}" data-edition="{{book.edition}}" data-created-at="{{book.created_at}}" data-listing-id="{{book.listing_id}}" title="Edit book">
               <i class="fi-pencil icon-edit-style"></i>
             </a>
-            <a href="#" class="delete-book" data-listing-id="{{book.listing_id}}">
+            <a href="#" class="delete-book" data-listing-id="{{book.listing_id}}"
+                title="Remove listing">
               <i class="fi-x icon-edit-style"></i>
             </a>
-            <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}">
+            <a href="#" class="sold-book" data-listing-id="{{book.listing_id}}"
+                title="Mark as sold">
               <i class="fi-dollar icon-edit-style"></i>
             </a>
             {% endif %}
@@ -148,7 +150,7 @@
       </center>
     </form>
   </div>
-  {# End production of edit book modal. #} 
+  {# End production of edit book modal. #}
   {% else %}
   <div class="row add-all-pad">
     {{ user.name }} is currently not selling any books.
@@ -171,16 +173,16 @@
       {% for book in wishlist %}
       <li>
         <div class="row">
-          <div class="medium-3 columns book-list-image">
+          <div class="medium-2 columns book-list-image">
             <img src="{{ book.img_url }}" alt="{{ book.title }}">
           </div>
-          <div class="medium-7 columns book-list-info">
+          <div class="medium-8 columns book-list-info">
             <div class="book-heading">
               <a href="/book/{{book.isbn}}">
-                {% if book.edition != 'N/A' %} 
-                {{ book.title }} ({{ book.edition }}) by {{ book.author }} 
-                {% else %} 
-                {{ book.title }} by {{ book.author }} 
+                {% if book.edition != 'N/A' %}
+                {{ book.title }} ({{ book.edition }}) by {{ book.author }}
+                {% else %}
+                {{ book.title }} by {{ book.author }}
                 {% endif %}
               </a>
             </div>
@@ -188,16 +190,17 @@
               ISBN: {{ book.isbn }}
               <br>
               <p>
-                {% if book.number_selling > 0 %} 
-                There are {{book.number_selling}} books of this kind being sold. 
-                {% else %} 
-                No one is currently selling this book. 
+                {% if book.number_selling > 0 %}
+                There are {{book.number_selling}} books of this kind being sold.
+                {% else %}
+                No one is currently selling this book.
                 {% endif %}
               </p>
             </div>
           </div>
           <div class="medium-2 columns">
-            <a href="#" data-isbn="{{book.isbn}}" class="profile-untrack-book">
+              <a href="#" data-isbn="{{book.isbn}}" class="profile-untrack-book"
+                  title="Click to remove from wishlist">
               <span class="label success right">In Wishlist</span>
             </a>
           </div>
@@ -207,17 +210,17 @@
     </ul>
     {% else %}
     <div class="row add-all-pad">
-      {% if session.uid == user.uid %} 
-      Your wishlist is currently empty. 
-      {% else %} 
-      {{user.name}}'s wishlist is currently empty. 
+      {% if session.uid == user.uid %}
+      Your wishlist is currently empty.
+      {% else %}
+      {{user.name}}'s wishlist is currently empty.
       {% endif %}
     </div>
     {% endif %}
     </ul>
   </div>
 
-  {# Begin code to add a book #} 
+  {# Begin code to add a book #}
   {% if session.uid == user.uid %}
   <div class="reveal-modal medium gray-bg" id="sell-book-modal" data-reveal>
     <div class="white-bg">
@@ -310,6 +313,6 @@
       </div>
     </div>
   </div>
-  {% endif %} 
-  {# End code to add a book #} 
+  {% endif %}
+  {# End code to add a book #}
 {% endblock %}
