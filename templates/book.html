@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% block main_body %}
+{% extends "base.html" %}
+
+{% block title %}
+{{ book.title }} - 5C Book Finder
+{% endblock %}
+
+{% block main_body %}
 <div class="row">
   <div class="medium-10 columns add-t-pad add-b-pad">
     {% if book.edition != "N/A" %}
