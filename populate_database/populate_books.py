@@ -27,10 +27,6 @@ def populate_database_with_books():
 
     logging.info('Query for all courses successful!')
 
-    # Dictionary to keep track of books we've already added as many courses
-    # may use the same books. Keys will be isbn numbers.
-    books_added = {}
-
     # Go through all the courses and look up the books required for that course
     # and then add them to the database if they are not already there.
     for c in courses:
@@ -57,29 +53,39 @@ def populate_database_with_books():
                 # Throw a warning if the book doesn't have an ISBN.
                 if b.isbn:
                     # Add book to database if not added already.
-                    if b.isbn not in books_added:
+                    cursor.execute('SELECT * FROM Books WHERE isbn=%s', (b.isbn,))
+                    book_exist = cursor.fetchall()
+                    if not book_exist:
                         cursor.execute('INSERT INTO Books VALUES (%s, %s, %s, %s)',
                                 (b.isbn, b.author, b.title, b.edition))
                         db.commit()
 
                         # Record that book has been updated in database.
-                        books_added[b.isbn] = True
                         logging.info('Successfully added %s to DB!' % str(b))
                     else:
                         logging.info(str(b) + ' is already in DB!')
 
                     # After book is in database, we want to add the respective
                     # association of the book with the course.
+                    cnum = c['course_number']
                     if b.required:
-                        cursor.execute('INSERT INTO CourseRequiresBook VALUES (%s, %s)',
-                                (c['course_number'], b.isbn))
-                        db.commit()
-                        logging.info('This book is required.')
+                        cursor.execute('''SELECT * FROM CourseRequiresBook WHERE
+                                course_number=%s AND isbn=%s''', (cnum, b.isbn))
+                        requirement_exist = cursor.fetchall()
+                        if not requirement_exist:
+                            cursor.execute('INSERT INTO CourseRequiresBook VALUES (%s, %s)',
+                                    (c['course_number'], b.isbn))
+                            db.commit()
+                            logging.info('This book is required.')
                     else:
-                        cursor.execute('INSERT INTO CourseRecommendsBook VALUES (%s, %s)',
-                                (c['course_number'], b.isbn))
-                        db.commit()
-                        logging.info('This book is recommended.')
+                        cursor.execute('''SELECT * FROM CourseRecommendsBook WHERE
+                                course_number=%s AND isbn=%s''', (cnum, b.isbn))
+                        recommendation_exist = cursor.fetchall()
+                        if not recommendation_exist:
+                            cursor.execute('INSERT INTO CourseRecommendsBook VALUES (%s, %s)',
+                                    (c['course_number'], b.isbn))
+                            db.commit()
+                            logging.info('This book is recommended.')
                 else:
                     logging.warn('%s is invalid!' % str(b))
         else:
